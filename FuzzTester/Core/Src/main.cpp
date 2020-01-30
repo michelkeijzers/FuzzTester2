@@ -162,7 +162,7 @@ void init()
 
     // set address to 0x40
     _lcdDisplay.SendCommand(0b11000000);
-    _lcdDisplay.SendString((char*)  "over I2C bus v05");
+    _lcdDisplay.SendString((char*)  "over I2C bus v06");
 }
 
 /* USER CODE END 0 */
