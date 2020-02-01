@@ -2,7 +2,7 @@
  * ShiftRegister.h
  *
  *  Created on: Jan 30, 2020
- *      Author: miche
+ *      Author: michel
  */
 
 #ifndef SHIFTREGISTER_H_

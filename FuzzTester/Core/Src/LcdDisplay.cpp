@@ -7,7 +7,7 @@
 
 #include "LcdDisplay.h"
 
-#define LCD_ADDR (0x27 << 1)
+// #define LCD_ADDR (0x27 << 1)
 
 #define PIN_RS    (1 << 0)
 #define PIN_EN    (1 << 2)
@@ -17,8 +17,9 @@
 
 
 
-LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c)
-: _hI2c(hI2c)
+LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel)
+: _hI2c(hI2c),
+  _i2cChannel(i2cChannel << 1)
 {
 }
 
@@ -28,23 +29,25 @@ LcdDisplay::~LcdDisplay()
 }
 
 
+void LcdDisplay::SetLine(uint8_t line, const char* text)
+{
+	// set address to 0x40 for second line;
+   SendCommand(0b10000000 + 0x40 * line);
+   SendString(text);
+}
+
+
 void LcdDisplay::I2C_Scan()
 {
     //char info[] = "Scanning I2C bus...\r\n";
     //HAL_UART_Transmit(&huart2, (uint8_t*)info, strlen(info), HAL_MAX_DELAY);
 
     HAL_StatusTypeDef res;
-    for(uint16_t i = 0; i < 128; i++) {
+    for (uint8_t i = 0; i < 128; i++) {
         res = HAL_I2C_IsDeviceReady(_hI2c, i << 1, 1, 10);
         if(res == HAL_OK)
         {
-            //char msg[64];
-            //snprintf(msg, sizeof(msg), "0x%02X", i);
-            //HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-        }
-        else
-        {
-            //HAL_UART_Transmit(&huart2, (uint8_t*)".", 1, HAL_MAX_DELAY);
+        	while(true) {}; // Set a breakpoint here to check the channel
         }
     }
 
@@ -69,7 +72,7 @@ HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
 {
     HAL_StatusTypeDef res;
     for(;;) {
-        res = HAL_I2C_IsDeviceReady(_hI2c, LCD_ADDR, 1, HAL_MAX_DELAY);
+        res = HAL_I2C_IsDeviceReady(_hI2c, _i2cChannel, 1, HAL_MAX_DELAY);
         if(res == HAL_OK)
             break;
     }
@@ -83,7 +86,7 @@ HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
     data_arr[2] = lo|flags|BACKLIGHT|PIN_EN;
     data_arr[3] = lo|flags|BACKLIGHT;
 
-    res = HAL_I2C_Master_Transmit(_hI2c, LCD_ADDR, data_arr, sizeof(data_arr), HAL_MAX_DELAY);
+    res = HAL_I2C_Master_Transmit(_hI2c, _i2cChannel, data_arr, sizeof(data_arr), HAL_MAX_DELAY);
     HAL_Delay(LCD_DELAY_MS);
     return res;
 }
@@ -101,7 +104,7 @@ void LcdDisplay::SendData(uint8_t data)
 }
 
 
-void LcdDisplay::SendString(char *str)
+void LcdDisplay::SendString(const char *str)
 {
     while(*str)
     {
