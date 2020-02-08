@@ -10,12 +10,14 @@
 
 #include "stm32f1xx_hal.h"
 
+#include "Gpio.h"
+
 typedef void (*TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR)(void);
 
 class ToggleSwitch_INT
 {
 public:
-    ToggleSwitch_INT(TIM_HandleTypeDef* hTim, GPIO_TypeDef* port, uint16_t pin,
+    ToggleSwitch_INT(TIM_HandleTypeDef* hTim, Gpio pin,
      TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction);
 	virtual ~ToggleSwitch_INT();
 
@@ -23,12 +25,11 @@ public:
 	void CheckReleased();
 
 private:
-	TIM_HandleTypeDef* _hTim;
+	TIM_HandleTypeDef*                  _hTim;
 
-	GPIO_TypeDef*      _port;
-	uint16_t           _pin;
+	Gpio                                _gpio;
 
-	bool _buttonInDebounceMode;
+	bool                                _buttonInDebounceMode;
 
 	TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR _callbackFunction;
 };

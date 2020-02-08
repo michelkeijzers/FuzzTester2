@@ -5,13 +5,12 @@
  *      Author: michel
  */
 
-#include "ToggleSwitch_INT.h"
+#include "../../Inc/Components/ToggleSwitch_INT.h"
 
-ToggleSwitch_INT::ToggleSwitch_INT(TIM_HandleTypeDef* hTim, GPIO_TypeDef* port, uint16_t pin,
+ToggleSwitch_INT::ToggleSwitch_INT(TIM_HandleTypeDef* hTim, Gpio gpio,
  TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction)
 : _hTim(hTim),
-  _port(port),
-  _pin(pin),
+  _gpio(gpio),
   _callbackFunction(callbackFunction)
 {
 }
@@ -23,7 +22,7 @@ ToggleSwitch_INT::~ToggleSwitch_INT()
 
 void ToggleSwitch_INT::CheckPressed(uint16_t pin)
 {
-  if ((pin == _pin) && !_buttonInDebounceMode)
+  if ((pin == _gpio.pin) && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == SET) && !_buttonInDebounceMode)
   {
     HAL_TIM_Base_Start_IT(_hTim);
 	_buttonInDebounceMode = true;
@@ -32,7 +31,7 @@ void ToggleSwitch_INT::CheckPressed(uint16_t pin)
 
 void ToggleSwitch_INT::CheckReleased()
 {
-  if(HAL_GPIO_ReadPin(_port, _pin) == GPIO_PIN_RESET)
+  if(HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET)
   {
 	(*_callbackFunction)();
     _buttonInDebounceMode = false;

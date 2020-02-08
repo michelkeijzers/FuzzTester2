@@ -16,65 +16,6 @@
   *
   ******************************************************************************
   */
-
-  /*
-  LCD:
-  - address 39 (0x27)
-  - jumper should be added (backlight)
-  - make sure it has 5V (with 3.3V contrast is very low)
-  - use pot on back for contrast too
-             0123456789012345
-    Screens: C6 T24 T25 C6     Abbreviated states of all components     (Always visible)
-             Cap 1: 100 uF     Show Capacitor 1  						(Changed by keypad)
-             Tra 1: 2N9400     Show Transistor 1 						(Changed by keypad)
-             Tra 2: BC548A     Show Transistor 2				        (Changed by keypad)
-             Cap 2: 0.01 uF    Show Capacitor 2  						(Changed by keypad)
-  Keypad: Use resistor (1K)
-        pin: 5 6 7 8
-           +--------
-     pin 1 | 1 2 3 A
-     pin 2 | 4 5 6 B
-     pin 3 | 7 8 9 C
-     pin 4 | * 0 * D
-     1: Increase Capacitor 1
-     2: Increase Transistor 1
-     3: Increase Transistor 2
-     A: Increase Capacitor 2
-     4: Decrease Capacitor 1
-     5: Decrease Transistor 1
-     6: Decrease Transistor 2
-     B: Decrease Capacitor 2
-     7: Show Capacitor 1
-     8: Show Transistor 1
-     9: Show Transistor 2
-     C: Show Capacitor 2
-74HC595N: https://www.youtube.com/watch?v=Hhag8F26Dbg (STM32 cubeMX Keil Shift Register with SPI (Part 1)
-	      datasheet: https://datasheet.octopart.com/74HC595N%2C112-Philips-datasheet-7085704.pdf
-  pin  RCLK/latch: Output register
-       SRCLK/CLK : CLK for shift register clock
-       SER/DATA  : Input data from STM32
-       STM32: SPI Transmit Only Master
-       74HC595/Pins	     IC              Output
-       0.2, 0.1, 0.0  CD4051 1ch 8:1    Capacitor   7~ 0
-       0.4, 0.3       CD4052 2ch 4:1    Transistor  3~ 0
-       0.6, 0.5       CD4052 2ch 4:1    Transistor  7~ 4
-       1.0, 0.7       CD4052 2ch 4:1    Transistor 11~ 8
-       1.2, 1.1       CD4052 2ch 4:1    Transistor 15~12
-       1.4, 1.3       CD4052 2ch 4:1    Transistor 19~16
-       1.6, 1.5       CD4052 2ch 4:1    Transistor 23~20
-       2.0, 1.7       CD4052 2ch 4:1    Transistor 27~21
-       2.2, 2.1       CD4052 2ch 4:1    Transistor 31~28
-       2.4, 2.3       CD4052 2ch 4:1    Transistor 35~31
-       2.7, 2.6, 2.5  CD4051 1ch 8:1    Transistor 15~ 8
-   STM32:
-     Keypad   : PB5 , PB4 , PB3 , PA15   Row 1-4, output
-                PA12, PA11, PA10, PA9    Column 1-4, input, pull down resistor, debounce
-     LCD      : PB7 , PB6                 I2C1
-     74HC595's: PA5                      SPI1 SCK, Master Transmit Only, prescaler /4, to 74HC595N: 11: SRCLK
-                PA7                      SPI1 MOSI                                     to 74HC595N: 14: SER
-                PA6                      GPIO_Latch (RCLK)                             to 74HC595N: 12: RCLK
-*/
-
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -82,13 +23,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "ToggleSwitch_INT.h"
-#include "LcdDisplay.h"
-#include "ShiftRegister.h"
 
 /* USER CODE END Includes */
 
@@ -99,13 +33,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 
 /* USER CODE END PM */
 
@@ -118,16 +49,6 @@ SPI_HandleTypeDef hspi2;
 TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
-
-void ProcessToggleButtonReleased();
-
-
-ToggleSwitch_INT _toggleSwitch (&htim1, GPIO_PushButton_GPIO_Port, GPIO_PushButton_Pin, &ProcessToggleButtonReleased);
-LcdDisplay       _lcdDisplay   (&hi2c1, 0x27);
-ShiftRegister    _shiftRegister(&hspi2, GPIO_LATCH_GPIO_Port, GPIO_LATCH_Pin);
-
-uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
-
 
 /* USER CODE END PV */
 
@@ -145,21 +66,6 @@ static void MX_TIM1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void ProcessToggleButtonReleased()
-{
-  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_12);
-}
-
-void init()
-{
-    //_lcdDisplay.I2C_Scan();
-    _lcdDisplay.Init();
-
-    // set address to 0x00
-    _lcdDisplay.SetLine(0, "Using 1602 LCD");
-    _lcdDisplay.SetLine(1, "I2C Mode  v08");
-}
-
 /* USER CODE END 0 */
 
 /**
@@ -171,7 +77,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-
+  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -198,31 +104,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
-
-
+ 
+ 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  init();
-
   while (1)
   {
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-   for (uint8_t n = 0; n < sizeof(_dataToShift); n++)
-   {
-	  //LCD_SendCommand(LCD_ADDR, 0b10000000); // Line 1, address to 0
-	  //LCD_SendString(LCD_ADDR, "Cx Txx Txx Cx");
-	  //LCD_SendCommand(LCD_ADDR, 0b11000000); // Line 2, address to 40
-	  //LCD_SendString(LCD_ADDR, "Cap 1: 10 uF");
-
-	  _shiftRegister.ShiftOut(_dataToShift + n, 1);
-	  HAL_Delay(100);
-    }
   }
   /* USER CODE END 3 */
 }
@@ -236,7 +127,7 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Initializes the CPU, AHB and APB busses clocks
+  /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -249,7 +140,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB busses clocks
+  /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -374,7 +265,6 @@ static void MX_SPI2_Init(void)
 
 }
 
-
 /**
   * @brief TIM1 Initialization Function
   * @param None
@@ -431,7 +321,6 @@ static void MX_TIM1_Init(void)
 
 }
 
-
 /**
   * @brief GPIO Initialization Function
   * @param None
@@ -470,8 +359,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  /*Configure GPIO pins : GPIO_PushButton_Pin GPIO_KEYPAD_COLUMN_4_Pin */
+  GPIO_InitStruct.Pin = GPIO_PushButton_Pin|GPIO_KEYPAD_COLUMN_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -483,22 +372,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : GPIO_KEYPAD_COLUMN_4_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  /*Configure GPIO pins : GPIO_KEYPAD_COLUMN_3_Pin GPIO_KEYPAD_COLUMN_2_Pin GPIO_KEYPAD_COLUMN_1_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_3_Pin|GPIO_KEYPAD_COLUMN_2_Pin|GPIO_KEYPAD_COLUMN_1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIO_KEYPAD_COLUMN_4_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : GPIO_KEYPAD_COLUMN_3_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIO_KEYPAD_COLUMN_3_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : GPIO_KEYPAD_COLUMN_2_Pin GPIO_KEYPAD_COLUMN_1_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_2_Pin|GPIO_KEYPAD_COLUMN_1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
@@ -508,19 +385,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  _toggleSwitch.CheckPressed(GPIO_Pin);
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(htim);
-
-  _toggleSwitch.CheckReleased();
-}
 
 /* USER CODE END 4 */
 
@@ -545,7 +409,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{
+{ 
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
