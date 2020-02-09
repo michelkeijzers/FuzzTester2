@@ -14,13 +14,13 @@
 
 typedef void (*BUTTON_CALLBACK_FUNCTION_PTR)(void);
 
-class Button_INT : public BaseButton
+class DefaultButton_INT : public BaseButton
 {
 public:
-   Button_INT(Gpio pin, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+   DefaultButton_INT(Gpio pin, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
      uint8_t sysTickSubscriberIndex, uint8_t period);
 
-	virtual ~Button_INT();
+	virtual ~DefaultButton_INT();
 
 	 /* override */ void OnButtonPressed();
 

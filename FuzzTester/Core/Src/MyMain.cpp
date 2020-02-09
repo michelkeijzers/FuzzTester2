@@ -2,7 +2,7 @@
 #include <Framework/KeyPad.h>
 #include <Framework/LcdDisplay.h>
 #include <Framework/ShiftRegister.h>
-#include <Framework/Button_INT.h>
+#include <Framework/DefaultButton_INT.h>
 #include <Framework/MomentaryButton_INT.h>
 #include <Framework/ToggleButton_INT.h>
 #include "Framework/SysTickSubscribers.h"
@@ -28,7 +28,7 @@ const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 4;
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-Button_INT          _button            (           { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessButton           , 0, 50);
+DefaultButton_INT          _button            (           { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessButton           , 0, 50);
 MomentaryButton_INT _momentaryButton   (           { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton  , 3, 50);
 ToggleButton_INT    _toggleButton      (           { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton     , 1, 50);
 CounterButton_INT   _counterButton     (0, 10, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton    , 2, 50);

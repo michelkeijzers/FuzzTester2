@@ -5,12 +5,12 @@
  *      Author: michel
  */
 
-#include <Framework/Button_INT.h>
+#include <Framework/DefaultButton_INT.h>
 #include <Framework/ISysTickSubscriber.h>
 #include <Framework/SysTickSubscribers.h>
 
 
-Button_INT::Button_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+DefaultButton_INT::DefaultButton_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
 :  BaseButton(gpio, debounceTime, sysTickSubscriberIndex),
   _callbackFunction(callbackFunction)
@@ -18,12 +18,12 @@ Button_INT::Button_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
 }
 
 
-Button_INT::~Button_INT()
+DefaultButton_INT::~DefaultButton_INT()
 {
 }
 
 
-/* override */ void Button_INT::OnButtonPressed()
+/* override */ void DefaultButton_INT::OnButtonPressed()
 {
    (*_callbackFunction)();
 }
