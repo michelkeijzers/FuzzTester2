@@ -1,14 +1,14 @@
 /*
- * BaseSwitch.cpp
+ * BaseButton.cpp
  *
  *  Created on: Feb 9, 2020
  *      Author: miche
  */
 
-#include <Framework/BaseSwitch.h>
+#include <Framework/BaseButton.h>
 #include <Framework/SysTickSubscribers.h>
 
-BaseSwitch::BaseSwitch(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
+BaseButton::BaseButton(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
 : _gpio(gpio),
   _buttonState(false),
   _buttonInDebounceMode(false),
@@ -19,13 +19,13 @@ BaseSwitch::BaseSwitch(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscribe
 }
 
 
-BaseSwitch::~BaseSwitch()
+BaseButton::~BaseButton()
 {
    // TODO Auto-generated destructor stub
 }
 
 
-void BaseSwitch::OnTick()
+void BaseButton::OnTick()
 {
    _buttonInDebounceMode = false;
    SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);

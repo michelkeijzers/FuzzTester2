@@ -5,8 +5,8 @@
  *      Author: michel
  */
 
-#ifndef SHIFTREGISTER_H_
-#define SHIFTREGISTER_H_
+#ifndef SHIFT_REGISTER_H_
+#define SHIFT_REGISTER_H_
 
 #include "stm32f1xx_hal.h"
 
@@ -25,4 +25,4 @@ private:
 	uint16_t           _latchPin;
 };
 
-#endif /* SHIFTREGISTER_H_ */
+#endif /* SHIFT_REGISTER_H_ */

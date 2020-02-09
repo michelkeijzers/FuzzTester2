@@ -1,29 +1,29 @@
 /*
- * ToggleSwitch_INT.cpp
+ * ToggleButton_INT.cpp
  *
  *  Created on: Feb 1, 2020
  *      Author: michel
  */
 
-#include <Framework/ToggleSwitch_INT.h>
-#include "../../Inc/Framework/ISysTickSubscriber.h"
-#include "../../Inc/Framework/SysTickSubscribers.h"
+#include <Framework/ToggleButton_INT.h>
+#include <Framework/ISysTickSubscriber.h>
+#include <Framework/SysTickSubscribers.h>
 
 
-ToggleSwitch_INT::ToggleSwitch_INT(Gpio gpio, TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
+ToggleButton_INT::ToggleButton_INT(Gpio gpio, TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseSwitch(gpio, debounceTime, sysTickSubscriberIndex),
+:  BaseButton(gpio, debounceTime, sysTickSubscriberIndex),
    _onOffState(false),
    _callbackFunction(callbackFunction)
 {
 }
 
-ToggleSwitch_INT::~ToggleSwitch_INT()
+ToggleButton_INT::~ToggleButton_INT()
 {
 }
 
 
-/* override */ void ToggleSwitch_INT::CheckTrigger(uint16_t pin)
+/* override */ void ToggleButton_INT::CheckTrigger(uint16_t pin)
 {
    if ((pin == _gpio.pin) && !_buttonInDebounceMode)
    {

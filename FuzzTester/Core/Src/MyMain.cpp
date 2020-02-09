@@ -1,9 +1,9 @@
-#include <Framework/CounterSwitch_INT.h>
+#include <Framework/CounterButton_INT.h>
 #include <Framework/KeyPad.h>
 #include <Framework/LcdDisplay.h>
 #include <Framework/ShiftRegister.h>
-#include <Framework/Switch_INT.h>
-#include <Framework/ToggleSwitch_INT.h>
+#include <Framework/Button_INT.h>
+#include <Framework/ToggleButton_INT.h>
 #include "Framework/SysTickSubscribers.h"
 
 #include "Main.h"
@@ -17,19 +17,19 @@
 extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi2;
 
-void ProcessSwitch();
-void ProcessToggleSwitch(bool onOffState);
-void ProcessCounterSwitch(uint8_t currentValue);
-void ProcessCounterDiceSwitch(uint8_t currentValue);
+void ProcessButton();
+void ProcessToggleButton(bool onOffState);
+void ProcessCounterButton(uint8_t currentValue);
+void ProcessCounterDiceButton(uint8_t currentValue);
 
 const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 2;
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-Switch_INT        _switch            (           { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessSwitch           , 0, 50);
-ToggleSwitch_INT  _toggleSwitch      (           { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleSwitch     , 1, 50);
-CounterSwitch_INT _counterSwitch     (0, 10, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterSwitch    , 1, 50);
-CounterSwitch_INT _counterDiceSwitch (6, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceSwitch, 1, 50);
+Button_INT        _button            (           { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessButton           , 0, 50);
+ToggleButton_INT  _toggleButton      (           { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton     , 1, 50);
+CounterButton_INT _counterButton     (0, 10, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton    , 1, 50);
+CounterButton_INT _counterDiceButton (6, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton, 1, 50);
 
 const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
@@ -43,7 +43,7 @@ KeyPad           _keyPad       (4, 4, _keyPadRows, _keyPadColumns);
 
 
 uint16_t _values[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // button 1 + hold, button 2 + hold etc.
-bool _toggleSwitchOnOffState = false;
+bool _toggleButtonOnOffState = false;
 
 
 //012345678901235
@@ -64,35 +64,35 @@ uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
 
 void UpdateLcd()
 {
-   snprintf(_lcdLine0, 17, "%3d-%3d %3d%c%3d", _values[0], _values[1], _values[2], _toggleSwitchOnOffState ? 'X' : '-', _values[3]);
+   snprintf(_lcdLine0, 17, "%3d-%3d %3d%c%3d", _values[0], _values[1], _values[2], _toggleButtonOnOffState ? 'X' : '-', _values[3]);
    snprintf(_lcdLine1, 17, "%3d-%3d %3d-%3d", _values[4], _values[5], _values[6], _values[7]);
    _lcdDisplay.SetLine(0, _lcdLine0);
    _lcdDisplay.SetLine(1, _lcdLine1);
 }
 
-void ProcessSwitch()
+void ProcessButton()
 {
    _values[0] = (_values[0] + 1) % 1000;
    UpdateLcd();
 }
 
 
-void ProcessToggleSwitch(bool onOffState)
+void ProcessToggleButton(bool onOffState)
 {
-   _toggleSwitchOnOffState = onOffState;
+   _toggleButtonOnOffState = onOffState;
    _values[2] = (_values[2] + 1) % 1000;
    UpdateLcd();
 }
 
 
-void ProcessCounterSwitch(uint8_t currentValue)
+void ProcessCounterButton(uint8_t currentValue)
 {
    _values[4] = currentValue;
    UpdateLcd();
 }
 
 
-void ProcessCounterDiceSwitch(uint8_t currentValue)
+void ProcessCounterDiceButton(uint8_t currentValue)
 {
    _values[6] = currentValue;
    UpdateLcd();
@@ -145,10 +145,10 @@ int MyMain(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  _switch.CheckTrigger(GPIO_Pin);
-  _toggleSwitch.CheckTrigger(GPIO_Pin);
-  _counterSwitch.CheckTrigger(GPIO_Pin);
-  _counterDiceSwitch.CheckTrigger(GPIO_Pin);
+  _button.CheckTrigger(GPIO_Pin);
+  _toggleButton.CheckTrigger(GPIO_Pin);
+  _counterButton.CheckTrigger(GPIO_Pin);
+  _counterDiceButton.CheckTrigger(GPIO_Pin);
 }
 
 

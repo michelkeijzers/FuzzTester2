@@ -5,8 +5,8 @@
  *      Author: miche
  */
 
-#ifndef SRC_KEYPAD_H_
-#define SRC_KEYPAD_H_
+#ifndef KEYPAD_H_
+#define KEYPAD_H_
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -45,4 +45,4 @@ private:
    uint16_t    _lastKey;
 };
 
-#endif /* SRC_KEYPAD_H_ */
+#endif /* KEYPAD_H_ */

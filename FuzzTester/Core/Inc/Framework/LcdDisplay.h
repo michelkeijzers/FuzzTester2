@@ -5,8 +5,8 @@
  *      Author: miche
  */
 
-#ifndef LCDDISPLAY_H_
-#define LCDDISPLAY_H_
+#ifndef LCD_DISPLAY_H_
+#define LCD_DISPLAY_H_
 
 #include "stm32f1xx_hal.h"
 
@@ -31,4 +31,4 @@ private:
 	uint8_t _i2cChannel;
 };
 
-#endif /* LCDDISPLAY_H_ */
+#endif /* LCD_DISPLAY_H_ */

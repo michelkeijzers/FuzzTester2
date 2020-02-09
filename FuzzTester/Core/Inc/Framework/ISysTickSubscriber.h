@@ -6,8 +6,8 @@
  */
 
 
-#ifndef ISYSTICKSUBSCRIBER_H_
-#define ISYSTICKSUBSCRIBER_H_
+#ifndef ISYSTICK_SUBSCRIBER_H_
+#define ISYSTICK_SUBSCRIBER_H_
 
 class ISysTickSubscriber
 {
@@ -17,4 +17,4 @@ public:
    virtual void OnTick() = 0;
 };
 
-#endif /* ISYSTICKSUBSCRIBER_H_ */
+#endif /* ISYSTICK_SUBSCRIBER_H_ */

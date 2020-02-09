@@ -5,8 +5,8 @@
  *      Author: miche
  */
 
-#ifndef INC_GPIO_H_
-#define INC_GPIO_H_
+#ifndef GPIO_H_
+#define GPIO_H_
 
 #include "stm32f1xx_hal.h"
 
@@ -16,4 +16,4 @@ typedef struct
    uint16_t      pin;
 } Gpio;
 
-#endif /* INC_GPIO_H_ */
+#endif /* GPIO_H_ */

@@ -1,19 +1,19 @@
 /*
- * CounterSwitch_INT.cpp
+ * CounterButton_INT.cpp
  *
  *  Created on: Feb 1, 2020
  *      Author: michel
  */
 
-#include "../../Inc/Framework/CounterSwitch_INT.h"
-#include "../../Inc/Framework/ISysTickSubscriber.h"
-#include "../../Inc/Framework/SysTickSubscribers.h"
+#include <Framework/CounterButton_INT.h>
+#include <Framework/ISysTickSubscriber.h>
+#include <Framework/SysTickSubscribers.h>
 
 
-CounterSwitch_INT::CounterSwitch_INT(uint8_t startValue, int8_t stepValue, uint8_t endValue,
-      Gpio gpio, COUNTER_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
+CounterButton_INT::CounterButton_INT(uint8_t startValue, int8_t stepValue, uint8_t endValue,
+      Gpio gpio, COUNTER_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
       uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseSwitch(gpio, debounceTime, sysTickSubscriberIndex),
+:  BaseButton(gpio, debounceTime, sysTickSubscriberIndex),
    _startValue(startValue),
    _stepValue(stepValue),
    _endValue(endValue),
@@ -22,12 +22,12 @@ CounterSwitch_INT::CounterSwitch_INT(uint8_t startValue, int8_t stepValue, uint8
 {
 }
 
-CounterSwitch_INT::~CounterSwitch_INT()
+CounterButton_INT::~CounterButton_INT()
 {
 }
 
 
-/* override */ void CounterSwitch_INT::CheckTrigger(uint16_t pin)
+/* override */ void CounterButton_INT::CheckTrigger(uint16_t pin)
 {
    if ((pin == _gpio.pin) && !_buttonInDebounceMode)
    {

@@ -5,8 +5,8 @@
  *      Author: miche
  */
 
-#ifndef SYSTICKSUBSCRIBERS_H_
-#define SYSTICKSUBSCRIBERS_H_
+#ifndef SYSTICK_SUBSCRIBERS_H_
+#define SYSTICK_SUBSCRIBERS_H_
 
 #include <stdint.h>
 
@@ -47,5 +47,5 @@ private:
 extern SysTickSubscribers sysTicksubscribers;
 
 
-#endif /* SYSTICKSUBSCRIBERS_H_ */
+#endif /* SYSTICK_SUBSCRIBERS_H_ */
 

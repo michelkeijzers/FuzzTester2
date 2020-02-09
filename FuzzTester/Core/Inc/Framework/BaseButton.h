@@ -1,23 +1,23 @@
 /*
- * BaseSwitch.h
+ * BaseButton.h
  *
  *  Created on: Feb 9, 2020
  *      Author: miche
  */
 
-#ifndef INC_FRAMEWORK_BASESWITCH_H_
-#define INC_FRAMEWORK_BASESWITCH_H_
+#ifndef BASE_BUTTON_H_
+#define BASE_BUTTON_H_
 
 #include "ISysTickSubscriber.h"
 #include "Gpio.h"
 
 
-class BaseSwitch : ISysTickSubscriber
+class BaseButton : ISysTickSubscriber
 {
 public:
-   BaseSwitch(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
+   BaseButton(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
 
-   virtual ~BaseSwitch();
+   virtual ~BaseButton();
 
    virtual void CheckTrigger(uint16_t pin) = 0;
 
@@ -31,4 +31,4 @@ protected:
    uint8_t  _sysTickSubscriberIndex;
 };
 
-#endif /* INC_FRAMEWORK_BASESWITCH_H_ */
+#endif /* BASE_BUTTON_H_ */
