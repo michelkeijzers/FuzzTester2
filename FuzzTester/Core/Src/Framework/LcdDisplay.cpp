@@ -5,7 +5,7 @@
  *      Author: miche
  */
 
-#include "../../Inc/Components/LcdDisplay.h"
+#include <Framework/LcdDisplay.h>
 
 // #define LCD_ADDR (0x27 << 1)
 

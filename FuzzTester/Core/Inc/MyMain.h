@@ -8,8 +8,10 @@
 #ifndef INC_MYMAIN_H_
 #define INC_MYMAIN_H_
 
-
-void MyInit();
-int  MyMain();
+extern "C"
+{
+   void MyInit();
+   int  MyMain();
+}
 
 #endif /* INC_MYMAIN_H_ */

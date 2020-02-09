@@ -5,7 +5,7 @@
  *      Author: michel
  */
 
-#include "../../Inc/Components/ShiftRegister.h"
+#include "../../Inc/Framework/ShiftRegister.h"
 
 ShiftRegister::ShiftRegister(SPI_HandleTypeDef* hSpi, GPIO_TypeDef* latchPort, uint16_t latchPin)
 : _hSpi(hSpi),

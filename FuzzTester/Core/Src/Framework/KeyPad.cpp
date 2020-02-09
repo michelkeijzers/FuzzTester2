@@ -7,7 +7,7 @@
 
 #include <assert.h>
 
-#include "../../Inc/Components/KeyPad.h"
+#include <Framework/KeyPad.h>
 
 const uint8_t KEY_PAD_DEBOUNCE_TIME_MS = 10;
 

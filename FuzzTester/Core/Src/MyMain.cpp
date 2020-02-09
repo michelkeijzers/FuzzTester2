@@ -1,22 +1,27 @@
+#include <Framework/KeyPad.h>
+#include <Framework/LcdDisplay.h>
+#include <Framework/ShiftRegister.h>
+#include <Framework/ToggleSwitch_INT.h>
+#include "Framework/SysTickSubscribers.h"
+
 #include "Main.h"
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../Inc/Components/ToggleSwitch_INT.h"
-#include "../Inc/Components/KeyPad.h"
-#include "../Inc/Components/LcdDisplay.h"
-#include "../Inc/Components/ShiftRegister.h"
+#include "stm32f1xx_hal.h"
 
-
-extern TIM_HandleTypeDef htim1;
 extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi2;
 
 void ProcessToggleButtonReleased();
 
-ToggleSwitch_INT _toggleSwitch (&htim1, { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessToggleButtonReleased);
+const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 1;
+
+SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
+
+ToggleSwitch_INT _toggleSwitch ({ GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessToggleButtonReleased, 0, 50);
 
 const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
@@ -44,6 +49,10 @@ void ProcessToggleButtonReleased()
 
 void MyInit()
 {
+
+   //HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000U);
+   //HAL_NVIC_SetPriority(SysTick_IRQn, TICK_INT_PRIORITY, 0U);
+
     //_lcdDisplay.I2C_Scan();
     _lcdDisplay.Init();
 
@@ -72,20 +81,13 @@ int MyMain(void)
 
 	  _shiftRegister.ShiftOut(_dataToShift + n, 1);
 	  HAL_Delay(100);
-    }
+   }
+
+   return 0;
 }
 
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  _toggleSwitch.CheckPressed(GPIO_Pin);
-}
-
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(htim);
-
-  _toggleSwitch.CheckReleased();
+  _toggleSwitch.CheckTrigger(GPIO_Pin);
 }
