@@ -14,18 +14,6 @@ SysTickSubscriberData*  SysTickSubscribers::_data = 0;
 uint8_t                 SysTickSubscribers::_nrOfSubscribers = 0;
 
 
-ISysTickSubscriber::ISysTickSubscriber()
-{
-
-}
-
-
-/* virtual */ ISysTickSubscriber::~ISysTickSubscriber()
-{
-
-}
-
-
 SysTickSubscribers::SysTickSubscribers(uint8_t nrOfSubscribers)
 {
    _nrOfSubscribers = nrOfSubscribers;
@@ -36,7 +24,6 @@ SysTickSubscribers::SysTickSubscribers(uint8_t nrOfSubscribers)
 
 SysTickSubscribers::~SysTickSubscribers()
 {
-   // TODO Auto-generated destructor stub
 }
 
 

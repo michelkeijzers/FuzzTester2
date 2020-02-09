@@ -5,11 +5,12 @@
  *      Author: michel
  */
 
-#include "../../Inc/Framework/ToggleSwitch_INT.h"
+#include <Framework/Switch_INT.h>
+#include "../../Inc/Framework/ISysTickSubscriber.h"
 #include "../../Inc/Framework/SysTickSubscribers.h"
 
 
-ToggleSwitch_INT::ToggleSwitch_INT(Gpio gpio, TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
+Switch_INT::Switch_INT(Gpio gpio, SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
 :  ISysTickSubscriber(),
    _gpio(gpio),
@@ -22,12 +23,12 @@ ToggleSwitch_INT::ToggleSwitch_INT(Gpio gpio, TOGGLE_SWITCH_CALLBACK_FUNCTION_PT
    SysTickSubscribers::SetSubscriber(_sysTickSubscriberIndex, this);
 }
 
-ToggleSwitch_INT::~ToggleSwitch_INT()
+Switch_INT::~Switch_INT()
 {
 }
 
 
-void ToggleSwitch_INT::CheckTrigger(uint16_t pin)
+void Switch_INT::CheckTrigger(uint16_t pin)
 {
    if ((pin == _gpio.pin) && !_buttonInDebounceMode)
    {
@@ -46,7 +47,7 @@ void ToggleSwitch_INT::CheckTrigger(uint16_t pin)
 }
 
 
-void ToggleSwitch_INT::OnTick()
+void Switch_INT::OnTick()
 {
    _buttonInDebounceMode = false;
    SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);

@@ -11,20 +11,14 @@
 #include <stdint.h>
 
 #include "MyMain.h"
+#include "ISysTickSubscriber.h"
+
 
 extern "C"
 {
    void SysTickSubscribersOnTick(uint32_t tickValue);
 }
 
-
-class ISysTickSubscriber
-{
-public:
-   ISysTickSubscriber();
-   virtual ~ISysTickSubscriber();
-   virtual void OnTick() = 0;
-};
 
 struct SysTickSubscriberData
 {
