@@ -14,7 +14,7 @@
 
 typedef void (*BUTTON_CALLBACK_FUNCTION_PTR)(void);
 
-class Button_INT : BaseButton
+class Button_INT : public BaseButton
 {
 public:
    Button_INT(Gpio pin, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
@@ -22,7 +22,7 @@ public:
 
 	virtual ~Button_INT();
 
-	/* override */ void CheckTrigger(uint16_t pin);
+	 /* override */ void OnButtonPressed();
 
 private:
 	BUTTON_CALLBACK_FUNCTION_PTR        _callbackFunction;

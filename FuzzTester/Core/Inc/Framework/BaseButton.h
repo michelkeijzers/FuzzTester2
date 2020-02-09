@@ -19,9 +19,16 @@ public:
 
    virtual ~BaseButton();
 
-   virtual void CheckTrigger(uint16_t pin) = 0;
+   void CheckTrigger(uint16_t pin);
+
+   virtual void OnButtonPressed();
+
+   virtual void OnButtonReleased();
 
    void OnTick();
+
+private:
+   void StartDebounce(bool newButtonState);
 
 protected:
    Gpio     _gpio;

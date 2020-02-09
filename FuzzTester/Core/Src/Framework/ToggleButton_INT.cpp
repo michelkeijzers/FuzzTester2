@@ -23,22 +23,8 @@ ToggleButton_INT::~ToggleButton_INT()
 }
 
 
-/* override */ void ToggleButton_INT::CheckTrigger(uint16_t pin)
+/* override */ void ToggleButton_INT::OnButtonPressed()
 {
-   if ((pin == _gpio.pin) && !_buttonInDebounceMode)
-   {
-      if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
-      {
-         _onOffState = !_onOffState;
-         (*_callbackFunction)(_onOffState);
-
-         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
-         _buttonState = true;
-      }
-      else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
-      {
-         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
-         _buttonState = false;
-      }
-   }
+   _onOffState = !_onOffState;
+   (*_callbackFunction)(_onOffState);
 }

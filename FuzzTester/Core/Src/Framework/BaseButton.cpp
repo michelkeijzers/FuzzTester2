@@ -25,6 +25,42 @@ BaseButton::~BaseButton()
 }
 
 
+void BaseButton::CheckTrigger(uint16_t pin)
+{
+   if ((pin == _gpio.pin) && !_buttonInDebounceMode)
+   {
+      if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
+      {
+         OnButtonPressed();
+         StartDebounce(true);
+      }
+      else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
+      {
+         OnButtonReleased();
+         StartDebounce(false);
+      }
+   }
+}
+
+
+/* virtual */  void BaseButton::OnButtonPressed()
+{
+}
+
+
+/* virtual */ void BaseButton::OnButtonReleased()
+{
+}
+
+
+void BaseButton::StartDebounce(bool newButtonState)
+{
+   SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+   _buttonState = newButtonState;
+
+}
+
+
 void BaseButton::OnTick()
 {
    _buttonInDebounceMode = false;

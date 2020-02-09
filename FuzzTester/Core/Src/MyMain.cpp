@@ -152,8 +152,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 
 
-
-
 void HAL_Delay(uint32_t milliseconds)
 {
    /* Initially clear flag */

@@ -27,28 +27,14 @@ CounterButton_INT::~CounterButton_INT()
 }
 
 
-/* override */ void CounterButton_INT::CheckTrigger(uint16_t pin)
+/* override */ void CounterButton_INT::OnButtonPressed()
 {
-   if ((pin == _gpio.pin) && !_buttonInDebounceMode)
+   _currentValue += _stepValue;
+   if (((_stepValue >= 0) && (_currentValue > _endValue)) ||
+       ((_stepValue <  0) && (_currentValue < _endValue)))
    {
-      if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
-      {
-         _currentValue += _stepValue;
-         if (((_stepValue >= 0) && (_currentValue > _endValue)) ||
-             ((_stepValue <  0) && (_currentValue < _endValue)))
-         {
-            _currentValue = _startValue;
-         }
-
-         (*_callbackFunction)(_currentValue);
-
-         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
-         _buttonState = true;
-      }
-      else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
-      {
-         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
-         _buttonState = false;
-      }
+      _currentValue = _startValue;
    }
+
+   (*_callbackFunction)(_currentValue);
 }

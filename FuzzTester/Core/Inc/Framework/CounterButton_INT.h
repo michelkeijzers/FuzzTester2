@@ -14,7 +14,7 @@
 
 typedef void (*COUNTER_BUTTON_CALLBACK_FUNCTION_PTR)(uint8_t value);
 
-class CounterButton_INT : BaseButton
+class CounterButton_INT : public BaseButton
 {
 public:
    CounterButton_INT(uint8_t startValue, int8_t stepValue, uint8_t endValue,
@@ -23,7 +23,7 @@ public:
 
 	virtual ~CounterButton_INT();
 
-	/* override */ void CheckTrigger(uint16_t pin);
+	/* override */ void OnButtonPressed();
 
 private:
 	uint8_t                             _startValue;

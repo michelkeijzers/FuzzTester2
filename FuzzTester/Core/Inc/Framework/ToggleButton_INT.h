@@ -14,7 +14,7 @@
 
 typedef void (*TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR)(bool onOffState);
 
-class ToggleButton_INT : BaseButton
+class ToggleButton_INT : public BaseButton
 {
 public:
    ToggleButton_INT(Gpio pin, TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
@@ -22,7 +22,7 @@ public:
 
 	virtual ~ToggleButton_INT();
 
-	/* override */ void CheckTrigger(uint16_t pin);
+	/* override */ void OnButtonPressed();
 
 private:
 	bool                                _onOffState;
