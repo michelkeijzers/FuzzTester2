@@ -75,7 +75,19 @@ void BaseButton::OnTick()
    if (_buttonInDebounceMode)
    {
       _buttonInDebounceMode = false;
-      _buttonState = HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) ? true : false;
+      bool pinState = HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) ? true : false;
+      if (pinState != _buttonState)
+      {
+        _buttonState = pinState;
+        if (_buttonState)
+        {
+           OnButtonPressed();
+        }
+        else
+        {
+           OnButtonReleased();
+        }
+      }
 
       SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, (_buttonState && _holdDelayTime > 0) ? _holdDelayTime : 0);
    }

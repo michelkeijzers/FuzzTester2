@@ -29,11 +29,11 @@ const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 4;
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    , 3000, 1000, &ProcessDefaultButtonHold, 0, 50);
-MomentaryButton_INT _momentaryButton   (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton         ,                                        3, 50);
-ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,                                        1, 50);
-CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 3000, 1000,                            2, 50);
-//CounterButton_INT _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       ,                                        3, 50);
+DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    , 3000, 1000, &ProcessDefaultButtonHold, 0, 10);
+MomentaryButton_INT _momentaryButton   (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton         ,                                        3, 10);
+ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,                                        1, 10);
+CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 3000, 1000,                            2, 10);
+//CounterButton_INT _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       ,                                        3, 10);
 
 const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
