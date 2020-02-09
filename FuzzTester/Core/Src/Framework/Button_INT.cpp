@@ -29,12 +29,12 @@ Button_INT::~Button_INT()
    {
       if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
       {
+         (*_callbackFunction)();
          SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
          _buttonState = true;
       }
       else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
       {
-         (*_callbackFunction)();
          SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
          _buttonState = false;
       }

@@ -29,13 +29,14 @@ ToggleButton_INT::~ToggleButton_INT()
    {
       if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
       {
+         _onOffState = !_onOffState;
+         (*_callbackFunction)(_onOffState);
+
          SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
          _buttonState = true;
       }
       else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
       {
-         _onOffState = !_onOffState;
-         (*_callbackFunction)(_onOffState);
          SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
          _buttonState = false;
       }

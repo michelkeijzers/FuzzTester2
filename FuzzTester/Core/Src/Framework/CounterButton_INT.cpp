@@ -33,11 +33,6 @@ CounterButton_INT::~CounterButton_INT()
    {
       if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
       {
-         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
-         _buttonState = true;
-      }
-      else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
-      {
          _currentValue += _stepValue;
          if (((_stepValue >= 0) && (_currentValue > _endValue)) ||
              ((_stepValue <  0) && (_currentValue < _endValue)))
@@ -46,6 +41,12 @@ CounterButton_INT::~CounterButton_INT()
          }
 
          (*_callbackFunction)(_currentValue);
+
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+         _buttonState = true;
+      }
+      else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
+      {
          SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
          _buttonState = false;
       }
