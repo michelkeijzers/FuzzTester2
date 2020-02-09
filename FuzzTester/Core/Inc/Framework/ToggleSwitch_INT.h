@@ -5,8 +5,8 @@
  *      Author: michel
  */
 
-#ifndef SRC_SWITCH_INT_H_
-#define SRC_SWITCH_INT_H_
+#ifndef SRC_TOGGLESWITCH_INT_H_
+#define SRC_TOGGLESWITCH_INT_H_
 
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
@@ -14,15 +14,15 @@
 #include "stm32f1xx_hal.h"
 
 
-typedef void (*SWITCH_CALLBACK_FUNCTION_PTR)(void);
+typedef void (*TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR)(bool onOffState);
 
-class Switch_INT : ISysTickSubscriber
+class ToggleSwitch_INT : ISysTickSubscriber
 {
 public:
-    Switch_INT(Gpio pin, SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
+   ToggleSwitch_INT(Gpio pin, TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
      uint8_t sysTickSubscriberIndex, uint8_t period);
 
-	virtual ~Switch_INT();
+	virtual ~ToggleSwitch_INT();
 
 	void CheckTrigger(uint16_t pin);
 
@@ -33,12 +33,14 @@ private:
 
 	bool                                _buttonState;
 
+	bool                                _onOffState;
+
 	bool                                _buttonInDebounceMode;
     uint16_t                            _debounceTime;
 
-	SWITCH_CALLBACK_FUNCTION_PTR        _callbackFunction;
+	TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR _callbackFunction;
 
 	uint8_t                             _sysTickSubscriberIndex;
 };
 
-#endif /* SRC_SWITCH_INT_H_ */
+#endif /* SRC_TOGGLESWITCH_INT_H_ */
