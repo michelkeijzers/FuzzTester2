@@ -12,7 +12,7 @@
 
 ToggleButton_INT::ToggleButton_INT(Gpio gpio, TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseButton(gpio, debounceTime, sysTickSubscriberIndex),
+:  BaseButton(gpio, 0, 0, debounceTime, sysTickSubscriberIndex),
    _onOffState(false),
    _callbackFunction(callbackFunction)
 {

@@ -22,8 +22,9 @@ extern "C"
 
 struct SysTickSubscriberData
 {
-   uint8_t             period_ms;
-   ISysTickSubscriber* sysTickSubscriber;
+   uint16_t             offset_ms;
+   uint16_t             period_ms;
+   ISysTickSubscriber*  sysTickSubscriber;
 };
 
 
@@ -42,6 +43,8 @@ private:
    static SysTickSubscriberData* _data; // Dynamic array
 
    static uint8_t _nrOfSubscribers;
+
+   static uint32_t _tickValue;
 };
 
 extern SysTickSubscribers sysTicksubscribers;

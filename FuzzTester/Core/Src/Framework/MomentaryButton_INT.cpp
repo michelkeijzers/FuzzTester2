@@ -12,7 +12,7 @@
 
 MomentaryButton_INT::MomentaryButton_INT(Gpio gpio, MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseButton(gpio, debounceTime, sysTickSubscriberIndex),
+:  BaseButton(gpio, 0, 0, debounceTime, sysTickSubscriberIndex),
   _callbackFunction(callbackFunction)
 {
 }

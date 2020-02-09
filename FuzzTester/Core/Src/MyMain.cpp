@@ -18,7 +18,8 @@
 extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi2;
 
-void ProcessButton();
+void ProcessDefaultButtonPressed();
+void ProcessDefaultButtonHold();
 void ProcessMomentaryButton(bool onOffState);
 void ProcessToggleButton(bool onOffState);
 void ProcessCounterButton(uint8_t currentValue);
@@ -28,11 +29,11 @@ const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 4;
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-DefaultButton_INT          _button            (           { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessButton           , 0, 50);
-MomentaryButton_INT _momentaryButton   (           { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton  , 3, 50);
-ToggleButton_INT    _toggleButton      (           { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton     , 1, 50);
-CounterButton_INT   _counterButton     (0, 10, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton    , 2, 50);
-//CounterButton_INT _counterDiceButton (6, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton, 3, 50);
+DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    , 3000, 1000, &ProcessDefaultButtonHold, 0, 50);
+MomentaryButton_INT _momentaryButton   (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton         ,                                        3, 50);
+ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,                                        1, 50);
+CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 3000, 1000,                            2, 50);
+//CounterButton_INT _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       ,                                        3, 50);
 
 const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
@@ -74,9 +75,16 @@ void UpdateLcd()
    _lcdDisplay.SetLine(1, _lcdLine1);
 }
 
-void ProcessButton()
+void ProcessDefaultButtonPressed()
 {
    _values[0] = (_values[0] + 1) % 1000;
+   UpdateLcd();
+}
+
+
+void ProcessDefaultButtonHold()
+{
+   _values[1] = (_values[1] + 1) % 1000;
    UpdateLcd();
 }
 
@@ -157,7 +165,7 @@ int MyMain(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  _button.CheckTrigger(GPIO_Pin);
+  _defaultButton.CheckTrigger(GPIO_Pin);
   _momentaryButton.CheckTrigger(GPIO_Pin);
   _toggleButton.CheckTrigger(GPIO_Pin);
   _counterButton.CheckTrigger(GPIO_Pin);

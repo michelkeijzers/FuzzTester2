@@ -22,6 +22,7 @@ public:
 
 	virtual ~ToggleButton_INT();
 
+private:
 	/* override */ void OnButtonPressed();
 
 private:

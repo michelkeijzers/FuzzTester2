@@ -15,7 +15,7 @@
 class BaseButton : ISysTickSubscriber
 {
 public:
-   BaseButton(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
+   BaseButton(Gpio gpio, uint16_t holdDelayTime, uint16_t holdStepTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
 
    virtual ~BaseButton();
 
@@ -25,14 +25,18 @@ public:
 
    virtual void OnButtonReleased();
 
+   virtual void OnButtonHold();
+
    void OnTick();
 
 private:
-   void StartDebounce(bool newButtonState);
+   void StartDebounceAndSetButtonState(bool newButtonState);
 
 protected:
    Gpio     _gpio;
    bool     _buttonState;
+   uint16_t _holdDelayTime; // Time before hold functionality starts
+   uint16_t _holdStepTime; // Time between each hold trigger
    bool     _buttonInDebounceMode;
    uint16_t _debounceTime;
    uint8_t  _sysTickSubscriberIndex;

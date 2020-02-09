@@ -8,9 +8,11 @@
 #include <Framework/BaseButton.h>
 #include <Framework/SysTickSubscribers.h>
 
-BaseButton::BaseButton(Gpio gpio, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
+BaseButton::BaseButton(Gpio gpio, uint16_t holdDelayTime, uint16_t holdStepTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
 : _gpio(gpio),
   _buttonState(false),
+  _holdDelayTime(holdDelayTime),
+  _holdStepTime(holdStepTime),
   _buttonInDebounceMode(false),
   _debounceTime(debounceTime),
   _sysTickSubscriberIndex(sysTickSubscriberIndex)
@@ -32,12 +34,12 @@ void BaseButton::CheckTrigger(uint16_t pin)
       if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
       {
          OnButtonPressed();
-         StartDebounce(true);
+         StartDebounceAndSetButtonState(true);
       }
       else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
       {
          OnButtonReleased();
-         StartDebounce(false);
+         StartDebounceAndSetButtonState(false);
       }
    }
 }
@@ -53,8 +55,15 @@ void BaseButton::CheckTrigger(uint16_t pin)
 }
 
 
-void BaseButton::StartDebounce(bool newButtonState)
+
+/* virtual */ void BaseButton::OnButtonHold()
 {
+}
+
+
+void BaseButton::StartDebounceAndSetButtonState(bool newButtonState)
+{
+   _buttonInDebounceMode = true;
    SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
    _buttonState = newButtonState;
 
@@ -63,7 +72,18 @@ void BaseButton::StartDebounce(bool newButtonState)
 
 void BaseButton::OnTick()
 {
-   _buttonInDebounceMode = false;
-   SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);
-   _buttonState = HAL_GPIO_ReadPin(_gpio.port, _gpio.pin);
+   if (_buttonInDebounceMode)
+   {
+      _buttonInDebounceMode = false;
+      _buttonState = HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) ? true : false;
+
+      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, (_buttonState && _holdDelayTime > 0) ? _holdDelayTime : 0);
+   }
+   else
+   {
+      // Hold tick
+      OnButtonHold();
+
+      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, (_buttonState && _holdStepTime > 0) ? _holdStepTime : 0);
+   }
 }

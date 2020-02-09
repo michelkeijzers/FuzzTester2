@@ -10,10 +10,13 @@
 #include <Framework/SysTickSubscribers.h>
 
 
-DefaultButton_INT::DefaultButton_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+DefaultButton_INT::DefaultButton_INT(
+   Gpio gpio,          BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+   uint16_t holdDelayTime, uint16_t holdStepTime, BUTTON_CALLBACK_FUNCTION_PTR holdCallbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseButton(gpio, debounceTime, sysTickSubscriberIndex),
-  _callbackFunction(callbackFunction)
+:  BaseButton(gpio, holdDelayTime, holdStepTime, debounceTime, sysTickSubscriberIndex),
+  _callbackFunction(callbackFunction),
+  _holdCallbackFunction(holdCallbackFunction)
 {
 }
 
@@ -26,4 +29,10 @@ DefaultButton_INT::~DefaultButton_INT()
 /* override */ void DefaultButton_INT::OnButtonPressed()
 {
    (*_callbackFunction)();
+}
+
+
+/* override */ void DefaultButton_INT::OnButtonHold()
+{
+   (*_holdCallbackFunction)();
 }
