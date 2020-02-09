@@ -10,13 +10,11 @@
 
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
-
-#include "stm32f1xx_hal.h"
-
+#include <Framework/BaseSwitch.h>
 
 typedef void (*COUNTER_SWITCH_CALLBACK_FUNCTION_PTR)(uint8_t value);
 
-class CounterSwitch_INT : ISysTickSubscriber
+class CounterSwitch_INT : BaseSwitch
 {
 public:
    CounterSwitch_INT(uint8_t startValue, int8_t stepValue, uint8_t endValue,
@@ -25,26 +23,15 @@ public:
 
 	virtual ~CounterSwitch_INT();
 
-	void CheckTrigger(uint16_t pin);
-
-	/* override */ void OnTick();
+	/* override */ void CheckTrigger(uint16_t pin);
 
 private:
-	Gpio                                _gpio;
-
-	bool                                _buttonState;
-
 	uint8_t                             _startValue;
 	int8_t                              _stepValue;
 	uint8_t                             _endValue;
 	uint8_t                             _currentValue;
 
-	bool                                _buttonInDebounceMode;
-    uint16_t                            _debounceTime;
-
 	COUNTER_SWITCH_CALLBACK_FUNCTION_PTR _callbackFunction;
-
-	uint8_t                             _sysTickSubscriberIndex;
 };
 
 #endif /* SRC_COUNTERSWITCH_INT_H_ */

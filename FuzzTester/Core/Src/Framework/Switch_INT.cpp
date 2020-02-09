@@ -12,23 +12,18 @@
 
 Switch_INT::Switch_INT(Gpio gpio, SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  ISysTickSubscriber(),
-   _gpio(gpio),
-   _buttonState(false),
-   _buttonInDebounceMode(false),
-   _debounceTime(debounceTime),
-  _callbackFunction(callbackFunction),
-  _sysTickSubscriberIndex(sysTickSubscriberIndex)
+:  BaseSwitch(gpio, debounceTime, sysTickSubscriberIndex),
+  _callbackFunction(callbackFunction)
 {
-   SysTickSubscribers::SetSubscriber(_sysTickSubscriberIndex, this);
 }
+
 
 Switch_INT::~Switch_INT()
 {
 }
 
 
-void Switch_INT::CheckTrigger(uint16_t pin)
+/* override */ void Switch_INT::CheckTrigger(uint16_t pin)
 {
    if ((pin == _gpio.pin) && !_buttonInDebounceMode)
    {
@@ -44,12 +39,4 @@ void Switch_INT::CheckTrigger(uint16_t pin)
          _buttonState = false;
       }
    }
-}
-
-
-void Switch_INT::OnTick()
-{
-   _buttonInDebounceMode = false;
-   SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);
-   _buttonState = HAL_GPIO_ReadPin(_gpio.port, _gpio.pin);
 }

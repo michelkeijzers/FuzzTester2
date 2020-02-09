@@ -10,13 +10,11 @@
 
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
-
-#include "stm32f1xx_hal.h"
-
+#include <Framework/BaseSwitch.h>
 
 typedef void (*SWITCH_CALLBACK_FUNCTION_PTR)(void);
 
-class Switch_INT : ISysTickSubscriber
+class Switch_INT : BaseSwitch
 {
 public:
     Switch_INT(Gpio pin, SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
@@ -24,21 +22,10 @@ public:
 
 	virtual ~Switch_INT();
 
-	void CheckTrigger(uint16_t pin);
-
-	/* override */ void OnTick();
+	/* override */ void CheckTrigger(uint16_t pin);
 
 private:
-	Gpio                                _gpio;
-
-	bool                                _buttonState;
-
-	bool                                _buttonInDebounceMode;
-    uint16_t                            _debounceTime;
-
 	SWITCH_CALLBACK_FUNCTION_PTR        _callbackFunction;
-
-	uint8_t                             _sysTickSubscriberIndex;
 };
 
 #endif /* SRC_SWITCH_INT_H_ */

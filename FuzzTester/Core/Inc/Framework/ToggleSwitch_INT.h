@@ -10,13 +10,11 @@
 
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
-
-#include "stm32f1xx_hal.h"
-
+#include <Framework/BaseSwitch.h>
 
 typedef void (*TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR)(bool onOffState);
 
-class ToggleSwitch_INT : ISysTickSubscriber
+class ToggleSwitch_INT : BaseSwitch
 {
 public:
    ToggleSwitch_INT(Gpio pin, TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR callbackFunction,
@@ -24,23 +22,12 @@ public:
 
 	virtual ~ToggleSwitch_INT();
 
-	void CheckTrigger(uint16_t pin);
-
-	/* override */ void OnTick();
+	/* override */ void CheckTrigger(uint16_t pin);
 
 private:
-	Gpio                                _gpio;
-
-	bool                                _buttonState;
-
 	bool                                _onOffState;
 
-	bool                                _buttonInDebounceMode;
-    uint16_t                            _debounceTime;
-
 	TOGGLE_SWITCH_CALLBACK_FUNCTION_PTR _callbackFunction;
-
-	uint8_t                             _sysTickSubscriberIndex;
 };
 
 #endif /* SRC_TOGGLESWITCH_INT_H_ */
