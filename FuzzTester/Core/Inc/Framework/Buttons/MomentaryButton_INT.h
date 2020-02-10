@@ -8,7 +8,7 @@
 #ifndef MOMENTARY_BUTTON_INT_H_
 #define MOMENTARY_BUTTON_INT_H_
 
-#include <Framework/BaseButton.h>
+#include <Framework/Buttons/BaseButton.h>
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
 

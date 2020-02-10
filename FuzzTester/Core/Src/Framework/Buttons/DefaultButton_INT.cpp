@@ -5,7 +5,7 @@
  *      Author: michel
  */
 
-#include <Framework/DefaultButton_INT.h>
+#include <Framework/Buttons/DefaultButton_INT.h>
 #include <Framework/ISysTickSubscriber.h>
 #include <Framework/SysTickSubscribers.h>
 

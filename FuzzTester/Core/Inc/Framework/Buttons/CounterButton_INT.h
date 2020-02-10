@@ -10,7 +10,7 @@
 
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
-#include <Framework/BaseButton.h>
+#include <Framework/Buttons/BaseButton.h>
 
 typedef void (*COUNTER_BUTTON_CALLBACK_FUNCTION_PTR)(uint8_t value);
 

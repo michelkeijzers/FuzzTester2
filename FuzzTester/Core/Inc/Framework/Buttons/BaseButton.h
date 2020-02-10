@@ -8,8 +8,8 @@
 #ifndef BASE_BUTTON_H_
 #define BASE_BUTTON_H_
 
-#include "ISysTickSubscriber.h"
-#include "Gpio.h"
+#include "../ISysTickSubscriber.h"
+#include "../Gpio.h"
 
 
 class BaseButton : ISysTickSubscriber

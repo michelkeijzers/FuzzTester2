@@ -6,6 +6,9 @@
  */
 
 #include <Framework/LcdDisplay.h>
+#include <Framework/SysTickSubscribers.h>
+
+#include "stm32f1xx_hal.h"
 
 // #define LCD_ADDR (0x27 << 1)
 
@@ -17,10 +20,13 @@
 
 
 
-LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel)
+LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel, UPDATE_LCD_FUNCTION_PTR callbackFunction, uint16_t refreshTime, uint8_t sysTickSubscriberIndex)
 : _hI2c(hI2c),
-  _i2cChannel(i2cChannel << 1)
+  _i2cChannel(i2cChannel << 1),
+  _callbackFunction(callbackFunction)
 {
+   SysTickSubscribers::SetSubscriber(sysTickSubscriberIndex, this);
+   SysTickSubscribers::SetInterval(sysTickSubscriberIndex, refreshTime);
 }
 
 
@@ -86,8 +92,9 @@ HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
     data_arr[2] = lo|flags|BACKLIGHT|PIN_EN;
     data_arr[3] = lo|flags|BACKLIGHT;
 
+    //res = HAL_I2C_Master_Transmit_IT(_hI2c, _i2cChannel, data_arr, sizeof(data_arr));
     res = HAL_I2C_Master_Transmit(_hI2c, _i2cChannel, data_arr, sizeof(data_arr), HAL_MAX_DELAY);
-    HAL_Delay(LCD_DELAY_MS);
+    //HAL_Delay(LCD_DELAY_MS);
     return res;
 }
 
@@ -111,4 +118,11 @@ void LcdDisplay::SendString(const char *str)
         SendData((uint8_t)(*str));
         str++;
     }
+}
+
+
+void LcdDisplay::OnTick()
+{
+
+   (*_callbackFunction)();
 }

@@ -1,10 +1,10 @@
-#include <Framework/CounterButton_INT.h>
+#include <Framework/Buttons/CounterButton_INT.h>
+#include <Framework/Buttons/DefaultButton_INT.h>
+#include <Framework/Buttons/MomentaryButton_INT.h>
+#include <Framework/Buttons/ToggleButton_INT.h>
 #include <Framework/KeyPad.h>
 #include <Framework/LcdDisplay.h>
 #include <Framework/ShiftRegister.h>
-#include <Framework/DefaultButton_INT.h>
-#include <Framework/MomentaryButton_INT.h>
-#include <Framework/ToggleButton_INT.h>
 #include "Framework/SysTickSubscribers.h"
 
 #include "Main.h"
@@ -24,16 +24,17 @@ void ProcessMomentaryButton(bool onOffState);
 void ProcessToggleButton(bool onOffState);
 void ProcessCounterButton(uint8_t currentValue);
 void ProcessCounterDiceButton(uint8_t currentValue);
+void UpdateLcd();
 
-const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 4;
+const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 5;
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    , 3000, 1000, &ProcessDefaultButtonHold, 0, 10);
-MomentaryButton_INT _momentaryButton   (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton         ,                                        3, 10);
-ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,                                        1, 10);
-CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 3000, 1000,                            2, 10);
-//CounterButton_INT _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       ,                                        3, 10);
+DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    ,  500,    1, &ProcessDefaultButtonHold, 0, 50);
+MomentaryButton_INT _momentaryButton   (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton         ,                                        3, 50);
+ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,                                        1, 50);
+CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 1000,  100,                            2, 50);
+//CounterButton_INT _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       ,                                        3, 50);
 
 const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
@@ -59,33 +60,51 @@ char _lcdLine0[17];
 char _lcdLine1[17];
 
 
-LcdDisplay       _lcdDisplay   (&hi2c1, 0x27);
+LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &UpdateLcd, 99, 4); // Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of % 100 ms == 0
+bool _lcdIsDirty = false;
 
 ShiftRegister    _shiftRegister(&hspi2, GPIO_LATCH_GPIO_Port, GPIO_LATCH_Pin);
 
 uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
 
 
+void UpdateLcdLine0()
+{
+   snprintf(_lcdLine0, 17, "%3d-%3d %3d%c%3d", _values[0], _values[1], _values[2], _toggleButtonOnOffState    ? 'X' : '-', _values[3]);
+   _lcdDisplay.SetLine(0, _lcdLine0);
+}
+
+
+void UpdateLcdLine1()
+{
+   snprintf(_lcdLine1, 17, "%3d-%3d %3d%c%3d", _values[4], _values[5], _values[6], _momentaryButtonOnOffState ? 'X' : '-', _values[7]);
+   _lcdDisplay.SetLine(1, _lcdLine1);
+}
+
+
 
 void UpdateLcd()
 {
-   snprintf(_lcdLine0, 17, "%3d-%3d %3d%c%3d", _values[0], _values[1], _values[2], _toggleButtonOnOffState    ? 'X' : '-', _values[3]);
-   snprintf(_lcdLine1, 17, "%3d-%3d %3d%c%3d", _values[4], _values[5], _values[6], _momentaryButtonOnOffState ? 'X' : '-', _values[7]);
-   _lcdDisplay.SetLine(0, _lcdLine0);
-   _lcdDisplay.SetLine(1, _lcdLine1);
+   if (_lcdIsDirty)
+   {
+      UpdateLcdLine0();
+      UpdateLcdLine1();
+      _lcdIsDirty = false;
+   }
 }
+
 
 void ProcessDefaultButtonPressed()
 {
    _values[0] = (_values[0] + 1) % 1000;
-   UpdateLcd();
+   _lcdIsDirty = true;
 }
 
 
 void ProcessDefaultButtonHold()
 {
    _values[1] = (_values[1] + 1) % 1000;
-   UpdateLcd();
+   _lcdIsDirty = true;
 }
 
 
@@ -93,7 +112,7 @@ void ProcessMomentaryButton(bool onOffState)
 {
    _momentaryButtonOnOffState = onOffState;
    _values[6] = (_values[6] + 1) % 1000;
-   UpdateLcd();
+   _lcdIsDirty = true;
 }
 
 
@@ -101,21 +120,21 @@ void ProcessToggleButton(bool onOffState)
 {
    _toggleButtonOnOffState = onOffState;
    _values[2] = (_values[2] + 1) % 1000;
-   UpdateLcd();
+   _lcdIsDirty = true;
 }
 
 
 void ProcessCounterButton(uint8_t currentValue)
 {
    _values[4] = currentValue;
-   UpdateLcd();
+   _lcdIsDirty = true;
 }
 
 
 void ProcessCounterDiceButton(uint8_t currentValue)
 {
    _values[6] = currentValue;
-   UpdateLcd();
+   _lcdIsDirty = true;
 }
 
 

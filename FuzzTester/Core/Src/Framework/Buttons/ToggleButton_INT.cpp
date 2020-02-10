@@ -5,7 +5,7 @@
  *      Author: michel
  */
 
-#include <Framework/ToggleButton_INT.h>
+#include <Framework/Buttons/ToggleButton_INT.h>
 #include <Framework/ISysTickSubscriber.h>
 #include <Framework/SysTickSubscribers.h>
 

@@ -5,7 +5,7 @@
  *      Author: michel
  */
 
-#include <Framework/MomentaryButton_INT.h>
+#include <Framework/Buttons/MomentaryButton_INT.h>
 #include <Framework/ISysTickSubscriber.h>
 #include <Framework/SysTickSubscribers.h>
 

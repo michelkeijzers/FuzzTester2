@@ -5,7 +5,7 @@
  *      Author: miche
  */
 
-#include <Framework/BaseButton.h>
+#include <Framework/Buttons/BaseButton.h>
 #include <Framework/SysTickSubscribers.h>
 
 BaseButton::BaseButton(Gpio gpio, uint16_t holdDelayTime, uint16_t holdStepTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)

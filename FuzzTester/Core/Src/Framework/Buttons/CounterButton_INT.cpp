@@ -5,7 +5,7 @@
  *      Author: michel
  */
 
-#include <Framework/CounterButton_INT.h>
+#include <Framework/Buttons/CounterButton_INT.h>
 #include <Framework/ISysTickSubscriber.h>
 #include <Framework/SysTickSubscribers.h>
 
