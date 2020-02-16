@@ -5,33 +5,28 @@
  *      Author: michel
  */
 
-#ifndef BUTTON_INT_H_
-#define BUTTON_INT_H_
+#ifndef DEFAULT_BUTTON_INT_H_
+#define DEFAULT_BUTTON_INT_H_
 
 #include <Framework/Buttons/BaseButton.h>
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
 
-typedef void (*BUTTON_CALLBACK_FUNCTION_PTR)(void);
-
 class DefaultButton_INT : public BaseButton
 {
 public:
-   DefaultButton_INT(Gpio pin, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
-     uint16_t holdDelayTime, uint16_t holdStepTime, BUTTON_CALLBACK_FUNCTION_PTR holdCallbackFunction,
-     uint8_t sysTickSubscriberIndex, uint8_t period);
+   DefaultButton_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+         uint16_t holdDelayTime, uint16_t holdStepTime,
+         uint8_t sysTickSubscriberIndex, uint8_t debounceTime);
 
 	virtual ~DefaultButton_INT();
 
 private:
-	 /* override */ void OnButtonPressed();
-
-	 /* override */ void OnButtonHold();
+   /* override */ void OnButtonPressed();
+   /* override */ void OnButtonReleased();
+   /* override */ void OnButtonHold();
 
 private:
-	BUTTON_CALLBACK_FUNCTION_PTR        _callbackFunction;
-
-	BUTTON_CALLBACK_FUNCTION_PTR        _holdCallbackFunction;
 };
 
-#endif /* BUTTON_INT_H_ */
+#endif /* DEFAULT_BUTTON_INT_H_ */

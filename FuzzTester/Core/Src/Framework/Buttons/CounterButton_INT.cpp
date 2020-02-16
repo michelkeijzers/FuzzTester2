@@ -13,7 +13,7 @@
 CounterButton_INT::CounterButton_INT(uint16_t startValue, int16_t stepValue, int16_t holdValue, uint16_t endValue,
       Gpio gpio, COUNTER_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t holdDelayTime, uint16_t holdStepTime,
       uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseButton(gpio, holdDelayTime, holdStepTime, debounceTime, sysTickSubscriberIndex),
+:  BaseButton(gpio, NULL, holdDelayTime, holdStepTime, debounceTime, sysTickSubscriberIndex),
    _startValue(startValue),
    _stepValue(stepValue),
    _holdValue(holdValue),
@@ -35,13 +35,19 @@ CounterButton_INT::~CounterButton_INT()
 }
 
 
+/* override */ void CounterButton_INT::OnButtonReleased()
+{
+   // No action required
+}
+
+
 /* override */ void CounterButton_INT::OnButtonHold()
 {
    UpdateValue(_holdValue);
 }
 
 
-void CounterButton_INT::UpdateValue(uint16_t deltaValue)
+void CounterButton_INT::UpdateValue(int16_t deltaValue)
 {
    _currentValue += deltaValue;
    if (((deltaValue >= 0) && (_currentValue > _endValue)) ||

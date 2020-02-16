@@ -10,11 +10,10 @@
 #include <Framework/SysTickSubscribers.h>
 
 
-ToggleButton_INT::ToggleButton_INT(Gpio gpio, TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+ToggleButton_INT::ToggleButton_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseButton(gpio, 0, 0, debounceTime, sysTickSubscriberIndex),
-   _onOffState(false),
-   _callbackFunction(callbackFunction)
+:  BaseButton(gpio, callbackFunction, 0, 0, debounceTime, sysTickSubscriberIndex),
+   _onOffState(false)
 {
 }
 
@@ -27,4 +26,17 @@ ToggleButton_INT::~ToggleButton_INT()
 {
    _onOffState = !_onOffState;
    (*_callbackFunction)(_onOffState);
+}
+
+
+
+/* override */ void ToggleButton_INT::OnButtonReleased()
+{
+   // No actions required
+}
+
+
+/* override */ void ToggleButton_INT::OnButtonHold()
+{
+   // No actions required
 }

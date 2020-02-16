@@ -36,8 +36,13 @@ public:
    virtual ~SysTickSubscribers();
 
    static void SetSubscriber(uint8_t subscriberIndex, ISysTickSubscriber* subscriber);
+
+   static uint16_t GetInterval(uint8_t subscriberIndex);
    static void SetInterval(uint8_t subscriberIndex, uint16_t period_ms);
+
    static void OnTick(uint32_t tickValue);
+
+   static uint32_t GetTick();
 
 private:
    static SysTickSubscriberData* _data; // Dynamic array

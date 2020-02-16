@@ -24,11 +24,11 @@ public:
 	virtual ~CounterButton_INT();
 
 private:
-	/* override */ void OnButtonPressed();
+   /* override */ void OnButtonPressed();
+   /* override */ void OnButtonReleased();
+   /* override */ void OnButtonHold();
 
-	/* override */ void OnButtonHold();
-
-	void UpdateValue(uint16_t deltaValue);
+	void UpdateValue(int16_t deltaValue);
 
 
 private:

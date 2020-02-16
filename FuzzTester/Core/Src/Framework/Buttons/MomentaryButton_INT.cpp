@@ -12,8 +12,7 @@
 
 MomentaryButton_INT::MomentaryButton_INT(Gpio gpio, MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
-:  BaseButton(gpio, 0, 0, debounceTime, sysTickSubscriberIndex),
-  _callbackFunction(callbackFunction)
+:  BaseButton(gpio, callbackFunction, 0, 0, debounceTime, sysTickSubscriberIndex)
 {
 }
 
@@ -32,4 +31,11 @@ MomentaryButton_INT::~MomentaryButton_INT()
 /* override */ void MomentaryButton_INT::OnButtonReleased()
 {
    (*_callbackFunction)(false);
+}
+
+
+
+/* override */ void MomentaryButton_INT::OnButtonHold()
+{
+   // No actions required
 }

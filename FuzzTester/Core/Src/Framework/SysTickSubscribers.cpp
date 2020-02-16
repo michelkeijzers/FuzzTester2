@@ -43,10 +43,22 @@ SysTickSubscribers::~SysTickSubscribers()
 }
 
 
+/* static */ uint16_t SysTickSubscribers::GetInterval(uint8_t subscriberIndex)
+{
+   return _data[subscriberIndex].period_ms;
+}
+
+
 /* static */ void SysTickSubscribers::SetInterval(uint8_t subscriberIndex, uint16_t period_ms)
 {
    _data[subscriberIndex].offset_ms = period_ms == 0 ? 0 : _tickValue % period_ms;
    _data[subscriberIndex].period_ms = period_ms;
+}
+
+
+/* static */ uint32_t SysTickSubscribers::GetTick()
+{
+   return _tickValue;
 }
 
 

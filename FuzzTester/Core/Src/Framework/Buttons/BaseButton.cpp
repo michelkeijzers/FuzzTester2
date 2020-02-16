@@ -5,97 +5,129 @@
  *      Author: miche
  */
 
+#include <assert.h>
+
 #include <Framework/Buttons/BaseButton.h>
 #include <Framework/SysTickSubscribers.h>
 
-BaseButton::BaseButton(Gpio gpio, uint16_t holdDelayTime, uint16_t holdStepTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
+
+BaseButton::BaseButton(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
 : _gpio(gpio),
-  _buttonState(false),
-  _holdDelayTime(holdDelayTime),
-  _holdStepTime(holdStepTime),
-  _buttonInDebounceMode(false),
+  _state(Released),
+  _callbackFunction(callbackFunction),
+  _firstHoldTime(firstHoldTime),
+  _nextHoldTime(nextHoldTime),
   _debounceTime(debounceTime),
   _sysTickSubscriberIndex(sysTickSubscriberIndex)
 {
    SysTickSubscribers::SetSubscriber(_sysTickSubscriberIndex, this);
+
+   if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
+   {
+      _state = WaitForFirstHold;
+      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _firstHoldTime);
+   }
 }
 
 
 BaseButton::~BaseButton()
 {
-   // TODO Auto-generated destructor stub
+   // No action required
 }
 
 
 void BaseButton::CheckTrigger(uint16_t pin)
 {
-   if ((pin == _gpio.pin) && !_buttonInDebounceMode)
+   if (pin == _gpio.pin)
    {
-      if (!_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET))
+      switch (_state)
       {
-         OnButtonPressed();
-         StartDebounceAndSetButtonState(true);
-      }
-      else if (_buttonState && (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_RESET))
-      {
-         OnButtonReleased();
-         StartDebounceAndSetButtonState(false);
+      case EState::Released:
+         if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
+         {
+            OnButtonPressed();
+            SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+            _state = PressedDebouncing;
+         }
+         break;
+
+      case EState::PressedDebouncing: // Fall through
+      case EState::ReleasedDebouncing:
+         // Ignore press/release, but reset debounce timer.
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+         break;
+
+      case EState::WaitForFirstHold: // Fall through
+      case EState::WaitForNextHold:
+         if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
+         {
+            // Should not happen since button is already pressed
+            OnButtonPressed();
+            SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+            _state = PressedDebouncing;
+         }
+         else
+         {
+            OnButtonReleased();
+            SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+            _state = ReleasedDebouncing;
+         }
+         break;
+
+      default:
+         assert(false);
       }
    }
-}
-
-
-/* virtual */  void BaseButton::OnButtonPressed()
-{
-}
-
-
-/* virtual */ void BaseButton::OnButtonReleased()
-{
-}
-
-
-
-/* virtual */ void BaseButton::OnButtonHold()
-{
-}
-
-
-void BaseButton::StartDebounceAndSetButtonState(bool newButtonState)
-{
-   _buttonInDebounceMode = true;
-   SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
-   _buttonState = newButtonState;
-
 }
 
 
 void BaseButton::OnTick()
 {
-   if (_buttonInDebounceMode)
+   switch (_state)
    {
-      _buttonInDebounceMode = false;
-      bool pinState = HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) ? true : false;
-      if (pinState != _buttonState)
+   case EState::Released:
+      assert(false);
+      break;
+
+   case EState::PressedDebouncing:
+      if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
       {
-        _buttonState = pinState;
-        if (_buttonState)
-        {
-           OnButtonPressed();
-        }
-        else
-        {
-           OnButtonReleased();
-        }
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _firstHoldTime);
+         _state = WaitForFirstHold;;
       }
+      else
+      {
+         // Should not happen
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+         _state = ReleasedDebouncing;
+      }
+      break;
 
-      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, (_buttonState && _holdDelayTime > 0) ? _holdDelayTime : 0);
-   }
-   else
-   {
-      // Hold tick
+   case EState::WaitForFirstHold:
+      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _nextHoldTime);
+      _state = WaitForNextHold;
       OnButtonHold();
+      break;
 
-      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, (_buttonState && _holdStepTime > 0) ? _holdStepTime : 0);
+   case EState::WaitForNextHold:
+      OnButtonHold();
+      break;
+
+   case EState::ReleasedDebouncing:
+      if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
+      {
+         // Should not happen
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _debounceTime);
+         _state = PressedDebouncing;
+      }
+      else
+      {
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);
+         _state = Released;
+      }
+      break;
+
+   default:
+      assert(false);
    }
 }

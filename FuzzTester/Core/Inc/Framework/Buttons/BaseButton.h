@@ -15,29 +15,37 @@
 class BaseButton : ISysTickSubscriber
 {
 public:
-   BaseButton(Gpio gpio, uint16_t holdDelayTime, uint16_t holdStepTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
+   typedef void (*BUTTON_CALLBACK_FUNCTION_PTR)(bool hold);
+
+   enum EState
+   {
+      Released,
+      PressedDebouncing,
+      WaitForFirstHold,
+      WaitForNextHold,
+      ReleasedDebouncing
+   };
+
+   BaseButton(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
 
    virtual ~BaseButton();
 
    void CheckTrigger(uint16_t pin);
 
-   virtual void OnButtonPressed();
+   virtual void OnTick();
 
-   virtual void OnButtonReleased();
+   virtual void OnButtonPressed() = 0;
 
-   virtual void OnButtonHold();
+   virtual void OnButtonReleased() = 0;
 
-   void OnTick();
-
-private:
-   void StartDebounceAndSetButtonState(bool newButtonState);
+   virtual void OnButtonHold() = 0;
 
 protected:
    Gpio     _gpio;
-   bool     _buttonState;
-   uint16_t _holdDelayTime; // Time before hold functionality starts
-   uint16_t _holdStepTime; // Time between each hold trigger
-   bool     _buttonInDebounceMode;
+   EState   _state;
+   BUTTON_CALLBACK_FUNCTION_PTR _callbackFunction;
+   uint16_t _firstHoldTime; // Time before hold functionality starts
+   uint16_t _nextHoldTime; // Time between each hold trigger
    uint16_t _debounceTime;
    uint8_t  _sysTickSubscriberIndex;
 };

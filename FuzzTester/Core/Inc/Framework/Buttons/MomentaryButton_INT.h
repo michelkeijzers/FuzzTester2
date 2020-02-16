@@ -22,8 +22,9 @@ public:
 
 	virtual ~MomentaryButton_INT();
 
-	 /* override */ void OnButtonPressed();
-	 /* override */ void OnButtonReleased();
+   /* override */ void OnButtonPressed();
+   /* override */ void OnButtonReleased();
+   /* override */ void OnButtonHold();
 
 private:
 	MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR        _callbackFunction;

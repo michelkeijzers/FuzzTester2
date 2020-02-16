@@ -12,23 +12,26 @@
 #include <Framework/Gpio.h>
 #include <Framework/SysTickSubscribers.h>
 
+/**
+ * Callback function is misused: false: Off, true: On
+ */
 typedef void (*TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR)(bool onOffState);
 
 class ToggleButton_INT : public BaseButton
 {
 public:
-   ToggleButton_INT(Gpio pin, TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+   ToggleButton_INT(Gpio pin, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
      uint8_t sysTickSubscriberIndex, uint8_t period);
 
 	virtual ~ToggleButton_INT();
 
 private:
-	/* override */ void OnButtonPressed();
+   /* override */ void OnButtonPressed();
+   /* override */ void OnButtonReleased();
+   /* override */ void OnButtonHold();
 
 private:
-	bool                                _onOffState;
-
-	TOGGLE_BUTTON_CALLBACK_FUNCTION_PTR _callbackFunction;
+	bool _onOffState;
 };
 
 #endif /* TOGGLE_BUTTON_INT_H_ */
