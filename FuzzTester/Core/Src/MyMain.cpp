@@ -4,6 +4,7 @@
 #include <Framework/Buttons/MomentaryButton_INT.h>
 #include <Framework/Buttons/ToggleButton_INT.h>
 #include <Framework/KeyPad.h>
+#include <Framework/KeyPad_INT.h>
 #include <Framework/LcdDisplay.h>
 #include <Framework/ShiftRegister.h>
 #include "Framework/SysTickSubscribers.h"
@@ -20,15 +21,16 @@ extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi2;
 
 void ProcessDefaultButtonPressed(bool hold);
-void ProcessDefaultButtonHold();
 void ProcessLongPressButton(bool longPress);
 void ProcessMomentaryButton(bool onOffState);
 void ProcessToggleButton(bool onOffState);
 void ProcessCounterButton(uint8_t currentValue);
 void ProcessCounterDiceButton(uint8_t currentValue);
+void ProcessKeyPad(char key);
 void UpdateLcd();
 
 const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 5;
+// 0: KeyPad_INT 1: Default Button, 2: Counter BUtton, 3: Long Press Button, 4: LCD Display
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
@@ -48,7 +50,8 @@ const Gpio _keyPadColumns[] = { { GPIO_KEYPAD_COLUMN_1_GPIO_Port, GPIO_KEYPAD_CO
                                 { GPIO_KEYPAD_COLUMN_2_GPIO_Port, GPIO_KEYPAD_COLUMN_2_Pin },
                                 { GPIO_KEYPAD_COLUMN_3_GPIO_Port, GPIO_KEYPAD_COLUMN_3_Pin },
                                 { GPIO_KEYPAD_COLUMN_4_GPIO_Port, GPIO_KEYPAD_COLUMN_4_Pin } };
-KeyPad           _keyPad       (4, 4, _keyPadRows, _keyPadColumns);
+
+KeyPad_INT _keyPad(4, 4, "123A456B789C*0#D",_keyPadRows, _keyPadColumns, &ProcessKeyPad, 0, 50);
 
 
 uint16_t _values[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // button 1 + hold, button 2 + hold etc.
@@ -152,6 +155,13 @@ void ProcessCounterDiceButton(uint8_t currentValue)
 }
 
 
+void ProcessKeyPad(char key)
+{
+   static uint8_t item = 0;
+   _values[item] = key;
+   _lcdIsDirty = true;
+   item = (item + 1) % 8;
+}
 
 void MyInit()
 {
@@ -168,11 +178,15 @@ void MyInit()
 
     _lcdDisplay.SetLine(0, "Using 1602 LCD");
     _lcdDisplay.SetLine(1, "I2C Mode  v10");
+
+    // Keypad init.
+    _keyPad.Init();
 }
 
 
 int MyMain(void)
 {
+   /*
    uint16_t key = _keyPad.Scan();
    if (key != 0)
    {
@@ -191,20 +205,24 @@ int MyMain(void)
 	  _shiftRegister.ShiftOut(_dataToShift + n, 1);
 	  HAL_Delay(100);
    }
-
+    */
    return 0;
 }
 
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  _defaultButton.CheckTrigger(GPIO_Pin);
-  _toggleButton.CheckTrigger(GPIO_Pin);
-  _counterButton.CheckTrigger(GPIO_Pin);
+   // Keys
+   _defaultButton.CheckTrigger(GPIO_Pin);
+   _toggleButton.CheckTrigger(GPIO_Pin);
+   _counterButton.CheckTrigger(GPIO_Pin);
 
-  //_momentaryButton.CheckTrigger(GPIO_Pin);
-  //_counterDiceButton.CheckTrigger(GPIO_Pin);
-  _longPressButton.CheckTrigger(GPIO_Pin);
+   //_momentaryButton.CheckTrigger(GPIO_Pin);
+   //_counterDiceButton.CheckTrigger(GPIO_Pin);
+   _longPressButton.CheckTrigger(GPIO_Pin);
+
+   // Key pad
+   _keyPad.OnKeyPressed(GPIO_Pin);
 }
 
 

@@ -36,8 +36,10 @@ public:
    char     KeyPad_WaitForKeyGetChar(uint32_t timeout);
 
 private:
-   uint8_t     _nrOfRows;
-   uint8_t     _nrOfColumns;
+   uint8_t _nrOfRows;
+   uint8_t _nrOfColumns;
+
+   char* keys;
 
    Gpio _rows[MAX_NR_OF_KEY_PAD_ROWS];
    Gpio _columns[MAX_NR_OF_KEY_PAD_COLUMNS];
