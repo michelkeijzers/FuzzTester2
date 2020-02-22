@@ -1,23 +1,38 @@
 /*
- * KeyPad.cpp
+ * KeyPad_INT.cpp
  *
  *  Created on: Feb 1, 2020
- *      Author: miche
+ *      Author: michel
+ *
+ * If pollTime = 10 ms, do not use a debounce speed of 10 ms (use 20 ms)
  */
 
+
 #include <assert.h>
-
 #include <Framework/KeyPad.h>
+#include <stdlib.h>
+#include <string.h>
 
-const uint8_t KEY_PAD_DEBOUNCE_TIME_MS = 10;
-
-KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const Gpio rows[], const Gpio columns[])
+KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const Gpio rows[], const Gpio columns[],
+      KEY_PAD_CALLBACK_FUNCTION_PTR callbackFunction,
+      uint8_t pollTime, uint16_t firstHoldTime, uint16_t nextHoldTime,
+      uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
+: _nrOfRows(nrOfRows),
+  _nrOfColumns(nrOfColumns),
+  _callbackFunction(callbackFunction),
+  _firstHoldTime(firstHoldTime),
+  _nextHoldTime(nextHoldTime),
+  _debounceTime(debounceTime),
+  _sysTickSubscriberIndex(sysTickSubscriberIndex),
+  _state(Idle),
+  _timer(0),
+  _previousKey(' ')
 {
+   SysTickSubscribers::SetSubscriber(_sysTickSubscriberIndex, this);
+   SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, pollTime);
+
    assert (nrOfRows <= MAX_NR_OF_KEY_PAD_ROWS);
    assert (nrOfColumns <= MAX_NR_OF_KEY_PAD_COLUMNS);
-
-   _nrOfRows = nrOfRows;
-   _nrOfColumns = nrOfColumns;
 
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
@@ -28,175 +43,199 @@ KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const Gpio rows[], const G
    {
       _columns[column] = columns[column];
    }
+
+   _keys = (char*) malloc(_nrOfRows * _nrOfColumns);
+   if (_keys != NULL)
+   {
+      strncpy(_keys, keys, _nrOfRows * _nrOfColumns);
+   }
+   else
+   {
+      assert(false);
+   }
 }
 
 
 KeyPad::~KeyPad()
 {
-
+   // No functionality needed
 }
 
 
-uint16_t KeyPad::Scan(void)
+void KeyPad::Init()
 {
-    uint16_t key=0;
-
-    for (uint8_t column = 0 ; column < _nrOfColumns; column++)
-    {
-        for (uint8_t columnToSet = 0 ; columnToSet < _nrOfColumns ; columnToSet++)
-        {
-            HAL_GPIO_WritePin(_columns[columnToSet].port, _columns[columnToSet].pin, GPIO_PIN_SET);
-        }
-
-        HAL_GPIO_WritePin(_columns[column].port, _columns[column].pin, GPIO_PIN_RESET);
-        HAL_Delay(5);
-
-        for (uint8_t row = 0 ; row < _nrOfRows ; row++)
-        {
-            if (HAL_GPIO_ReadPin(_rows[row].port, _rows[row].pin) == GPIO_PIN_RESET)
-            {
-                HAL_Delay(KEY_PAD_DEBOUNCE_TIME_MS);
-                if (HAL_GPIO_ReadPin(_rows[row].port, _rows[row].pin) == GPIO_PIN_RESET)
-                {
-                   key = ((row + 1) << 8) + (column + 1);
-                   while (HAL_GPIO_ReadPin(_rows[row].port, _rows[row].pin) == GPIO_PIN_RESET)
-                      HAL_Delay(5);
-                   return key;
-                }
-            }
-        }
-    }
-
-    return key;
-}
-
-
-char KeyPad::GetChar(uint16_t key)
-{
-   char keyChar;
-
-   switch (key)
+   SetRows();
+   for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-   case 0x0101: keyChar = '1'; break;
-   case 0x0102: keyChar = '2'; break;
-   case 0x0103: keyChar = '3'; break;
-   case 0x0104: keyChar = 'A'; break;
-   case 0x0201: keyChar = '4'; break;
-   case 0x0202: keyChar = '5'; break;
-   case 0x0203: keyChar = '6'; break;
-   case 0x0204: keyChar = 'B'; break;
-   case 0x0301: keyChar = '7'; break;
-   case 0x0302: keyChar = '8'; break;
-   case 0x0303: keyChar = '9'; break;
-   case 0x0304: keyChar = 'C'; break;
-   case 0x0401: keyChar = '*'; break;
-   case 0x0402: keyChar = '0'; break;
-   case 0x0403: keyChar = '#'; break;
-   case 0x0404: keyChar = 'D'; break;
-   default    : keyChar = '?'; break;
+      HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_RESET);
+   }
+}
+
+
+/**
+ * Hold state before main state, because main state affects hold state
+ */
+/* override */ void KeyPad::OnTick()
+{
+   switch (_state)
+   {
+   case Idle:                   // Fall through
+   {
+      char key = Scan();
+      if (key != ' ')
+      {
+         _previousKey = key;
+         _timer = SysTickSubscribers::GetTick();
+         _state = DebouncingPressed;
+      }
+      break;
    }
 
-   return keyChar;
-}
-/*
-//#############################################################################################
-uint16_t	KeyPad_Scan(void)
-{
-	uint16_t key=0;
-	for(uint8_t c=0 ; c<KeyPad.ColumnSize ; c++)
-	{
-		for(uint8_t	i=0 ; i<KeyPad.ColumnSize ; i++)
-			HAL_GPIO_WritePin((GPIO_TypeDef*)_KEYPAD_COLUMN_GPIO_PORT[i],_KEYPAD_COLUMN_GPIO_PIN[i],GPIO_PIN_SET);
-		HAL_GPIO_WritePin((GPIO_TypeDef*)_KEYPAD_COLUMN_GPIO_PORT[c],_KEYPAD_COLUMN_GPIO_PIN[c],GPIO_PIN_RESET);
-		_KEYPAD_DELAY(5);
-		for(uint8_t r=0 ; r<KeyPad.RowSize ; r++)
-		{
-			if(HAL_GPIO_ReadPin((GPIO_TypeDef*)_KEYPAD_ROW_GPIO_PORT[r],_KEYPAD_ROW_GPIO_PIN[r])==GPIO_PIN_RESET)
-			{
-				_KEYPAD_DELAY(_KEYPAD_DEBOUNCE_TIME_MS);
-				if(HAL_GPIO_ReadPin((GPIO_TypeDef*)_KEYPAD_ROW_GPIO_PORT[r],_KEYPAD_ROW_GPIO_PIN[r])==GPIO_PIN_RESET)
-				{
-					key |= 1<<c;
-					key |= 1<<(r+8);
-					while(HAL_GPIO_ReadPin((GPIO_TypeDef*)_KEYPAD_ROW_GPIO_PORT[r],_KEYPAD_ROW_GPIO_PIN[r])==GPIO_PIN_RESET)
-						_KEYPAD_DELAY(5);
-					return key;
-				}
-			}
-		}
-	}
-	return key;
-}
-//#############################################################################################
-uint16_t	KeyPad_WaitForKey(uint32_t	Timeout_ms)
-{
-	uint16_t 	keyRead;
-	while(Timeout_ms==0)
-	{
-		keyRead = KeyPad_Scan();
-		if(keyRead!=0)
-		{
-			KeyPad.LastKey = keyRead;
-			return keyRead;
-		}
-		_KEYPAD_DELAY(_KEYPAD_DEBOUNCE_TIME_MS);
-	}
-	uint32_t	StartTime = HAL_GetTick();
-	while(HAL_GetTick()-StartTime < Timeout_ms)
-	{
-		keyRead = KeyPad_Scan();
-		if(keyRead!=0)
-		{
-			KeyPad.LastKey = keyRead;
-			return keyRead;
-		}
-		_KEYPAD_DELAY(_KEYPAD_DEBOUNCE_TIME_MS);
-	}
-	KeyPad.LastKey=0;
-	return 0;
-}
-//#############################################################################################
-char	KeyPad_WaitForKeyGetChar(uint32_t	Timeout_ms)
-{
-	switch(KeyPad_WaitForKey(Timeout_ms))
-	{
-		case 0x0000:
-			return 0;
-		case 0x0101:
-			return '1';
-		case 0x0201:
-			return '2';
-		case 0x0401:
-			return '3';
-		case 0x0801:
-			return 'A';
-		case 0x0102:
-			return '4';
-		case 0x0202:
-			return '5';
-		case 0x0402:
-			return '6';
-		case 0x0802:
-			return 'B';
-		case 0x0104:
-			return '7';
-		case 0x0204:
-			return '8';
-		case 0x0404:
-			return '9';
-		case 0x0804:
-			return 'C';
-		case 0x0108:
-			return '*';
-		case 0x0208:
-			return '0';
-		case 0x0408:
-			return '#';
-		case 0x0808:
-			return 'D';
+   case DebouncingPressed:
+   {
+      char key = Scan();
+      if (key == ' ')
+      {
+         _timer = SysTickSubscribers::GetTick();
+         _state = DebouncingReleased;
+      }
+      else if (key != _previousKey)
+      {
+         _previousKey = key;
+         _timer = SysTickSubscribers::GetTick();
+      }
+      else if (SysTickSubscribers::GetTick() >= _timer + _debounceTime)
+      {
+         (*_callbackFunction)(key);
+         _timer = SysTickSubscribers::GetTick();
+         _state = WaitForFirstHold;
+      }
+      break;
+   }
 
-		default:
-			return 0;
-	}
+   case DebouncingReleased:
+   {
+      char key = Scan();
+
+      if (SysTickSubscribers::GetTick() >= _timer + _debounceTime)
+      {
+         if (key == ' ')
+         {
+            _state = Idle;
+         }
+         else
+         {
+            _previousKey = key;
+            _timer = SysTickSubscribers::GetTick();
+            _state = DebouncingPressed;
+         }
+      }
+      break;
+   }
+
+   case WaitForFirstHold:
+   {
+      char key = Scan();
+      if (key == ' ')
+      {
+         _timer = SysTickSubscribers::GetTick();
+         _state = DebouncingReleased;
+      }
+      else if (key != _previousKey)
+      {
+         _previousKey = key;
+         _timer = SysTickSubscribers::GetTick();
+         _state = DebouncingPressed;
+      }
+      else if (SysTickSubscribers::GetTick() >= _timer + _firstHoldTime)
+      {
+         (*_callbackFunction)(key);
+         _timer = SysTickSubscribers::GetTick();
+         _state = WaitForNextHold;
+      }
+      break;
+   }
+
+   case WaitForNextHold:
+   {
+      char key = Scan();
+      if (key == ' ')
+      {
+         _timer = SysTickSubscribers::GetTick();
+         _state = DebouncingReleased;
+      }
+      else if (key != _previousKey)
+      {
+         _previousKey = key;
+         _timer = SysTickSubscribers::GetTick();
+         _state = DebouncingPressed;
+      }
+      else if (SysTickSubscribers::GetTick() >= _timer + _nextHoldTime)
+      {
+         (*_callbackFunction)(key);
+         _timer = SysTickSubscribers::GetTick();
+      }
+      break;
+   }
+
+   default:
+      assert(false);
+      break;
+   }
 }
-*/
+
+
+/**
+ * The execution time of this function is 22.7 us on a 72 MHz STM32F103C8T6
+ */
+char KeyPad::Scan()
+{
+   char pressedChar = ' ';
+
+   SetRows();
+
+   for (uint8_t row = 0; row < _nrOfRows; row++)
+   {
+      //HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_RESET);
+      (_rows[row].port)->BSRR = ((uint32_t)(_rows[row].pin)) << 16u;
+      int8_t columnLow = GetLowColumn();
+      //HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_SET);
+      (_rows[row].port)->BSRR = _rows[row].pin;
+
+      if (columnLow != -1)
+      {
+         pressedChar = _keys[row * _nrOfRows + columnLow];
+         break;
+      }
+   }
+
+   SetRows();
+
+   return pressedChar;
+}
+
+
+
+int8_t KeyPad::GetLowColumn()
+{
+   for (uint8_t column = 0; column < _nrOfColumns; column++)
+   {
+      // if (HAL_GPIO_ReadPin(_columns[column].port, _columns[column].pin) == GPIO_PIN_RESET)
+      if ((((_columns[column].port)->IDR) & (_columns[column].pin)) == GPIO_PIN_RESET)
+      {
+         return column;
+      }
+   }
+
+   return -1;
+}
+
+
+void KeyPad::SetRows()
+{
+   for (uint8_t row = 0; row < _nrOfRows; row++)
+   {
+      //HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_SET);
+      (_rows[row].port)->BSRR = _rows[row].pin;
+   }
+}

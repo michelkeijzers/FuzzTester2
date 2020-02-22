@@ -82,7 +82,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+   HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -298,16 +298,16 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : GPIO_PUSH_BUTTON_3_Pin */
   GPIO_InitStruct.Pin = GPIO_PUSH_BUTTON_3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIO_PUSH_BUTTON_3_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GPIO_LATCH_Pin GPIO_KEYPAD_ROW_4_Pin */
-  GPIO_InitStruct.Pin = GPIO_LATCH_Pin|GPIO_KEYPAD_ROW_4_Pin;
+  /*Configure GPIO pin : GPIO_LATCH_Pin */
+  GPIO_InitStruct.Pin = GPIO_LATCH_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIO_LATCH_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : GPIO_PUSH_BUTTON_1_Pin GPIO_PUSH_BUTTON_2_Pin GPIO_PUSH_BUTTON_4_Pin */
   GPIO_InitStruct.Pin = GPIO_PUSH_BUTTON_1_Pin|GPIO_PUSH_BUTTON_2_Pin|GPIO_PUSH_BUTTON_4_Pin;
@@ -315,8 +315,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB12 GPIO_KEYPAD_ROW_3_Pin GPIO_KEYPAD_ROW_2_Pin GPIO_KEYPAD_ROW_1_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_KEYPAD_ROW_3_Pin|GPIO_KEYPAD_ROW_2_Pin|GPIO_KEYPAD_ROW_1_Pin;
+  /*Configure GPIO pin : PB12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -324,15 +324,29 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : GPIO_KEYPAD_COLUMN_4_Pin */
   GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIO_KEYPAD_COLUMN_4_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : GPIO_KEYPAD_COLUMN_3_Pin GPIO_KEYPAD_COLUMN_2_Pin GPIO_KEYPAD_COLUMN_1_Pin */
   GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_3_Pin|GPIO_KEYPAD_COLUMN_2_Pin|GPIO_KEYPAD_COLUMN_1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : GPIO_KEYPAD_ROW_4_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_ROW_4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIO_KEYPAD_ROW_4_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : GPIO_KEYPAD_ROW_3_Pin GPIO_KEYPAD_ROW_2_Pin GPIO_KEYPAD_ROW_1_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_ROW_3_Pin|GPIO_KEYPAD_ROW_2_Pin|GPIO_KEYPAD_ROW_1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
@@ -341,8 +355,8 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
-  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);

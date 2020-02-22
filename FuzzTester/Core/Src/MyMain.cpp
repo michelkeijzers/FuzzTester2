@@ -4,7 +4,7 @@
 #include <Framework/Buttons/MomentaryButton_INT.h>
 #include <Framework/Buttons/ToggleButton_INT.h>
 #include <Framework/KeyPad.h>
-#include <Framework/KeyPad_INT.h>
+#include <Framework/KeyPad.h>
 #include <Framework/LcdDisplay.h>
 #include <Framework/ShiftRegister.h>
 #include "Framework/SysTickSubscribers.h"
@@ -29,18 +29,18 @@ void ProcessCounterDiceButton(uint8_t currentValue);
 void ProcessKeyPad(char key);
 void UpdateLcd();
 
-const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 5;
-// 0: KeyPad_INT 1: Default Button, 2: Counter BUtton, 3: Long Press Button, 4: LCD Display
+const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 6;
+// 0: KeyPad_INT 1: Default Button 2: Toggle Button, 3: Counter Button, 4: Long Press Button, 5: LCD Display
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    ,  500,    1, 0, 50);
-ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,                                        1, 50);
-CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 1000,  100,                            2, 50);
+DefaultButton_INT   _defaultButton     (               { GPIO_PUSH_BUTTON_1_GPIO_Port, GPIO_PUSH_BUTTON_1_Pin }, &ProcessDefaultButtonPressed    ,  500,    1, 1, 50);
+ToggleButton_INT    _toggleButton      (               { GPIO_PUSH_BUTTON_2_GPIO_Port, GPIO_PUSH_BUTTON_2_Pin }, &ProcessToggleButton            ,          2, 50);
+CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO_Port, GPIO_PUSH_BUTTON_3_Pin }, &ProcessCounterButton           , 1000,  100, 3, 50);
 
 //MomentaryButton_INT _momentaryButton     (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessMomentaryButton       ,                                        3, 50);
 //CounterButton_INT     _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       , 1000, 100,                            3, 50);
-LongPressButton_INT _longPressButton     (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, 1000, &ProcessLongPressButton   ,                                        3, 50);
+LongPressButton_INT _longPressButton     (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, 1000, &ProcessLongPressButton   ,                                        4, 50);
 
 const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
@@ -51,13 +51,11 @@ const Gpio _keyPadColumns[] = { { GPIO_KEYPAD_COLUMN_1_GPIO_Port, GPIO_KEYPAD_CO
                                 { GPIO_KEYPAD_COLUMN_3_GPIO_Port, GPIO_KEYPAD_COLUMN_3_Pin },
                                 { GPIO_KEYPAD_COLUMN_4_GPIO_Port, GPIO_KEYPAD_COLUMN_4_Pin } };
 
-KeyPad_INT _keyPad(4, 4, "123A456B789C*0#D",_keyPadRows, _keyPadColumns, &ProcessKeyPad, 0, 50);
+KeyPad _keyPad(4, 4, "123A456B789C*0#D",_keyPadRows, _keyPadColumns, &ProcessKeyPad, 10, 500, 300, 20, 0);
 
 
-uint16_t _values[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // button 1 + hold, button 2 + hold etc.
-bool _toggleButtonOnOffState = false;
-bool _momentaryButtonOnOffState = false;
-
+uint16_t _values[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; // button 1 + hold, button 2 + hold etc for display.
+char     _symbols[8] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }; // Symbols for display
 
 //012345678901235
 // 123-126 126-126   button 1 value + hold . button 2 + hold
@@ -67,7 +65,7 @@ char _lcdLine0[17];
 char _lcdLine1[17];
 
 
-LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &UpdateLcd, 99, 4); // Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of % 100 ms == 0
+LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &UpdateLcd, 99, 5); // Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of % 100 ms == 0
 bool _lcdIsDirty = false;
 
 ShiftRegister    _shiftRegister(&hspi2, GPIO_LATCH_GPIO_Port, GPIO_LATCH_Pin);
@@ -77,14 +75,16 @@ uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
 
 void UpdateLcdLine0()
 {
-   snprintf(_lcdLine0, 17, "%3d-%3d %3d%c%3d", _values[0], _values[1], _values[2], _toggleButtonOnOffState    ? 'X' : '-', _values[3]);
+   snprintf(_lcdLine0, 17, "%3d%c%3d%c%3d%c%3d%c", _values[0], _symbols[0], _values[1], _symbols[1],
+                                                   _values[2], _symbols[2], _values[3], _symbols[3]);
    _lcdDisplay.SetLine(0, _lcdLine0);
 }
 
 
 void UpdateLcdLine1()
 {
-   snprintf(_lcdLine1, 17, "%3d-%3d %3d%c%3d", _values[4], _values[5], _values[6], _momentaryButtonOnOffState ? 'X' : '-', _values[7]);
+   snprintf(_lcdLine1, 17, "%3d%c%3d%c%3d%c%3d%c", _values[4], _symbols[4], _values[5], _symbols[5],
+                                                   _values[6], _symbols[6], _values[7], _symbols[7]);
    _lcdDisplay.SetLine(1, _lcdLine1);
 }
 
@@ -127,7 +127,7 @@ void ProcessLongPressButton(bool longPress)
 
 void ProcessMomentaryButton(bool onOffState)
 {
-   _momentaryButtonOnOffState = onOffState;
+   _symbols[6] = onOffState ? 'X' : ' ';
    _values[6] = (_values[6] + 1) % 1000;
    _lcdIsDirty = true;
 }
@@ -135,7 +135,7 @@ void ProcessMomentaryButton(bool onOffState)
 
 void ProcessToggleButton(bool onOffState)
 {
-   _toggleButtonOnOffState = onOffState;
+   _symbols[2] = onOffState ? 'X' : ' ';
    _values[2] = (_values[2] + 1) % 1000;
    _lcdIsDirty = true;
 }
@@ -158,8 +158,17 @@ void ProcessCounterDiceButton(uint8_t currentValue)
 void ProcessKeyPad(char key)
 {
    static uint8_t item = 0;
+
    _values[item] = key;
+
+   for (int index = 0; index < 8; index++)
+   {
+      _symbols[index] = ' ';
+   }
+   _symbols[item] = '.';
+
    _lcdIsDirty = true;
+
    item = (item + 1) % 8;
 }
 
@@ -177,7 +186,7 @@ void MyInit()
     _lcdDisplay.SetLine(1, "I2C Mode  v09");
 
     _lcdDisplay.SetLine(0, "Using 1602 LCD");
-    _lcdDisplay.SetLine(1, "I2C Mode  v10");
+    _lcdDisplay.SetLine(1, "I2C Mode  v11");
 
     // Keypad init.
     _keyPad.Init();
@@ -186,6 +195,16 @@ void MyInit()
 
 int MyMain(void)
 {
+   // Code for testing keypad Scan speed
+   //uint32_t start = SysTickSubscribers::GetTick();
+   //for (uint32_t i = 0; i < 10000; i++)
+   //{
+   //   char key = _keyPad.Scan();
+   //}
+   //uint32_t end= SysTickSubscribers::GetTick();
+   //char key = _keyPad.Scan();
+
+
    /*
    uint16_t key = _keyPad.Scan();
    if (key != 0)
@@ -220,9 +239,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
    //_momentaryButton.CheckTrigger(GPIO_Pin);
    //_counterDiceButton.CheckTrigger(GPIO_Pin);
    _longPressButton.CheckTrigger(GPIO_Pin);
-
-   // Key pad
-   _keyPad.OnKeyPressed(GPIO_Pin);
 }
 
 
