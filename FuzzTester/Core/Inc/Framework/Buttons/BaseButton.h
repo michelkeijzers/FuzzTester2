@@ -2,7 +2,7 @@
  * BaseButton.h
  *
  *  Created on: Feb 9, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef BASE_BUTTON_H_

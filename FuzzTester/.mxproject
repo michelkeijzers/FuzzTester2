@@ -12,6 +12,7 @@ SourceFiles#1=E:/User/git/FuzzTester/FuzzTester/Core/Src/stm32f1xx_hal_msp.c
 SourceFiles#2=E:/User/git/FuzzTester/FuzzTester/Core/Src/main.c
 SourceFolderListSize=1
 SourcePath#0=E:/User/git/FuzzTester/FuzzTester/Core/Src
+HeaderFiles#3=E:/User/git/FuzzTester/FuzzTester/Core/Inc/main.h
 HeaderFiles=;
 SourceFiles=;
 

@@ -2,7 +2,7 @@
  * SysTickSubscribers.h
  *
  *  Created on: Feb 8, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 

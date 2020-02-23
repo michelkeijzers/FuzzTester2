@@ -2,7 +2,7 @@
  * LcdDisplay.h
  *
  *  Created on: Jan 30, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef LCD_DISPLAY_H_

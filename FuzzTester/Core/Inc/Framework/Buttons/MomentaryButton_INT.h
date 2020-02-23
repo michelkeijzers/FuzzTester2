@@ -2,7 +2,7 @@
  * ToggleButton_INT.h
  *
  *  Created on: Feb 1, 2020
- *      Author: michel
+ *      Author: Michel Keijzers
  */
 
 #ifndef MOMENTARY_BUTTON_INT_H_

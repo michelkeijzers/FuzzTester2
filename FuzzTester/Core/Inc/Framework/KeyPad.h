@@ -2,7 +2,7 @@
  * KeyPad_INT.h
  *
  *  Created on: Feb 1, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef SRC_KEYPAD_INT_H_

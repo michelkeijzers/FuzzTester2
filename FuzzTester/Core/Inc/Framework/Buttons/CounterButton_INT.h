@@ -2,7 +2,7 @@
  * CounterButton_INT.h
  *
  *  Created on: Feb 1, 2020
- *      Author: michel
+ *      Author: Michel Keijzers
  */
 
 #ifndef COUNTER_BUTTON_INT_H_

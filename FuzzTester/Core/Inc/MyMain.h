@@ -2,7 +2,7 @@
  * MyMain.h
  *
  *  Created on: Feb 8, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef INC_MYMAIN_H_

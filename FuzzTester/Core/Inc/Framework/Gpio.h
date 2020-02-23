@@ -2,7 +2,7 @@
  * Gpio.h
  *
  *  Created on: Feb 2, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef GPIO_H_

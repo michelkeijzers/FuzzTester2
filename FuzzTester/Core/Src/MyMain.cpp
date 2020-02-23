@@ -214,6 +214,9 @@ int MyMain(void)
       _lcdDisplay.SetLine(1, line2);
    }
 
+   */
+
+   /*
    for (uint8_t n = 0; n < sizeof(_dataToShift); n++)
    {
 	  //LCD_SendCommand(LCD_ADDR, 0b10000000); // Line 1, address to 0
@@ -224,7 +227,8 @@ int MyMain(void)
 	  _shiftRegister.ShiftOut(_dataToShift + n, 1);
 	  HAL_Delay(100);
    }
-    */
+   */
+
    return 0;
 }
 
