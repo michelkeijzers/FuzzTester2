@@ -15,7 +15,7 @@
 class DefaultButton_INT : public BaseButton
 {
 public:
-   DefaultButton_INT(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+   DefaultButton_INT(GpioId gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
          uint16_t holdDelayTime, uint16_t holdStepTime,
          uint8_t sysTickSubscriberIndex, uint8_t debounceTime);
 

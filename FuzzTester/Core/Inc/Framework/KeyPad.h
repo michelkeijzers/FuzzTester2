@@ -38,7 +38,7 @@ public:
    static const uint8_t MAX_NR_OF_KEY_PAD_ROWS = 4;
    static const uint8_t MAX_NR_OF_KEY_PAD_COLUMNS = 4;
 
-   KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const Gpio rows[], const Gpio columns[],
+   KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const GpioId rows[], const GpioId columns[],
          KEY_PAD_CALLBACK_FUNCTION_PTR callbackFunction,
          uint8_t pollTime, uint16_t firstHoldTime, uint16_t nextHoldTime,
          uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
@@ -61,8 +61,8 @@ private:
 
    char* _keys;
 
-   Gpio _rows[MAX_NR_OF_KEY_PAD_ROWS];
-   Gpio _columns[MAX_NR_OF_KEY_PAD_COLUMNS];
+   GpioId _rows[MAX_NR_OF_KEY_PAD_ROWS];
+   GpioId _columns[MAX_NR_OF_KEY_PAD_COLUMNS];
 
    KEY_PAD_CALLBACK_FUNCTION_PTR _callbackFunction;
 

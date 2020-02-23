@@ -20,7 +20,7 @@ class LongPressButton_INT : public BaseButton
 {
 public:
    LongPressButton_INT(
-    Gpio gpio,
+    GpioId gpio,
     uint16_t longPressTime, BUTTON_CALLBACK_FUNCTION_PTR longPressCallbackFunction,
     uint8_t sysTickSubscriberIndex, uint8_t debounceTime);
 

@@ -10,10 +10,12 @@
 
 #include <assert.h>
 #include <Framework/KeyPad.h>
+#include <Framework/Gpio.h>
 #include <stdlib.h>
 #include <string.h>
 
-KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const Gpio rows[], const Gpio columns[],
+
+KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const GpioId rows[], const GpioId columns[],
       KEY_PAD_CALLBACK_FUNCTION_PTR callbackFunction,
       uint8_t pollTime, uint16_t firstHoldTime, uint16_t nextHoldTime,
       uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
@@ -67,7 +69,7 @@ void KeyPad::Init()
    SetRows();
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-      HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_RESET);
+      RESET_GPIO_PIN(_rows[row].port, _rows[row].pin);
    }
 }
 
@@ -186,21 +188,18 @@ void KeyPad::Init()
 
 
 /**
- * The execution time of this function is 22.7 us on a 72 MHz STM32F103C8T6
+ * The execution time of this function is 21.1 us on a 72 MHz STM32F103C8T6
+ * It can be improved slightly by copying GetLowColumn and SetRows inside this function.
  */
 char KeyPad::Scan()
 {
    char pressedChar = ' ';
 
-   SetRows();
-
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-      //HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_RESET);
-      (_rows[row].port)->BSRR = ((uint32_t)(_rows[row].pin)) << 16u;
+      RESET_GPIO_PIN(_rows[row].port, _rows[row].pin);
       int8_t columnLow = GetLowColumn();
-      //HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_SET);
-      (_rows[row].port)->BSRR = _rows[row].pin;
+      SET_GPIO_PIN(_rows[row].port, _rows[row].pin);
 
       if (columnLow != -1)
       {
@@ -220,8 +219,7 @@ int8_t KeyPad::GetLowColumn()
 {
    for (uint8_t column = 0; column < _nrOfColumns; column++)
    {
-      // if (HAL_GPIO_ReadPin(_columns[column].port, _columns[column].pin) == GPIO_PIN_RESET)
-      if ((((_columns[column].port)->IDR) & (_columns[column].pin)) == GPIO_PIN_RESET)
+      if (IS_GPIO_PIN_RESET(_columns[column].port, _columns[column].pin))
       {
          return column;
       }
@@ -235,7 +233,6 @@ void KeyPad::SetRows()
 {
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-      //HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_SET);
-      (_rows[row].port)->BSRR = _rows[row].pin;
+      SET_GPIO_PIN(_rows[row].port, _rows[row].pin);
    }
 }

@@ -11,7 +11,7 @@
 #include <Framework/SysTickSubscribers.h>
 
 
-BaseButton::BaseButton(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
+BaseButton::BaseButton(GpioId gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
 : _gpio(gpio),
   _state(Released),
   _callbackFunction(callbackFunction),

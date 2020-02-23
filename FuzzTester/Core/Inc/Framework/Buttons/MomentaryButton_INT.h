@@ -17,7 +17,7 @@ typedef void (*MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR)(bool buttonState);
 class MomentaryButton_INT : public BaseButton
 {
 public:
-   MomentaryButton_INT(Gpio pin, MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+   MomentaryButton_INT(GpioId pin, MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
      uint8_t sysTickSubscriberIndex, uint8_t period);
 
 	virtual ~MomentaryButton_INT();

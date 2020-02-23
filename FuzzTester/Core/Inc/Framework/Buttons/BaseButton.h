@@ -26,7 +26,7 @@ public:
       ReleasedDebouncing
    };
 
-   BaseButton(Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
+   BaseButton(GpioId gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
 
    virtual ~BaseButton();
 
@@ -41,7 +41,7 @@ public:
    virtual void OnButtonHold() = 0;
 
 protected:
-   Gpio     _gpio;
+   GpioId     _gpio;
    EState   _state;
    BUTTON_CALLBACK_FUNCTION_PTR _callbackFunction;
    uint16_t _firstHoldTime; // Time before hold functionality starts

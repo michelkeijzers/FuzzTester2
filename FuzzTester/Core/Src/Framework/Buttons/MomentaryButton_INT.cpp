@@ -10,7 +10,7 @@
 #include <Framework/SysTickSubscribers.h>
 
 
-MomentaryButton_INT::MomentaryButton_INT(Gpio gpio, MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+MomentaryButton_INT::MomentaryButton_INT(GpioId gpio, MOMENTARY_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
 :  BaseButton(gpio, callbackFunction, 0, 0, debounceTime, sysTickSubscriberIndex)
 {

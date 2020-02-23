@@ -42,11 +42,11 @@ CounterButton_INT   _counterButton     (0, 10,  2, 50, { GPIO_PUSH_BUTTON_3_GPIO
 //CounterButton_INT     _counterDiceButton (6, -1, -1, 1 , { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, &ProcessCounterDiceButton       , 1000, 100,                            3, 50);
 LongPressButton_INT _longPressButton     (               { GPIO_PUSH_BUTTON_4_GPIO_Port, GPIO_PUSH_BUTTON_4_Pin }, 1000, &ProcessLongPressButton   ,                                        4, 50);
 
-const Gpio _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
+const GpioId _keyPadRows[]    = { { GPIO_KEYPAD_ROW_1_GPIO_Port, GPIO_KEYPAD_ROW_1_Pin },
                                 { GPIO_KEYPAD_ROW_2_GPIO_Port, GPIO_KEYPAD_ROW_2_Pin },
                                 { GPIO_KEYPAD_ROW_3_GPIO_Port, GPIO_KEYPAD_ROW_3_Pin },
                                 { GPIO_KEYPAD_ROW_4_GPIO_Port, GPIO_KEYPAD_ROW_4_Pin } };
-const Gpio _keyPadColumns[] = { { GPIO_KEYPAD_COLUMN_1_GPIO_Port, GPIO_KEYPAD_COLUMN_1_Pin },
+const GpioId _keyPadColumns[] = { { GPIO_KEYPAD_COLUMN_1_GPIO_Port, GPIO_KEYPAD_COLUMN_1_Pin },
                                 { GPIO_KEYPAD_COLUMN_2_GPIO_Port, GPIO_KEYPAD_COLUMN_2_Pin },
                                 { GPIO_KEYPAD_COLUMN_3_GPIO_Port, GPIO_KEYPAD_COLUMN_3_Pin },
                                 { GPIO_KEYPAD_COLUMN_4_GPIO_Port, GPIO_KEYPAD_COLUMN_4_Pin } };
@@ -196,13 +196,13 @@ void MyInit()
 int MyMain(void)
 {
    // Code for testing keypad Scan speed
-   //uint32_t start = SysTickSubscribers::GetTick();
-   //for (uint32_t i = 0; i < 10000; i++)
-   //{
-   //   char key = _keyPad.Scan();
-   //}
-   //uint32_t end= SysTickSubscribers::GetTick();
-   //char key = _keyPad.Scan();
+   uint32_t start = SysTickSubscribers::GetTick();
+   for (uint32_t i = 0; i < 10000; i++)
+   {
+      char key = _keyPad.Scan();
+   }
+   uint32_t end= SysTickSubscribers::GetTick();
+   char key = _keyPad.Scan();
 
 
    /*

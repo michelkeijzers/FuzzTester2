@@ -11,7 +11,7 @@
 
 
 LongPressButton_INT::LongPressButton_INT(
- Gpio gpio,
+ GpioId gpio,
  uint16_t longPressTime, BUTTON_CALLBACK_FUNCTION_PTR longPressCallbackFunction,
  uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
 : BaseButton(gpio, longPressCallbackFunction, longPressTime - debounceTime, 0, debounceTime, sysTickSubscriberIndex)

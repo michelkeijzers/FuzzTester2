@@ -11,7 +11,7 @@
 
 
 DefaultButton_INT::DefaultButton_INT(
-   Gpio gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+   GpioId gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
    uint16_t holdDelayTime, uint16_t holdStepTime,
    uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
 :  BaseButton(gpio, callbackFunction, holdDelayTime, holdStepTime, debounceTime, sysTickSubscriberIndex)
