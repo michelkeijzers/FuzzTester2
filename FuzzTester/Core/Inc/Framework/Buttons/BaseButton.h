@@ -26,7 +26,8 @@ public:
       ReleasedDebouncing
    };
 
-   BaseButton(GpioId gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
+   BaseButton(GpioId gpio, BUTTON_CALLBACK_FUNCTION_PTR callbackFunction,
+    uint16_t firstHoldTime, uint16_t nextHoldTime, uint8_t debounceTime, uint8_t sysTickSubscriberIndex);
 
    virtual ~BaseButton();
 

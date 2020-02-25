@@ -17,7 +17,8 @@ typedef void (*UPDATE_LCD_FUNCTION_PTR)();
 class LcdDisplay : ISysTickSubscriber
 {
 public:
-	LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel, UPDATE_LCD_FUNCTION_PTR callbackFunction, uint16_t refreshTime, uint8_t sysTickSubscriberIndex);
+	LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel, UPDATE_LCD_FUNCTION_PTR callbackFunction,
+	 uint16_t refreshTime, uint8_t sysTickSubscriberIndex);
 	virtual ~LcdDisplay();
 
 	void I2C_Scan();

@@ -34,14 +34,17 @@ const GpioId _keyPadColumns[] = { { GPIO_KEYPAD_COLUMN_1_GPIO_Port, GPIO_KEYPAD_
                                 { GPIO_KEYPAD_COLUMN_3_GPIO_Port, GPIO_KEYPAD_COLUMN_3_Pin },
                                 { GPIO_KEYPAD_COLUMN_4_GPIO_Port, GPIO_KEYPAD_COLUMN_4_Pin } };
 
-KeyPad _keyPad(4, 4, "123A456B789C*0#D",_keyPadRows, _keyPadColumns, &ProcessKeyPad, 10, 500, 300, 20, 0);
+KeyPad _keyPad(4, 4, "123A456B789C*0#D",_keyPadRows, _keyPadColumns, &ProcessKeyPad,
+ 10, 500, 300, 20, 0);
 
 // Display
 
 char _lcdLine0[17];
 char _lcdLine1[17];
 
-LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &UpdateLcd, 99, 1); // Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of % 100 ms == 0
+// Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of
+// % 100 ms == 0
+LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &UpdateLcd, 99, 1);
 bool _lcdIsDirty = false;
 
 // Menu
@@ -113,8 +116,11 @@ uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
 
 void UpdateLcdLine0()
 {
-   snprintf(_lcdLine0, 17, "Fuzz %1d-%2d-%2d-%1d", _selections.capacitor1 + 1, _selections.transistor1 + 1,
-         _selections.transistor2 + 1, _selections.capacitor2 + 1);
+   snprintf(_lcdLine0, 17, "Fuzz %1d-%2d-%2d-%1d",
+    _selections.capacitor1  + 1,
+    _selections.transistor1 + 1,
+    _selections.transistor2 + 1,
+    _selections.capacitor2 + 1);
    _lcdDisplay.SetLine(0, _lcdLine0);
 }
 

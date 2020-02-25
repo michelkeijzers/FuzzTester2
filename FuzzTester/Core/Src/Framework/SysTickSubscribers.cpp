@@ -36,7 +36,8 @@ SysTickSubscribers::~SysTickSubscribers()
 }
 
 
-/* static */ void SysTickSubscribers::SetSubscriber(uint8_t subscriberIndex, ISysTickSubscriber* subscriber)
+/* static */ void SysTickSubscribers::SetSubscriber(uint8_t subscriberIndex,
+   ISysTickSubscriber* subscriber)
 {
    _data[subscriberIndex].sysTickSubscriber = subscriber;
    SetInterval(subscriberIndex, 0);

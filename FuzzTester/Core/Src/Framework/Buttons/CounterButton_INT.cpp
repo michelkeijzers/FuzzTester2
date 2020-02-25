@@ -10,8 +10,10 @@
 #include <Framework/SysTickSubscribers.h>
 
 
-CounterButton_INT::CounterButton_INT(uint16_t startValue, int16_t stepValue, int16_t holdValue, uint16_t endValue,
-      GpioId gpio, COUNTER_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t holdDelayTime, uint16_t holdStepTime,
+CounterButton_INT::CounterButton_INT(uint16_t startValue, int16_t stepValue, int16_t holdValue,
+      uint16_t endValue,
+      GpioId gpio, COUNTER_BUTTON_CALLBACK_FUNCTION_PTR callbackFunction, uint16_t holdDelayTime,
+      uint16_t holdStepTime,
       uint8_t sysTickSubscriberIndex, uint8_t debounceTime)
 :  BaseButton(gpio, NULL, holdDelayTime, holdStepTime, debounceTime, sysTickSubscriberIndex),
    _startValue(startValue),

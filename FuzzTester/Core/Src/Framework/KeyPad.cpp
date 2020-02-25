@@ -15,8 +15,9 @@
 #include <string.h>
 
 
-KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const GpioId rows[], const GpioId columns[],
-      KEY_PAD_CALLBACK_FUNCTION_PTR callbackFunction, 
+KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const GpioId rows[],
+      const GpioId columns[],
+      KEY_PAD_CALLBACK_FUNCTION_PTR callbackFunction,
       uint8_t pollTime, uint16_t firstHoldTime, uint16_t nextHoldTime,
       uint8_t debounceTime, uint8_t sysTickSubscriberIndex)
 : _nrOfRows(nrOfRows),
