@@ -10,7 +10,7 @@
 
 #include <assert.h>
 #include <Framework/KeyPad.h>
-#include <Framework/Gpio.h>
+//#include <Framework/Gpio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -69,7 +69,7 @@ void KeyPad::Init()
    SetRows();
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-      RESET_GPIO_PIN(_rows[row].port, _rows[row].pin);
+      HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_RESET);
    }
 }
 
@@ -197,9 +197,9 @@ char KeyPad::Scan()
 
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-      RESET_GPIO_PIN(_rows[row].port, _rows[row].pin);
+      HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_RESET);
       int8_t columnLow = GetLowColumn();
-      SET_GPIO_PIN(_rows[row].port, _rows[row].pin);
+      HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_SET);
 
       if (columnLow != -1)
       {
@@ -219,7 +219,7 @@ int8_t KeyPad::GetLowColumn()
 {
    for (uint8_t column = 0; column < _nrOfColumns; column++)
    {
-      if (IS_GPIO_PIN_RESET(_columns[column].port, _columns[column].pin))
+      if (HAL_GPIO_ReadPin(_columns[column].port, _columns[column].pin) == GPIO_PIN_RESET)
       {
          return column;
       }
@@ -233,6 +233,6 @@ void KeyPad::SetRows()
 {
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
-      SET_GPIO_PIN(_rows[row].port, _rows[row].pin);
+      HAL_GPIO_WritePin(_rows[row].port, _rows[row].pin, GPIO_PIN_SET);
    }
 }
