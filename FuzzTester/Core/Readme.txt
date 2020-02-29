@@ -56,8 +56,8 @@ Original (NPN)    Mine
                 14: S9013
                 15: S9014
                 16: S9018
-  
-  
+
+
 Graphic display by 1602, selection by keypad.
 
 74HC595's will be used to drive CD4051's for the capacitors and CD4052's for the transistors.
