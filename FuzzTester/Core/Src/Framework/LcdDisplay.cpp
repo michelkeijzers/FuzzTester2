@@ -64,6 +64,7 @@ void LcdDisplay::I2C_Scan()
 
 void LcdDisplay::Init()
 {
+    HAL_Delay(5);
     // 4-bit mode, 2 lines, 5x7 format
     SendCommand(0b00110000);
     // display & cursor home (keep this!)

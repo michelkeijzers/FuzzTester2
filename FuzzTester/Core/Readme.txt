@@ -8,12 +8,14 @@ Keys:
 Display:
 
            1234567890123456
-           Fuzz  8-16-16-8     (always visible)
-           Cap1:4:100nF Cer    (last selected column when a ceramic capacitor is selected)
-           Cap2:5:0.47uF El     (last selected column when an electrolytical capacitor is selected)
-
-           12: BC548B          (info of transistor)
+ line 1:   A1 B12 C20 D8
+ line 2:   Cap A1:100nF Cer    (last selected column when a ceramic capacitor is selected)
+ line 2:   Cap D2:0.47uF El    (last selected column when an electrolytical capacitor is 
+                                selected)
+ line 2:   Trans B12: BC548B   (info of transistor)
            
+
+
 
   
 Fuzz of 100 Faces
@@ -55,3 +57,10 @@ Original (NPN)    Mine
                 15: S9014
                 16: S9018
   
+  
+Graphic display by 1602, selection by keypad.
+
+74HC595's will be used to drive CD4051's for the capacitors and CD4052's for the transistors.
+
+For the connections, see MultiplexerConnections.
+
