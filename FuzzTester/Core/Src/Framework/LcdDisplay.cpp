@@ -64,15 +64,41 @@ void LcdDisplay::I2C_Scan()
 
 void LcdDisplay::Init()
 {
-    HAL_Delay(5);
+    // Wait 15..40 ms after LCD power applied
+    HAL_Delay(50);
+
+    // Try several times - one try may go just for initializing the
+    // IO Expander to get LCD bus to known state.
+    for (uint8_t i = 0; i < 5; i++)
+    {
+        // Try going to 8-bit mode using two nibbles of 0x03
+        SendCommand(0b00110011);
+        // Wait more than 4.1 ms
+        HAL_Delay(6);
+    }
+
+    // Try going to 4-bit mode using nibbles 0x03 and 0x02
+    // First nibble 0x03 is 8-bit command to go to 8-bit mode
+    // Second nibble 0x02 is 8-bit command to go to 4-bit mode
+    SendCommand(0b00110010);
+    // Should be in 4-bit mode now, but without correct line/font info
+    // So, resend Function Set command in 4-bit mode as two nibbles
+
     // 4-bit mode, 2 lines, 5x7 format
-    SendCommand(0b00110000);
+    SendCommand(0b00101000);
+    // Entry Mode Set (increase cursor, no display shift)
+    SendCommand(0b00000110);
     // display & cursor home (keep this!)
     SendCommand(0b00000010);
-    // display on, right shift, underline off, blink off
+    // Cursor Home needs more than 1.5 ms to execute
+    HAL_Delay(3);
+    // display on, cursor off, blink off
     SendCommand(0b00001100);
     // clear display (optional here)
     SendCommand(0b00000001);
+    // Clear Display needs more than 1.5 ms to execute
+    HAL_Delay(3);
+
 }
 
 
