@@ -123,34 +123,53 @@ uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
 /*
  * Bytes to send:
  *
+ *   E-top    F       G       H-bottom
  * 76543210 76543210 76543210 76543210
- *                                 XXX  part  1: Capacitor A1-8
- *                              XXX     part  2: 000: Trans B 1-B 4, 001: Trans B 5-B 8, 010: Trans B 9-B12
- *                                               011: Trans B13-B16, 100: Trans B17-B20
- *                            XX        part  3: Trans B 1-B 4
- *                         XX           part  4: Trans B 5-B 8
- *                       XX             part  5: Trans B 9-B12
- *                     XX               part  6: Trans B13-B16
- *                   XX                 part  7: Trans B17-B20
- *               XXX                    part  8: Capacitor D1-8
- *            XXX                       part  9: 000: Trans C 1-C 4, 001: Trans C 5-C 8, 010: Trans C 9-C12
- *                                      part 10: 011: Trans C13-C16, 100: Trans C17-C20
- *          XX                          part 11: Trans C 1-C 4
- *       XX                             part 12: Trans C 5-C 8
- *     XX                               part 13: Trans C 9-C12
- *   XX                                 part 14: Trans C13-C16
- * XX                                   part 15: Trans C17-C20
+ *                                  xx  part  1: Trans C  5~ 8
+ *                                xx    part  2: Trans C  9~12
+ *                              xx      part  3: Trans C 13~16
+ *                            xx        part  4: Trans C 17~20
+ *                        xxx           part  5: Trans C
+ *                      xx              part  6: Trans C  1~ 4
+ *                   xxx                part  7: Caps D
+ *                xx                    part  1: Trans B  5~ 8
+ *              xx                      part  2: Trans B  9~12
+ *            xx                        part  3: Trans B 13~16
+ *          xx                          part  4: Trans B 17~20
+ *      xxx                             part  5: Trans B
+ *    xx                                part  6: Trans B  1~ 4
+ * xxx                                  part  7: Caps A
  */
 void UpdateMultiplexers()
 {
    uint32_t data = 0;
-   data  =  _selections.capacitorA; // Part 1
-   data |= (_selections.transistorB / 4) << 3; // Part 2
-   data |= (_selections.transistorB % 4) << (6 + 2 * _selections.transistorB / 4); // Part [3..7]
 
-   data |= (_selections.capacitorD) << 16; // Part 9
-   data |= (_selections.transistorC / 4) << 19; // Part 10
-   data |= (_selections.transistorC % 4) << (22 + 2 * _selections.transistorC / 4); // Part [11..15]
+   // Trans C and Caps D
+   if (_selections.transistorC < 4)
+   {
+      data |= _selections.transistorC << 11;        // Trans C 1~4
+   }
+   else
+   {
+      data |= (_selections.transistorC - 4);        // Trans C 5~20
+   }
+
+   data |= (_selections.transistorC / 4) << 8;     // Trans C
+   data |= _selections.capacitorD << 13;            // Caps D
+
+   // Trans B and Caps A
+   if (_selections.transistorB < 4)
+   {
+      data |= _selections.transistorB << 27;        // Trans C 1~4
+   }
+   else
+   {
+      data |= (_selections.transistorB - 4) << 16;  // Trans C 5~20
+   }
+
+   data |= (_selections.transistorB / 4) << 24;    // Trans C
+   data |= _selections.capacitorA << 29;            // Caps D
+
 
    _shiftRegister.ShiftOut((uint8_t*) (&data),  sizeof(data));
 }
