@@ -64,3 +64,9 @@ Graphic display by 1602, selection by keypad.
 
 For the connections, see MultiplexerConnections.
 
+
+
+Notes
+-----
+
+A2->B10

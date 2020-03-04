@@ -9,7 +9,7 @@
  *  SPI Only SPI2 is 5V tolerant, SPI1 is not!
  *
  *  STM32F103 SPI2 PB13   SCK   <-> 11 SH_CP, SRCLK
- *  STM32F103 Latch GPIO (MISO) <-> 12 ST_CP, RCLK
+ *  STM32F103 Latch GPIO (GPIO)) <-> 12 ST_CP, RCLK
  *  STM32F103 SPI2 PB15   MOSI  <-> 14 DS   , SER
  *  5V                          <-> 10 MR   , not SRCLR
  *  GND                         <-> 13 OE   , not OE

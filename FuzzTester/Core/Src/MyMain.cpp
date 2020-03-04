@@ -47,7 +47,7 @@ char _lcdLine1[17];
 // Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of
 // % 100 ms == 0
 LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &Update, 99, 1);
-bool _updateNeededy = false;
+bool _updateNeeded = false;
 
 // Menu
 
@@ -104,6 +104,7 @@ enum ESelected
 
 struct SelectionsStruct
 {
+   uint8_t debugNumber; // max 2 digits
    uint8_t capacitorA;
    uint8_t transistorB;
    uint8_t transistorC;
@@ -117,59 +118,97 @@ SelectionsStruct _selections;
 
 ShiftRegister    _shiftRegister(&hspi2, GPIO_LATCH_GPIO_Port, GPIO_LATCH_Pin);
 
-uint8_t _dataToShift[4] = { 0x00, 0xf0, 0x0f, 0xff };
+
+uint32_t CapacitorAMapping[NR_OF_CAPACITORS] =
+{
+//                                 E-top       F        G    H-bottom
+//                                76543210 76543210 76543210 76543210
+   0x000000E0, // Cap A1                                     111
+   0x000000C0, // Cap A2                                     110
+   0x000000A0, // Cap A3                                     101
+   0x00000080, // Cap A4                                     100
+   0x00000060, // Cap A5                                     011
+   0x00000040, // Cap A6                                     010
+   0x00000020, // Cap A7                                     001
+   0x00000000, // Cap A8                                     000
+};
 
 
-/*
- * Bytes to send:
- *
- *   E-top    F       G       H-bottom
- * 76543210 76543210 76543210 76543210
- *                                  xx  part  1: Trans C  5~ 8
- *                                xx    part  2: Trans C  9~12
- *                              xx      part  3: Trans C 13~16
- *                            xx        part  4: Trans C 17~20
- *                        xxx           part  5: Trans C
- *                      xx              part  6: Trans C  1~ 4
- *                   xxx                part  7: Caps D
- *                xx                    part  1: Trans B  5~ 8
- *              xx                      part  2: Trans B  9~12
- *            xx                        part  3: Trans B 13~16
- *          xx                          part  4: Trans B 17~20
- *      xxx                             part  5: Trans B
- *    xx                                part  6: Trans B  1~ 4
- * xxx                                  part  7: Caps A
- */
+uint32_t TransistorBMapping[NR_OF_TRANSISTORS] =
+{
+//                                 E-top       F        G    H-bottom
+//                                76543210 76543210 76543210 76543210
+   0x00000018, // Trans B01                                     11000
+   0x00000010, // Trans B02                                     10000
+   0x00000008, // Trans B03                                     01000
+   0x00000000, // Trans B04                                     00000
+   0x00000301, // Trans B05                               11      001
+   0x00000201, // Trans B06                               10      001
+   0x00000101, // Trans B07                               01      001
+   0x00000001, // Trans B08                               00      001
+   0x00000C02, // Trans B09                             11        010
+   0x00000802, // Trans B10                             10        010
+   0x00000402, // Trans B11                             01        010
+   0x00000002, // Trans B12                             00        010
+   0x00003003, // Trans B13                           11          011
+   0x00002003, // Trans B14                           10          011
+   0x00001003, // Trans B15                           01          011
+   0x00000003, // Trans B16                           00          011
+   0x0000C004, // Trans B17                         11            100
+   0x00008004, // Trans B18                         10            100
+   0x00004004, // Trans B19                         01            100
+   0x00000004, // Trans B20                         00            100
+};
+
+
+uint32_t TransistorCMapping[NR_OF_TRANSISTORS] =
+{
+//                                 E-top       F        G    H-bottom
+//                                76543210 76543210 76543210 76543210
+   0x00180000, // Trans C01                   11000
+   0x00100000, // Trans C02                   10000
+   0x00080000, // Trans C03                   01000
+   0x00000000, // Trans C04                   00000
+   0x03010000, // Trans C05             11      001
+   0x02010000, // Trans C06             10      001
+   0x01010000, // Trans C07             01      001
+   0x00010000, // Trans C08             00      001
+   0x0C020000, // Trans C09           11        010
+   0x08020000, // Trans C10           10        010
+   0x04020000, // Trans C11           01        010
+   0x00020000, // Trans C12           00        010
+   0x30030000, // Trans C13         11          011
+   0x20030000, // Trans C14         10          011
+   0x10030000, // Trans C15         01          011
+   0x00030000, // Trans C16         00          011
+   0xC0040000, // Trans C17       11            100
+   0x80040000, // Trans C18       10            100
+   0x40040000, // Trans C19       01            100
+   0x00040000, // Trans C20       00            100
+};
+
+
+uint32_t CapacitorDMapping[NR_OF_CAPACITORS] =
+{
+//                                 E-top       F        G    H-bottom
+//                                76543210 76543210 76543210 76543210
+   0x00E00000, // Cap D1                   111
+   0x00C00000, // Cap D2                   110
+   0x00A00000, // Cap D3                   101
+   0x00800000, // Cap D4                   100
+   0x00600000, // Cap D5                   011
+   0x00400000, // Cap D6                   010
+   0x00200000, // Cap D7                   001
+   0x00000000, // Cap D8                   000
+};
+
+
 void UpdateMultiplexers()
 {
-   uint32_t data = 0;
-
-   // Trans C and Caps D
-   if (_selections.transistorC < 4)
-   {
-      data |= _selections.transistorC << 11;        // Trans C 1~4
-   }
-   else
-   {
-      data |= (_selections.transistorC - 4);        // Trans C 5~20
-   }
-
-   data |= (_selections.transistorC / 4) << 8;     // Trans C
-   data |= _selections.capacitorD << 13;            // Caps D
-
-   // Trans B and Caps A
-   if (_selections.transistorB < 4)
-   {
-      data |= _selections.transistorB << 27;        // Trans C 1~4
-   }
-   else
-   {
-      data |= (_selections.transistorB - 4) << 16;  // Trans C 5~20
-   }
-
-   data |= (_selections.transistorB / 4) << 24;    // Trans C
-   data |= _selections.capacitorA << 29;            // Caps D
-
+   uint32_t data = CapacitorAMapping [_selections.capacitorA ] |
+                   TransistorBMapping[_selections.transistorB] |
+                   TransistorCMapping[_selections.transistorC] |
+                   CapacitorDMapping [_selections.capacitorD ];
 
    _shiftRegister.ShiftOut((uint8_t*) (&data),  sizeof(data));
 }
@@ -177,12 +216,13 @@ void UpdateMultiplexers()
 
 void UpdateLcdLine0()
 {
-   //                       1 2 3456 78 9012 3 456
-   snprintf(_lcdLine0, 17, "A%1d B%02d C%02d D%1d",
+   //                       1 2 34 56 78910 11121314
+   snprintf(_lcdLine0, 17, "A%1d B%02d C%02d D%1d %2d",
     _selections.capacitorA  + 1,
     _selections.transistorB + 1,
     _selections.transistorC + 1,
-    _selections.capacitorD  + 1);
+    _selections.capacitorD  + 1,
+   _selections.debugNumber);
    _lcdDisplay.SetLine(0, _lcdLine0);
 }
 
@@ -219,14 +259,14 @@ void UpdateLcdLine1()
 
 void Update()
 {
-   if (_updateNeededy)
+   if (_updateNeeded)
    {
       // Update multiplexers
       UpdateMultiplexers();
 
       UpdateLcdLine0();
       UpdateLcdLine1();
-      _updateNeededy = false;
+      _updateNeeded = false;
    }
 }
 
@@ -302,7 +342,7 @@ void ProcessKeyPad(char key)
       assert(false);
    }
 
-   _updateNeededy = true;
+   _updateNeeded = true;
 }
 
 void MyInit()
@@ -322,28 +362,56 @@ void MyInit()
     _selections.capacitorD   = 0;
     _selections.lastSelected = Capacitor1;
 
-    _updateNeededy = true;
+    _updateNeeded = true;
 }
 
 
 int MyMain(void)
 {
 
-   uint16_t key = _keyPad.Scan();
-   if (key != 0)
+   //uint16_t key = _keyPad.Scan();
+   //if (key != 0)
+   //{
+
+   //}
+
+   HAL_Delay(500);
+
+   while (true)
    {
+      int delayTime = 200;
 
-   }
+      for (int capA = 0; capA < NR_OF_CAPACITORS; capA++)
+      {
+         _selections.capacitorA = capA;
+         UpdateLcdLine0();
+         UpdateMultiplexers();
+         HAL_Delay(delayTime);
+      }
 
-   for (uint8_t n = 0; n < sizeof(_dataToShift); n++)
-   {
-	  //LCD_SendCommand(LCD_ADDR, 0b10000000); // Line 1, address to 0
-	  //LCD_SendString(LCD_ADDR, "Cx Txx Txx Cx");
-	  //LCD_SendCommand(LCD_ADDR, 0b11000000); // Line 2, address to 40
-	  //LCD_SendString(LCD_ADDR, "Cap 1: 10 uF");
+      for (int transB = 0; transB < NR_OF_TRANSISTORS; transB++)
+      {
+         _selections.transistorB = transB;
+         UpdateLcdLine0();
+         UpdateMultiplexers();
+         HAL_Delay(delayTime);
+      }
 
-	 // _shiftRegister.ShiftOut(_dataToShift + n, 1);
-	  HAL_Delay(100);
+      for (int transC = 0; transC < NR_OF_TRANSISTORS; transC++)
+      {
+         _selections.transistorC = transC;
+         UpdateLcdLine0();
+         UpdateMultiplexers();
+         HAL_Delay(delayTime);
+      }
+
+      for (int capD = 0; capD < NR_OF_CAPACITORS; capD++)
+      {
+         _selections.capacitorD = capD;
+         UpdateLcdLine0();
+         UpdateMultiplexers();
+         HAL_Delay(delayTime);
+      }
    }
 
    return 0;
