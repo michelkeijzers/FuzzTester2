@@ -136,32 +136,6 @@ F 3 "~" H 3000 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C?
-U 1 1 5E8DF998
-P 4550 1950
-AR Path="/5E8DF998" Ref="C?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF998" Ref="C3"  Part="1" 
-F 0 "C3" H 4665 1996 50  0000 L CNN
-F 1 "22uF" H 4665 1905 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4588 1800 50  0001 C CNN
-F 3 "~" H 4550 1950 50  0001 C CNN
-	1    4550 1950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C?
-U 1 1 5E8DF99E
-P 4550 3000
-AR Path="/5E8DF99E" Ref="C?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF99E" Ref="C4"  Part="1" 
-F 0 "C4" H 4665 3046 50  0000 L CNN
-F 1 "22uF" H 4665 2955 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4588 2850 50  0001 C CNN
-F 3 "~" H 4550 3000 50  0001 C CNN
-	1    4550 3000
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5E8DF9A4
 P 3000 2450
@@ -262,19 +236,6 @@ Wire Wire Line
 	3550 3050 3550 2850
 Connection ~ 3550 2850
 $Comp
-L Device:C C?
-U 1 1 5E8DF9D5
-P 3550 3200
-AR Path="/5E8DF9D5" Ref="C?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF9D5" Ref="C2"  Part="1" 
-F 0 "C2" H 3665 3246 50  0000 L CNN
-F 1 "100uF" H 3665 3155 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3588 3050 50  0001 C CNN
-F 3 "~" H 3550 3200 50  0001 C CNN
-	1    3550 3200
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5E8DF9E2
 P 4550 1800
@@ -287,7 +248,6 @@ F 3 "" H 4550 1800 50  0001 C CNN
 	1    4550 1800
 	1    0    0    -1  
 $EndComp
-Connection ~ 4550 1800
 Wire Wire Line
 	3450 1800 3550 1800
 Connection ~ 3550 1800
@@ -306,7 +266,6 @@ F 3 "" H 4550 2850 50  0001 C CNN
 	1    4550 2850
 	1    0    0    -1  
 $EndComp
-Connection ~ 4550 2850
 Wire Wire Line
 	3550 1800 3550 2850
 Text Notes 3300 1150 0    50   ~ 10
@@ -419,4 +378,39 @@ Wire Wire Line
 	1900 1800 1650 1800
 Wire Wire Line
 	1650 1800 1650 2200
+$Comp
+L Device:CP1 C4
+U 1 1 5E99E117
+P 4550 3000
+F 0 "C4" H 4665 3046 50  0000 L CNN
+F 1 "22uF" H 4665 2955 50  0000 L CNN
+F 2 "" H 4550 3000 50  0001 C CNN
+F 3 "~" H 4550 3000 50  0001 C CNN
+	1    4550 3000
+	1    0    0    -1  
+$EndComp
+Connection ~ 4550 2850
+$Comp
+L Device:CP1 C3
+U 1 1 5E99F224
+P 4550 1950
+F 0 "C3" H 4665 1996 50  0000 L CNN
+F 1 "22uF" H 4665 1905 50  0000 L CNN
+F 2 "" H 4550 1950 50  0001 C CNN
+F 3 "~" H 4550 1950 50  0001 C CNN
+	1    4550 1950
+	1    0    0    -1  
+$EndComp
+Connection ~ 4550 1800
+$Comp
+L Device:CP1 C2
+U 1 1 5E99F989
+P 3550 3200
+F 0 "C2" H 3665 3246 50  0000 L CNN
+F 1 "100uF" H 3665 3155 50  0000 L CNN
+F 2 "" H 3550 3200 50  0001 C CNN
+F 3 "~" H 3550 3200 50  0001 C CNN
+	1    3550 3200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
