@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 10
-Title ""
+Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date ""
-Rev ""
+Rev "0.1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -190,8 +190,8 @@ $Comp
 L Device:R R2
 U 1 1 5EC42733
 P 5600 2200
-F 0 "R2" V 5393 2200 50  0000 C CNN
-F 1 "100K" V 5484 2200 50  0000 C CNN
+F 0 "R2" V 5500 2200 50  0000 C CNN
+F 1 "100K" V 5600 2200 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5530 2200 50  0001 C CNN
 F 3 "~" H 5600 2200 50  0001 C CNN
 	1    5600 2200
@@ -420,7 +420,7 @@ L Device:R R3
 U 1 1 5F9EB2AA
 P 8400 1450
 F 0 "R3" H 8470 1496 50  0000 L CNN
-F 1 "10K" H 8470 1405 50  0000 L CNN
+F 1 "10K" H 8450 1400 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8330 1450 50  0001 C CNN
 F 3 "~" H 8400 1450 50  0001 C CNN
 	1    8400 1450

@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 4 10
-Title ""
+Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date ""
-Rev ""
+Rev "0.1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -29,40 +29,40 @@ $EndComp
 $Comp
 L Device:R R?
 U 1 1 5E8FB44D
-P 3100 2300
+P 2950 2300
 AR Path="/5E8FB44D" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5E8FB44D" Ref="R8"  Part="1" 
-F 0 "R8" V 2893 2300 50  0000 C CNN
-F 1 "1K" V 2984 2300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 2300 50  0001 C CNN
-F 3 "~" H 3100 2300 50  0001 C CNN
-	1    3100 2300
+F 0 "R8" V 2900 2450 50  0000 C CNN
+F 1 "1K" V 2950 2300 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2880 2300 50  0001 C CNN
+F 3 "~" H 2950 2300 50  0001 C CNN
+	1    2950 2300
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5E8FB453
-P 2750 2400
+P 2600 2400
 AR Path="/5E8FB453" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5E8FB453" Ref="R7"  Part="1" 
-F 0 "R7" V 2543 2400 50  0000 C CNN
-F 1 "1K" V 2634 2400 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2680 2400 50  0001 C CNN
-F 3 "~" H 2750 2400 50  0001 C CNN
-	1    2750 2400
+F 0 "R7" V 2550 2550 50  0000 C CNN
+F 1 "1K" V 2600 2400 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2530 2400 50  0001 C CNN
+F 3 "~" H 2600 2400 50  0001 C CNN
+	1    2600 2400
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5E8FB459
-P 2350 2500
+P 2250 2500
 AR Path="/5E8FB459" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5E8FB459" Ref="R6"  Part="1" 
-F 0 "R6" V 2143 2500 50  0000 C CNN
-F 1 "1K" V 2234 2500 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2280 2500 50  0001 C CNN
-F 3 "~" H 2350 2500 50  0001 C CNN
-	1    2350 2500
+F 0 "R6" V 2200 2650 50  0000 C CNN
+F 1 "1K" V 2250 2500 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 2180 2500 50  0001 C CNN
+F 3 "~" H 2250 2500 50  0001 C CNN
+	1    2250 2500
 	0    1    1    0   
 $EndComp
 $Comp
@@ -71,17 +71,17 @@ U 1 1 5E8FB45F
 P 1900 2600
 AR Path="/5E8FB45F" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5E8FB45F" Ref="R5"  Part="1" 
-F 0 "R5" V 1693 2600 50  0000 C CNN
-F 1 "1K" V 1784 2600 50  0000 C CNN
+F 0 "R5" V 1850 2750 50  0000 C CNN
+F 1 "1K" V 1900 2600 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 1830 2600 50  0001 C CNN
 F 3 "~" H 1900 2600 50  0001 C CNN
 	1    1900 2600
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	2600 2400 1800 2400
+	2450 2400 1800 2400
 Wire Wire Line
-	1800 2500 2200 2500
+	1700 2500 1800 2500
 Wire Wire Line
 	1800 2600 1750 2600
 $Comp
@@ -147,20 +147,29 @@ Text HLabel 1800 2100 2    50   Input ~ 0
 GPIO_KEYPAD_ROW_3
 Text HLabel 1800 2200 2    50   Input ~ 0
 GPIO_KEYPAD_ROW_4
-Text HLabel 3250 2300 2    50   Input ~ 0
+Text HLabel 3100 2300 2    50   Input ~ 0
 GPIO_KEYPAD_COLUMN_1
-Text HLabel 3250 2400 2    50   Input ~ 0
+Text HLabel 3100 2400 2    50   Input ~ 0
 GPIO_KEYPAD_COLUMN_2
-Text HLabel 3250 2500 2    50   Input ~ 0
+Text HLabel 3100 2500 2    50   Input ~ 0
 GPIO_KEYPAD_COLUMN_3
-Text HLabel 3250 2600 2    50   Input ~ 0
+Text HLabel 3100 2600 2    50   Input ~ 0
 GPIO_KEYPAD_COLUMN_4
 Wire Wire Line
-	1800 2300 2950 2300
+	1800 2300 2800 2300
 Wire Wire Line
-	3250 2400 2900 2400
+	3100 2400 2750 2400
 Wire Wire Line
-	2500 2500 3250 2500
+	2400 2500 3100 2500
 Wire Wire Line
-	3250 2600 2050 2600
+	3100 2600 2050 2600
+Connection ~ 1800 2400
+Wire Wire Line
+	1800 2400 1700 2400
+Connection ~ 1800 2500
+Wire Wire Line
+	1800 2500 2100 2500
+Connection ~ 2050 2600
+Wire Wire Line
+	2050 2600 1950 2600
 $EndSCHEMATC

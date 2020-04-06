@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 10 10
-Title ""
+Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date ""
-Rev ""
+Rev "0.1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -34,7 +34,7 @@ F 3 "https://www.onsemi.com/pub/Collateral/MMBTA42LT1-D.PDF" H 1600 3400 50  000
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MPSA42 Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993AE
 P 9950 3400
 AR Path="/5E87C69B/5EA993AE" Ref="Q?"  Part="1" 
@@ -50,7 +50,7 @@ F 3 "http://www.onsemi.com/pub_link/Collateral/MPSA42-D.PDF" H 9950 3400 50  000
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:PN2222A Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993B4
 P 9950 2750
 AR Path="/5E87C69B/5EA993B4" Ref="Q?"  Part="1" 
@@ -66,7 +66,7 @@ F 3 "http://www.fairchildsemi.com/ds/PN/PN2222A.pdf" H 9950 2750 50  0001 L CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MPSA42 Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993BA
 P 9950 2100
 AR Path="/5E87C69B/5EA993BA" Ref="Q?"  Part="1" 
@@ -82,7 +82,7 @@ F 3 "http://www.onsemi.com/pub_link/Collateral/MPSA42-D.PDF" H 9950 2100 50  000
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MPSA42 Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993C0
 P 9950 1450
 AR Path="/5E87C69B/5EA993C0" Ref="Q?"  Part="1" 
@@ -114,7 +114,7 @@ F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_B
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MMDT2222A Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993CD
 P 7750 3400
 AR Path="/5E87C69B/5EA993CD" Ref="Q?"  Part="1" 
@@ -130,7 +130,7 @@ F 3 "http://www.diodes.com/_files/datasheets/ds30125.pdf" H 7750 3400 50  0001 C
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MMDT2222A Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993D3
 P 7750 2100
 AR Path="/5E87C69B/5EA993D3" Ref="Q?"  Part="1" 
@@ -146,7 +146,7 @@ F 3 "http://www.diodes.com/_files/datasheets/ds30125.pdf" H 7750 2100 50  0001 C
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MMDT2222A Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993D9
 P 7750 1450
 AR Path="/5E87C69B/5EA993D9" Ref="Q?"  Part="1" 
@@ -162,7 +162,7 @@ F 3 "http://www.diodes.com/_files/datasheets/ds30125.pdf" H 7750 1450 50  0001 C
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:MMDT2222A Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA993DF
 P 5750 3350
 AR Path="/5E87C69B/5EA993DF" Ref="Q?"  Part="1" 
@@ -200,7 +200,7 @@ F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_B
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:BC847BDW1 Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EA99402
 P 3850 2700
 AR Path="/5E87C69B/5EA99402" Ref="Q?"  Part="1" 
@@ -1340,7 +1340,7 @@ Wire Wire Line
 Wire Wire Line
 	8200 3800 8350 3800
 $Comp
-L Transistor_BJT:S8050 Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5EFF94A6
 P 5750 2700
 AR Path="/5E87C69B/5EFF94A6" Ref="Q?"  Part="1" 
@@ -1362,7 +1362,7 @@ Wire Wire Line
 Text Label 5800 2500 0    50   ~ 0
 11_BASE
 $Comp
-L Transistor_BJT:2SC1815 Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5F014460
 P 5750 2050
 AR Path="/5E87C69B/5F014460" Ref="Q?"  Part="1" 
@@ -1384,7 +1384,7 @@ Wire Wire Line
 Text Label 5800 1850 0    50   ~ 0
 10_BASE
 $Comp
-L Transistor_BJT:MMDT2222A Q?
+L Transistor_BJT:MMBT3904 Q?
 U 1 1 5F02F005
 P 5750 1400
 AR Path="/5E87C69B/5F02F005" Ref="Q?"  Part="1" 

@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 10
-Title ""
+Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date ""
-Rev ""
+Rev "0.1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -492,6 +492,4 @@ Wire Wire Line
 Connection ~ 3400 2100
 Wire Wire Line
 	3400 2100 3400 2200
-Wire Wire Line
-	3400 2100 3500 2100
 $EndSCHEMATC
