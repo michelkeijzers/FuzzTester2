@@ -100,20 +100,6 @@ void LcdDisplay::Init()
     // Clear Display needs more than 1.5 ms to execute
     HAL_Delay(3);
 
-//    // OLD
-//    HAL_Delay(50);
-//    // 4-bit mode, 2 lines, 5x7 format
-//    SendCommand(0b00110000);
-//    HAL_Delay(10);
-//    // display & cursor home (keep this!)
-//    SendCommand(0b00000010);
-//    HAL_Delay(10);
-//    // display on, right shift, underline off, blink off
-//    SendCommand(0b00001100);
-//    HAL_Delay(10);
-//    // clear display (optional here)
-//    SendCommand(0b00000001);
-//    HAL_Delay(10);
 }
 
 

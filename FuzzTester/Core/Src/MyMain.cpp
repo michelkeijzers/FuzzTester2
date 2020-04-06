@@ -53,41 +53,43 @@ bool _updateNeeded = false;
 
 const char* _capacitorInfos[] =
 {
-   //1234567890123456
-    "Cap A1: 10nF Cer", // 1
-    "Cap A2: 33nF Cer", // 2
-    "Cap A3: 47nF Cer", // 3
-    "Cap A4:100nF Cer", // 4
-    "Cap A5:0.47uF El", // 5
-    "Cap A6:   1uF El", // 6
-    "Cap A7: 4.7uF El", // 7
-    "Cap A8:  10uF El", // 8
+   //1234567890123456              TH   0805
+    "Cap A1: 10nF Cer", // 1      Ceramic  Yes
+    "Cap A2: 33nF Cer", // 2      Ceramic  Yes
+    "Cap A3: 47nF Cer", // 3      Ceramic  Yes
+    "Cap A4:100nF Cer", // 4      Ceramic  Yes
+    "Cap A5:0.47uF El", // 5      Elec     Yes
+    "Cap A6:   1uF El", // 6      Elec     Yes
+    "Cap A7: 4.7uF El", // 7      Elec    Ordered
+    "Cap A8:  10uF El", // 8      Elec    Ordered
 };
 
 const char* _transistorInfos[] =
 {
 
   //1234567890123456
-   "Trans B01:2N2222", //  1
-   "Trans B02:2N3904", //  2
-   "Trans B03:2N5088", //  3
-   "Trans B04:2N5551", //  4
-   "Trans B05:A42   ", //  5
-   "Trans B06:BC337 ", //  6
-   "Trans B07:BC547B", //  7
-   "Trans B08:BC548B", //  8
-   "Trans B09:BC639 ", //  9
-   "Trans B10:C945  ", // 10
-   "Trans B11:C1815 ", // 11
-   "Trans B12:MPSA18", // 12
-   "Trans B13:S8050 ", // 13
-   "Trans B14:S9013 ", // 14
-   "Trans B15:S9014 ", // 15
-   "Trans B16:S9018 ", // 16
-   "Trans B17:TODO  ", // 17
+   "Trans B01:2N2222", //  1    MMBT222A SMD
+   "Trans B02:2N3904", //  2    MMBT3904 SMD
+   "Trans B03:2N5088", //  3    2N5088 (TH)               Ebay: MMBT5088 E 5/10
+   "Trans B04:2N5551", //  4    MMBT5551 SMD
+   "Trans B05:A42   ", //  5                   A42
+   "Trans B06:BC337 ", //  6                     BC807
+   "Trans B07:BC547B", //  7                     BC846B
+   "Trans B08:BC548B", //  8                    BC847B
+   "Trans B09:BC639 ", //  9                   BC847C
+   "Trans B10:C945  ", // 10                   C945
+   "Trans B11:C1815 ", // 11                 2SC1815
+   "Trans B12:MPSA18", // 12     MPSA18 (TH)
+   "Trans B13:S8050 ", // 13    (S)S8050  SMD
+   "Trans B14:S9013 ", // 14       S9013  SMD
+   "Trans B15:S9014 ", // 15       S9014  SMD
+   "Trans B16:S9018 ", // 16                   S9018
+   "Trans B17:TODO  ", // 17                   BC848B
    "Trans B18:TODO  ", // 18
-   "Trans B19:TODO  ", // 19
+   "Trans B19:TODO  ", // 19                 2SC1623
    "Trans B20:TODO  ", // 20
+
+   // SMDs BCxxxx:  PNP 807-40   NPN 817-40   NPN 846B   847B 847C   NPN 848B   PNP 856B    PNP 857B
 };
 
 const uint8_t NR_OF_CAPACITORS = 8;
@@ -348,11 +350,9 @@ void ProcessKeyPad(char key)
 void MyInit()
 {
    //_lcdDisplay.I2C_Scan();
-    _lcdDisplay.Init();
+   _lcdDisplay.Init();
 
-    // set address to 0x00
-
-    // Keypad init.
+   // Keypad init.
     _keyPad.Init();
 
     // Selections
@@ -379,6 +379,7 @@ int MyMain(void)
 
    while (true)
    {
+      /*
       int delayTime = 200;
 
       for (int capA = 0; capA < NR_OF_CAPACITORS; capA++)
@@ -412,6 +413,7 @@ int MyMain(void)
          UpdateMultiplexers();
          HAL_Delay(delayTime);
       }
+      */
    }
 
    return 0;
