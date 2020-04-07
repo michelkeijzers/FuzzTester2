@@ -3,15 +3,15 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 10
+Sheet 7 9
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
-Date ""
+Date "2020-04-07"
 Rev "0.1"
-Comp ""
+Comp "Michel Keijzers"
 Comment1 ""
-Comment2 ""
-Comment3 ""
-Comment4 ""
+Comment2 "and 2 sets of 8 capacitors"
+Comment3 "Pedal Effect Fuzz based on 2 sets of 20 different transistors"
+Comment4 "Shift Register for either A capacitors/B transistors or C transistors/D capacitors"
 $EndDescr
 Text Notes 3900 1700 0    50   ~ 10
 Shift Register: Transistor/Capacitor Selection\n\n

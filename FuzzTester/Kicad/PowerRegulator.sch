@@ -3,59 +3,59 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 10
+Sheet 2 9
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
-Date ""
+Date "2020-04-07"
 Rev "0.1"
-Comp ""
+Comp "Michel Keijzers"
 Comment1 ""
-Comment2 ""
-Comment3 ""
-Comment4 ""
+Comment2 "and 2 sets of 8 capacitors (A and D)"
+Comment3 "Guitar pedal effect Fuzz, based on 2 sets of 20 different transistors (B and D)"
+Comment4 "Power Regulator"
 $EndDescr
 $Comp
 L power:+9V #PWR?
 U 1 1 5E8DF95E
-P 1500 2200
+P 1350 1900
 AR Path="/5E8DF95E" Ref="#PWR?"  Part="1" 
 AR Path="/5E8D81C7/5E8DF95E" Ref="#PWR06"  Part="1" 
-F 0 "#PWR06" H 1500 2050 50  0001 C CNN
-F 1 "+9V" H 1515 2373 50  0000 C CNN
-F 2 "" H 1500 2200 50  0001 C CNN
-F 3 "" H 1500 2200 50  0001 C CNN
-	1    1500 2200
+F 0 "#PWR06" H 1350 1750 50  0001 C CNN
+F 1 "+9V" H 1365 2073 50  0000 C CNN
+F 2 "" H 1350 1900 50  0001 C CNN
+F 3 "" H 1350 1900 50  0001 C CNN
+	1    1350 1900
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5E8DF964
-P 1150 2200
+P 1000 1900
 AR Path="/5E8DF964" Ref="#FLG?"  Part="1" 
 AR Path="/5E8D81C7/5E8DF964" Ref="#FLG01"  Part="1" 
-F 0 "#FLG01" H 1150 2275 50  0001 C CNN
-F 1 "PWR_FLAG" H 1150 2373 50  0000 C CNN
-F 2 "" H 1150 2200 50  0001 C CNN
-F 3 "~" H 1150 2200 50  0001 C CNN
-	1    1150 2200
+F 0 "#FLG01" H 1000 1975 50  0001 C CNN
+F 1 "PWR_FLAG" H 1000 2073 50  0000 C CNN
+F 2 "" H 1000 1900 50  0001 C CNN
+F 3 "~" H 1000 1900 50  0001 C CNN
+	1    1000 1900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1650 2200 1500 2200
-Connection ~ 1500 2200
+	1500 1900 1350 1900
+Connection ~ 1350 1900
 $Comp
 L power:GND #PWR?
 U 1 1 5E8DF96C
-P 1500 1700
+P 1350 1400
 AR Path="/5E8DF96C" Ref="#PWR?"  Part="1" 
 AR Path="/5E8D81C7/5E8DF96C" Ref="#PWR07"  Part="1" 
-F 0 "#PWR07" H 1500 1450 50  0001 C CNN
-F 1 "GND" H 1505 1527 50  0000 C CNN
-F 2 "" H 1500 1700 50  0001 C CNN
-F 3 "" H 1500 1700 50  0001 C CNN
-	1    1500 1700
+F 0 "#PWR07" H 1350 1150 50  0001 C CNN
+F 1 "GND" H 1355 1227 50  0000 C CNN
+F 2 "" H 1350 1400 50  0001 C CNN
+F 3 "" H 1350 1400 50  0001 C CNN
+	1    1350 1400
 	1    0    0    -1  
 $EndComp
-Text Notes 1600 1350 0    50   ~ 10
+Text Notes 1300 950  0    50   ~ 10
 9V Power\n
 $Comp
 L power:+9V #PWR?
@@ -268,79 +268,79 @@ F 3 "" H 4550 2850 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3550 1800 3550 2850
-Text Notes 3300 1150 0    50   ~ 10
+Text Notes 3500 1000 0    50   ~ 10
 Power Regulator\n\n
 Text Notes 2950 3800 0    20   ~ 0
 http://embedded-lab.com/blog/multi-purpose-dual-power-supply-5-0v-and-3-3v-regulator-board/
 $Comp
 L Connector:Conn_01x02_Male J?
 U 1 1 5E8DF958
-P 2100 1800
+P 1950 1500
 AR Path="/5E8DF958" Ref="J?"  Part="1" 
 AR Path="/5E8D81C7/5E8DF958" Ref="J6"  Part="1" 
-F 0 "J6" H 2208 1981 50  0000 C CNN
-F 1 "9V Power JST XH" H 2000 1900 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 2100 1800 50  0001 C CNN
-F 3 "~" H 2100 1800 50  0001 C CNN
-	1    2100 1800
+F 0 "J6" H 2058 1681 50  0000 C CNN
+F 1 "9V Power JST XH" H 1850 1600 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 1950 1500 50  0001 C CNN
+F 3 "~" H 1950 1500 50  0001 C CNN
+	1    1950 1500
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	1150 2200 1500 2200
+	1000 1900 1350 1900
 $Comp
 L Connector:Conn_01x03_Male J?
 U 1 1 5FACFC6D
-P 1350 3000
+P 1200 3300
 AR Path="/5FACFC6D" Ref="J?"  Part="1" 
 AR Path="/5E8D81C7/5FACFC6D" Ref="J5"  Part="1" 
-F 0 "J5" H 1458 3281 50  0000 C CNN
-F 1 "TestPower_PinHeader" H 1458 3190 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 1350 3000 50  0001 C CNN
-F 3 "~" H 1350 3000 50  0001 C CNN
-	1    1350 3000
+F 0 "J5" H 1308 3581 50  0000 C CNN
+F 1 "TestPower_PinHeader" H 1308 3490 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 1200 3300 50  0001 C CNN
+F 3 "~" H 1200 3300 50  0001 C CNN
+	1    1200 3300
 	1    0    0    -1  
 $EndComp
-Text Notes 1400 2650 0    50   ~ 10
+Text Notes 1250 2950 0    50   ~ 10
 Test Power\n\n
 $Comp
 L power:+5V #PWR0103
 U 1 1 5FACFDD8
-P 1900 2900
-F 0 "#PWR0103" H 1900 2750 50  0001 C CNN
-F 1 "+5V" H 1915 3073 50  0000 C CNN
-F 2 "" H 1900 2900 50  0001 C CNN
-F 3 "" H 1900 2900 50  0001 C CNN
-	1    1900 2900
+P 1750 3200
+F 0 "#PWR0103" H 1750 3050 50  0001 C CNN
+F 1 "+5V" H 1765 3373 50  0000 C CNN
+F 2 "" H 1750 3200 50  0001 C CNN
+F 3 "" H 1750 3200 50  0001 C CNN
+	1    1750 3200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3V3 #PWR0104
 U 1 1 5FAD14EB
-P 2050 3000
-F 0 "#PWR0104" H 2050 2850 50  0001 C CNN
-F 1 "+3V3" H 2065 3173 50  0000 C CNN
-F 2 "" H 2050 3000 50  0001 C CNN
-F 3 "" H 2050 3000 50  0001 C CNN
-	1    2050 3000
+P 1900 3300
+F 0 "#PWR0104" H 1900 3150 50  0001 C CNN
+F 1 "+3V3" H 1915 3473 50  0000 C CNN
+F 2 "" H 1900 3300 50  0001 C CNN
+F 3 "" H 1900 3300 50  0001 C CNN
+	1    1900 3300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5FAD2482
-P 1550 3100
+P 1400 3400
 AR Path="/5FAD2482" Ref="#PWR?"  Part="1" 
 AR Path="/5E8D81C7/5FAD2482" Ref="#PWR0105"  Part="1" 
-F 0 "#PWR0105" H 1550 2850 50  0001 C CNN
-F 1 "GND" H 1555 2927 50  0000 C CNN
-F 2 "" H 1550 3100 50  0001 C CNN
-F 3 "" H 1550 3100 50  0001 C CNN
-	1    1550 3100
+F 0 "#PWR0105" H 1400 3150 50  0001 C CNN
+F 1 "GND" H 1405 3227 50  0000 C CNN
+F 2 "" H 1400 3400 50  0001 C CNN
+F 3 "" H 1400 3400 50  0001 C CNN
+	1    1400 3400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1550 3000 2050 3000
+	1400 3300 1900 3300
 Wire Wire Line
-	1900 2900 1550 2900
+	1750 3200 1400 3200
 $Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5FAD7663
@@ -359,25 +359,25 @@ Wire Wire Line
 $Comp
 L power:PWR_FLAG #FLG?
 U 1 1 5FBDD6C7
-P 1150 1700
+P 1000 1400
 AR Path="/5FBDD6C7" Ref="#FLG?"  Part="1" 
 AR Path="/5E8D81C7/5FBDD6C7" Ref="#FLG0105"  Part="1" 
-F 0 "#FLG0105" H 1150 1775 50  0001 C CNN
-F 1 "PWR_FLAG" H 1150 1873 50  0000 C CNN
-F 2 "" H 1150 1700 50  0001 C CNN
-F 3 "~" H 1150 1700 50  0001 C CNN
-	1    1150 1700
+F 0 "#FLG0105" H 1000 1475 50  0001 C CNN
+F 1 "PWR_FLAG" H 1000 1573 50  0000 C CNN
+F 2 "" H 1000 1400 50  0001 C CNN
+F 3 "~" H 1000 1400 50  0001 C CNN
+	1    1000 1400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1150 1700 1500 1700
-Connection ~ 1500 1700
+	1000 1400 1350 1400
+Connection ~ 1350 1400
 Wire Wire Line
-	1500 1700 1900 1700
+	1350 1400 1750 1400
 Wire Wire Line
-	1900 1800 1650 1800
+	1750 1500 1500 1500
 Wire Wire Line
-	1650 1800 1650 2200
+	1500 1500 1500 1900
 $Comp
 L Device:CP1 C4
 U 1 1 5E99E117
@@ -413,4 +413,12 @@ F 3 "~" H 3550 3200 50  0001 C CNN
 	1    3550 3200
 	1    0    0    -1  
 $EndComp
+Wire Notes Line
+	2600 500  2600 4100
+Wire Notes Line
+	5100 4100 5100 500 
+Wire Notes Line
+	450  4100 5100 4100
+Wire Notes Line
+	2600 2400 500  2400
 $EndSCHEMATC
