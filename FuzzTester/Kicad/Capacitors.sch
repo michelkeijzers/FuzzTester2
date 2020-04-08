@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 9
+Sheet 3 9
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date "2020-04-07"
 Rev "0.1"
@@ -107,22 +107,6 @@ F 3 "~" H 4750 2750 50  0001 C CNN
 	1    4750 2750
 	1    0    0    -1  
 $EndComp
-Connection ~ 4450 2600
-$Comp
-L power:+5V #PWR?
-U 1 1 5E9AD5A6
-P 4450 2600
-AR Path="/5E87C69B/5E9AD5A6" Ref="#PWR?"  Part="1" 
-AR Path="/5E984186/5E9AD5A6" Ref="#PWR?"  Part="1" 
-AR Path="/5E983DF3/5E9AD5A6" Ref="#PWR030"  Part="1" 
-AR Path="/5F9F739D/5E9AD5A6" Ref="#PWR0100"  Part="1" 
-F 0 "#PWR0100" H 4450 2450 50  0001 C CNN
-F 1 "+5V" H 4465 2773 50  0000 C CNN
-F 2 "" H 4450 2600 50  0001 C CNN
-F 3 "" H 4450 2600 50  0001 C CNN
-	1    4450 2600
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E9AD5AC
@@ -153,9 +137,6 @@ F 3 "" H 4350 4450 50  0001 C CNN
 	1    4350 4450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4250 4450 4350 4450
-Connection ~ 4350 4450
 $Comp
 L power:GND #PWR?
 U 1 1 5E9AD5C3
@@ -331,4 +312,34 @@ Wire Wire Line
 Connection ~ 4850 4250
 Wire Wire Line
 	4850 4250 5250 4250
+$Comp
+L power:-9VA #PWR0116
+U 1 1 5E9087E5
+P 4000 4600
+AR Path="/5E983DF3/5E9087E5" Ref="#PWR0116"  Part="1" 
+AR Path="/5F9F739D/5E9087E5" Ref="#PWR0118"  Part="1" 
+F 0 "#PWR0118" H 4000 4475 50  0001 C CNN
+F 1 "-9VA" H 4015 4773 50  0000 C CNN
+F 2 "" H 4000 4600 50  0001 C CNN
+F 3 "" H 4000 4600 50  0001 C CNN
+	1    4000 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+9VA #PWR0117
+U 1 1 5E916795
+P 4450 2450
+AR Path="/5E983DF3/5E916795" Ref="#PWR0117"  Part="1" 
+AR Path="/5F9F739D/5E916795" Ref="#PWR0119"  Part="1" 
+F 0 "#PWR0119" H 4450 2325 50  0001 C CNN
+F 1 "+9VA" H 4465 2623 50  0000 C CNN
+F 2 "" H 4450 2450 50  0001 C CNN
+F 3 "" H 4450 2450 50  0001 C CNN
+	1    4450 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 4450 4250 4600
+Wire Wire Line
+	4250 4600 4000 4600
 $EndSCHEMATC

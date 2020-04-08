@@ -478,7 +478,7 @@ Text Notes 2200 3450 2    50   ~ 10
 Audio In/Out\n
 Text Notes 8150 4100 2    50   ~ 10
 Shift Registers / Transistor and Capacitor Selection\n
-Text Notes 2450 4900 2    50   ~ 10
+Text Notes 2400 4850 2    50   ~ 10
 Power Regulator\n
 Text Notes 2900 6100 2    50   ~ 10
 Micro Controller Unit and User Interface\n
