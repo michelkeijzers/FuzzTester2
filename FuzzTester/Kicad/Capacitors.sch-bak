@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 9
+Sheet 3 11
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date "2020-04-07"
 Rev "0.1"
@@ -13,21 +13,6 @@ Comment2 "and 2 sets of 8 capacitors"
 Comment3 "Pedal Effect Fuzz based on 2 sets of 20 different transistors"
 Comment4 "A or D capacitors plus selector"
 $EndDescr
-$Comp
-L Analog_Switch:CD4051B U?
-U 1 1 5E9AD56C
-P 4350 3750
-AR Path="/5E87C69B/5E9AD56C" Ref="U?"  Part="1" 
-AR Path="/5E984186/5E9AD56C" Ref="U?"  Part="1" 
-AR Path="/5E983DF3/5E9AD56C" Ref="U4"  Part="1" 
-AR Path="/5F9F739D/5E9AD56C" Ref="U21"  Part="1" 
-F 0 "U21" H 4350 4631 50  0000 C CNN
-F 1 "CD4051B" H 4350 4540 50  0000 C CNN
-F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4500 3000 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4052b.pdf" H 4330 3850 50  0001 C CNN
-	1    4350 3750
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C C?
 U 1 1 5E9AD572
@@ -153,25 +138,15 @@ F 3 "" H 3850 3750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4650 3550 4850 3550
-Wire Wire Line
 	5150 3550 5150 2250
-Wire Wire Line
-	4650 3650 4850 3650
 Wire Wire Line
 	5200 3650 5200 2650
 Wire Wire Line
 	5200 2650 5350 2650
 Wire Wire Line
-	4650 3750 4850 3750
-Wire Wire Line
-	4650 3850 4850 3850
-Wire Wire Line
 	5300 3850 5300 3450
 Wire Wire Line
 	5300 3450 5350 3450
-Wire Wire Line
-	4650 3950 4850 3950
 Wire Wire Line
 	5350 3950 5350 3850
 Wire Wire Line
@@ -180,8 +155,6 @@ Wire Wire Line
 	5250 3050 5250 3750
 Wire Wire Line
 	5350 3050 5250 3050
-Wire Wire Line
-	4650 4250 4850 4250
 Text Notes 5250 1650 2    50   ~ 10
 Capacitor Selection\n
 Text HLabel 3850 3250 0    50   Input ~ 0
@@ -246,10 +219,6 @@ F 3 "~" H 5500 5050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	4650 4050 4850 4050
-Wire Wire Line
-	4650 4150 4850 4150
-Wire Wire Line
 	5350 4650 5300 4650
 Wire Wire Line
 	5300 4650 5300 4150
@@ -288,58 +257,60 @@ Wire Wire Line
 Connection ~ 5650 4650
 Wire Wire Line
 	5650 4650 5650 5050
-Connection ~ 4850 3550
 Wire Wire Line
 	4850 3550 5150 3550
-Connection ~ 4850 3650
 Wire Wire Line
 	4850 3650 5200 3650
-Connection ~ 4850 3750
 Wire Wire Line
 	4850 3750 5250 3750
-Connection ~ 4850 3850
 Wire Wire Line
 	4850 3850 5300 3850
-Connection ~ 4850 3950
 Wire Wire Line
 	4850 3950 5350 3950
-Connection ~ 4850 4050
 Wire Wire Line
 	4850 4050 5350 4050
-Connection ~ 4850 4150
 Wire Wire Line
 	4850 4150 5300 4150
-Connection ~ 4850 4250
 Wire Wire Line
 	4850 4250 5250 4250
 $Comp
-L power:-9VA #PWR0116
-U 1 1 5E9087E5
-P 4000 4600
-AR Path="/5E983DF3/5E9087E5" Ref="#PWR0116"  Part="1" 
-AR Path="/5F9F739D/5E9087E5" Ref="#PWR0118"  Part="1" 
-F 0 "#PWR0118" H 4000 4475 50  0001 C CNN
-F 1 "-9VA" H 4015 4773 50  0000 C CNN
-F 2 "" H 4000 4600 50  0001 C CNN
-F 3 "" H 4000 4600 50  0001 C CNN
-	1    4000 4600
+L power:+9V #PWR0117
+U 1 1 5EAD3DDE
+P 4450 2600
+AR Path="/5E983DF3/5EAD3DDE" Ref="#PWR0117"  Part="1" 
+AR Path="/5F9F739D/5EAD3DDE" Ref="#PWR0119"  Part="1" 
+F 0 "#PWR0119" H 4450 2450 50  0001 C CNN
+F 1 "+9V" H 4465 2773 50  0000 C CNN
+F 2 "" H 4450 2600 50  0001 C CNN
+F 3 "" H 4450 2600 50  0001 C CNN
+	1    4450 2600
 	1    0    0    -1  
 $EndComp
+Connection ~ 4450 2600
 $Comp
-L power:+9VA #PWR0117
-U 1 1 5E916795
-P 4450 2450
-AR Path="/5E983DF3/5E916795" Ref="#PWR0117"  Part="1" 
-AR Path="/5F9F739D/5E916795" Ref="#PWR0119"  Part="1" 
-F 0 "#PWR0119" H 4450 2325 50  0001 C CNN
-F 1 "+9VA" H 4465 2623 50  0000 C CNN
-F 2 "" H 4450 2450 50  0001 C CNN
-F 3 "" H 4450 2450 50  0001 C CNN
-	1    4450 2450
+L Analog_Switch:CD4051B U?
+U 1 1 5E9AD56C
+P 4350 3750
+AR Path="/5E87C69B/5E9AD56C" Ref="U?"  Part="1" 
+AR Path="/5E984186/5E9AD56C" Ref="U?"  Part="1" 
+AR Path="/5E983DF3/5E9AD56C" Ref="U4"  Part="1" 
+AR Path="/5F9F739D/5E9AD56C" Ref="U21"  Part="1" 
+F 0 "U21" H 4350 4631 50  0000 C CNN
+F 1 "CD4051B" H 4350 4540 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4500 3000 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/cd4052b.pdf" H 4330 3850 50  0001 C CNN
+	1    4350 3750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4250 4450 4250 4600
-Wire Wire Line
-	4250 4600 4000 4600
+	4250 4450 4350 4450
+Connection ~ 4350 4450
+Wire Notes Line
+	6950 1450 6950 5450
+Wire Notes Line
+	6950 5450 2450 5450
+Wire Notes Line
+	2450 5450 2450 1450
+Wire Notes Line
+	2450 1450 6950 1450
 $EndSCHEMATC
