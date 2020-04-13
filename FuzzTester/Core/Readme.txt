@@ -56,7 +56,7 @@ Original (NPN)    Mine
                 14: S9013
                 15: S9014
                 16: S9018
-
+d
 
 Graphic display by 1602, selection by keypad.
 
