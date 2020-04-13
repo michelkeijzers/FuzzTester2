@@ -16,48 +16,48 @@ $EndDescr
 $Comp
 L Connector:Conn_01x04_Male J?
 U 1 1 5EDE8C18
-P 950 1250
+P 1050 1850
 AR Path="/5EDE8C18" Ref="J?"  Part="1" 
 AR Path="/5EDE1E76/5EDE8C18" Ref="J1"  Part="1" 
-F 0 "J1" H 1058 1531 50  0000 C CNN
-F 1 "Audio In/Out JST XH" H 1058 1440 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical" H 950 1250 50  0001 C CNN
-F 3 "~" H 950 1250 50  0001 C CNN
-	1    950  1250
+F 0 "J1" H 1158 2131 50  0000 C CNN
+F 1 "Audio In/Out JST XH" H 1158 2040 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical" H 1050 1850 50  0001 C CNN
+F 3 "~" H 1050 1850 50  0001 C CNN
+	1    1050 1850
 	1    0    0    -1  
 $EndComp
-Text Label 1150 1150 0    50   ~ 0
+Text Label 1250 1750 0    50   ~ 0
 JACK_IN_GND
-Text Label 1150 1350 0    50   ~ 0
+Text Label 1250 1950 0    50   ~ 0
 JACK_OUT_GND
 Wire Wire Line
-	1150 1250 1750 1250
-Text Label 1150 1250 0    50   ~ 0
+	1250 1850 1850 1850
+Text Label 1250 1850 0    50   ~ 0
 JACK_IN_SIGNAL
 Wire Wire Line
-	1150 1450 1800 1450
-Text Label 1150 1450 0    50   ~ 0
+	1250 2050 1900 2050
+Text Label 1250 2050 0    50   ~ 0
 JACK_OUT_SIGNAL
 $Comp
 L power:GND #PWR?
 U 1 1 5EDE8C24
-P 2050 1350
+P 2150 1950
 AR Path="/5EDE8C24" Ref="#PWR?"  Part="1" 
 AR Path="/5EDE1E76/5EDE8C24" Ref="#PWR06"  Part="1" 
-F 0 "#PWR06" H 2050 1100 50  0001 C CNN
-F 1 "GND" H 2055 1177 50  0000 C CNN
-F 2 "" H 2050 1350 50  0001 C CNN
-F 3 "" H 2050 1350 50  0001 C CNN
-	1    2050 1350
+F 0 "#PWR06" H 2150 1700 50  0001 C CNN
+F 1 "GND" H 2155 1777 50  0000 C CNN
+F 2 "" H 2150 1950 50  0001 C CNN
+F 3 "" H 2150 1950 50  0001 C CNN
+	1    2150 1950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1150 1350 2050 1350
+	1250 1950 2150 1950
 Wire Wire Line
-	2050 1150 2050 1350
-Connection ~ 2050 1350
+	2150 1750 2150 1950
+Connection ~ 2150 1950
 Wire Wire Line
-	1150 1150 2050 1150
+	1250 1750 2150 1750
 $Comp
 L power:GND #PWR?
 U 1 1 5EDF7F31
@@ -98,14 +98,10 @@ Text Label 3150 2100 0    50   ~ 0
 JACK_OUT_SIGNAL
 Text Notes 4100 950  0    50   ~ 10
 Bypass Selector
-Text Notes 1100 750  0    50   ~ 10
+Text Notes 1200 1350 0    50   ~ 10
 Audio In/Out Connector\n
 Wire Notes Line
 	2550 500  2550 3000
-Wire Notes Line
-	2500 1650 500  1650
-Wire Notes Line
-	2550 3000 6300 3000
 Wire Notes Line
 	6300 3000 6300 500 
 $Comp
@@ -209,4 +205,6 @@ Text HLabel 4850 2400 2    50   Input ~ 0
 NoConn ~ 4850 2500
 Text Notes 4950 2750 0    50   ~ 0
 For both Jack Audio signal \nas 1602 Backlight
+Wire Notes Line
+	550  3000 6300 3000
 $EndSCHEMATC
