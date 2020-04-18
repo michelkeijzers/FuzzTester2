@@ -7,7 +7,7 @@ Shape Version=11.00
 Screen=1920,1200
 MCAPVersion=12.2.0.3
 Key ID=Demo
-NLCnt=492
+NLCnt=494
 TXCnt=1
 
 [shapedef]
@@ -230,7 +230,7 @@ PowerFormat=3
 PathDelayFormat=3
 WarningFormat=3
 GridTextFormulaFormat=3
-Window Placement in Transient Analysis=0,1, -1,-1, -8,-31, 2,2,1575,946
+Window Placement in Transient Analysis=0,1, -1,-1, -8,-31, 0,0,1902,950
 Window Placement in AC Analysis=2,3, -1,-1, -8,-31, 156,156,1755,810
 Window Placement in DC Analysis=2,3, -1,-1, -8,-31, 286,286,3759,924
 SpiceType=AMBIGUOUS
@@ -801,7 +801,7 @@ Style=8192
 
 [Attr]
 ON=-36,19,STATE
-V=Open
+V=Closed
 
 [Attr]
 ON=-21,33,RON
@@ -1312,7 +1312,7 @@ Style=8192
 
 [Attr]
 ON=-36,19,STATE
-V=Open
+V=Closed
 
 [Attr]
 ON=-21,33,RON
@@ -2335,7 +2335,7 @@ Style=8192
 
 [Attr]
 ON=-39,26,CAPACITANCE
-V=1uF
+V=10nF
 Style=8192
 
 [Attr]
@@ -5226,12 +5226,11 @@ Pxs=920,328,920,416
 [Wire]
 Pxs=88,376,88,464
 
-[Node Offsets]
-Section=0
-;Node,Page,GridX,GridY,OffsetX,OffsetY
-Offset=3,0,200,376,9,-32
-Offset=12,0,1160,480,25,-13
-Offset=13,0,1144,456,37,-8
+[Wire]
+Pxs=1112,328,1112,416
+
+[Wire]
+Pxs=608,352,608,440
 
 [Grid Text]
 Text="Capacitor A"
@@ -5415,7 +5414,7 @@ ALIGNBOTTOM=Yes
 
 [Section]
 Index=0
-Name="Fuzz 1000 Faces Original Simple"
+Name="Fuzz 1000 Faces Full"
 Type=Main
 Enable=True
 CurrentPage 0=0
@@ -5437,9 +5436,9 @@ PrinterScale=1
 Scale 0=1
 Scale 1=1
 Scale 2=1
-SB 3=0,894
+SB 3=0,288
 Scale 3=0.66666666666666663
-Px=237,377
+Px=55,443
 WinBackGround Color=#FFFFFF
 Select Color=#FF0000
 Anchor Color=#000000
@@ -5503,7 +5502,7 @@ Type=Text
 Print=False
 Enable=True
 Name=Models
-SB 0=26,2
+SB 0=33,2
 Font=Height=-15,FStyle=0,Color=#000000,Name=Courier New
 Comment Color=#008000
 WinBackGround Color=#FFFFFF
@@ -5537,7 +5536,7 @@ Section=0
 Page=2
 Text=*** From file C:\MC12\library\UTILITY.LBR
 Text=*** 60HZ Sinusoidal Source
-Text=.MODEL 60HZ SIN (A=2 F=60)
+Text=.MODEL 60HZ SIN (A=2 DC=3 F=1000)
 Text=*** From file C:\MC12\library\MSBJT.LBR
 Text=*** NPN General purpose transistor
 Text=.MODEL 2N2222A NPN (BF=200.601 BR=155.257m CJC=36.6437p CJE=35.3531p
@@ -5889,6 +5888,36 @@ ALIGNBOTTOM=Yes
 [APage]
 Analysis=Transient
 Name="MAIN"
+
+[AObject]
+Analysis=Transient
+Object=MeasureH
+Locked=True
+EndPoint=ArrowF
+CBorder=#000080
+w=0
+AliasID1=3
+w2=0
+AliasID2=3
+Pos=0.0020167716417831836,4.7060917807588236,0.00055404950506478181,-4.304585195183078
+Posm=5.0505319148936172
+Font=Height=-15,FStyle=0,Color=#008000,Name=Arial
+Format=3
+
+[AObject]
+Analysis=Transient
+Object=MeasureH
+Locked=True
+EndPoint=ArrowF
+CBorder=#000080
+w=0
+AliasID1=3
+w2=0
+AliasID2=3
+Pos=0.0010540495050647819,3.7140206921731487,0.0053043190507975953,-2.263198251628423
+Posm=3.7140957446808507
+Font=Height=-15,FStyle=0,Color=#008000,Name=Arial
+Format=3
 
 [AC]
 WinID=2
@@ -6349,7 +6378,7 @@ Seed=0
 
 [Limits]
 Analysis=Transient
-TMax=1s
+TMax=0.1s
 TStart=0
 TStep=0.001s
 NPts=51
@@ -6367,11 +6396,11 @@ Plt=1
 AliasID=1
 XExp=T
 YExp=v(1)
-XRng=1
-YRng=6,-1.5
+XRng=0.1
+YRng=9,-6
 Options=LINEARX,LINEARY
-Range Grid X=0.2
-Range Grid Y=1.5
+Range Grid X=0.02
+Range Grid Y=3
 Enable=DontRun
 Line Color=#0000FF
 Text Color=#0000FF
@@ -6419,11 +6448,11 @@ Plt=1
 AliasID=3
 XExp=T
 YExp=v(13)
-XRng=1
-YRng=2e-7,-5e-8
+XRng=0.1
+YRng=9,-6
 Options=LINEARX,LINEARY
-Range Grid X=0.2
-Range Grid Y=5e-8
+Range Grid X=0.02
+Range Grid Y=3
 Enable=Enable
 Line Color=#008000
 Text Color=#008000
