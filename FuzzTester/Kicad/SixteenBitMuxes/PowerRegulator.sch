@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 11
+Sheet 2 9
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date "2020-04-07"
 Rev "0.1"

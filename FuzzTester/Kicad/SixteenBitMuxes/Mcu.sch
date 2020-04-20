@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 11
+Sheet 6 9
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date "2020-04-07"
 Rev "0.1"
@@ -13,19 +13,6 @@ Comment2 "and 2 sets of 8 capacitors"
 Comment3 "Pedal Effect Fuzz based on 2 sets of 20 different transistors"
 Comment4 "Micro Controller Unit and User Interface"
 $EndDescr
-$Comp
-L MCU_ST_STM32F1:STM32F103C8Tx U?
-U 1 1 5E8CE625
-P 3100 3050
-AR Path="/5E8CE625" Ref="U?"  Part="1" 
-AR Path="/5E8BDF21/5E8CE625" Ref="U3"  Part="1" 
-F 0 "U3" H 3050 1461 50  0000 C CNN
-F 1 "STM32F103C8Tx" H 3050 1370 50  0000 C CNN
-F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 2500 1650 50  0001 R CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 3100 3050 50  0001 C CNN
-	1    3100 3050
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C C?
 U 1 1 5E8CE62B
@@ -69,11 +56,6 @@ Wire Wire Line
 	2500 4700 2650 4700
 Wire Wire Line
 	2650 4700 2650 4550
-Wire Wire Line
-	2900 4550 3000 4550
-Connection ~ 3000 4550
-Wire Wire Line
-	3000 4550 3100 4550
 Text Label 2700 4550 0    20   ~ 0
 3V3
 Wire Wire Line
@@ -120,90 +102,86 @@ Wire Wire Line
 $Comp
 L Device:Crystal Y?
 U 1 1 5E8CE662
-P 1950 2200
+P 1350 2200
 AR Path="/5E8CE662" Ref="Y?"  Part="1" 
 AR Path="/5E8BDF21/5E8CE662" Ref="Y1"  Part="1" 
-F 0 "Y1" V 1904 2331 50  0000 L CNN
-F 1 "8MHz" V 1995 2331 50  0000 L CNN
-F 2 "Crystal:Crystal_HC49-U_Vertical" H 1950 2200 50  0001 C CNN
-F 3 "~" H 1950 2200 50  0001 C CNN
-	1    1950 2200
+F 0 "Y1" V 1304 2331 50  0000 L CNN
+F 1 "8MHz" V 1395 2331 50  0000 L CNN
+F 2 "Crystal:Crystal_HC49-U_Vertical" H 1350 2200 50  0001 C CNN
+F 3 "~" H 1350 2200 50  0001 C CNN
+	1    1350 2200
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C?
 U 1 1 5E8CE668
-P 1650 2000
+P 1050 2000
 AR Path="/5E8CE668" Ref="C?"  Part="1" 
 AR Path="/5E8BDF21/5E8CE668" Ref="C5"  Part="1" 
-F 0 "C5" V 1398 2000 50  0000 C CNN
-F 1 "20pF" V 1489 2000 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1688 1850 50  0001 C CNN
-F 3 "~" H 1650 2000 50  0001 C CNN
-	1    1650 2000
+F 0 "C5" V 798 2000 50  0000 C CNN
+F 1 "20pF" V 889 2000 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1088 1850 50  0001 C CNN
+F 3 "~" H 1050 2000 50  0001 C CNN
+	1    1050 2000
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C C?
 U 1 1 5E8CE66E
-P 1650 2400
+P 1050 2400
 AR Path="/5E8CE66E" Ref="C?"  Part="1" 
 AR Path="/5E8BDF21/5E8CE66E" Ref="C6"  Part="1" 
-F 0 "C6" V 1398 2400 50  0000 C CNN
-F 1 "20pF" V 1489 2400 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1688 2250 50  0001 C CNN
-F 3 "~" H 1650 2400 50  0001 C CNN
-	1    1650 2400
+F 0 "C6" V 798 2400 50  0000 C CNN
+F 1 "20pF" V 889 2400 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1088 2250 50  0001 C CNN
+F 3 "~" H 1050 2400 50  0001 C CNN
+	1    1050 2400
 	0    1    1    0   
 $EndComp
 Wire Wire Line
 	2400 2250 2400 2350
 Wire Wire Line
-	2400 2350 1950 2350
+	1200 2400 1200 2350
 Wire Wire Line
-	1800 2400 1800 2350
+	1200 2350 1350 2350
+Connection ~ 1350 2350
 Wire Wire Line
-	1800 2350 1950 2350
-Connection ~ 1950 2350
+	1200 2000 1200 2050
 Wire Wire Line
-	1800 2000 1800 2050
-Wire Wire Line
-	1800 2050 1950 2050
-Wire Wire Line
-	1950 2050 2400 2050
+	1200 2050 1350 2050
 Wire Wire Line
 	2400 2050 2400 2150
-Connection ~ 1950 2050
+Connection ~ 1350 2050
 $Comp
 L power:GND #PWR?
 U 1 1 5E8CE67E
-P 1400 2400
+P 800 2400
 AR Path="/5E8CE67E" Ref="#PWR?"  Part="1" 
 AR Path="/5E8BDF21/5E8CE67E" Ref="#PWR018"  Part="1" 
-F 0 "#PWR018" H 1400 2150 50  0001 C CNN
-F 1 "GND" H 1405 2227 50  0000 C CNN
-F 2 "" H 1400 2400 50  0001 C CNN
-F 3 "" H 1400 2400 50  0001 C CNN
-	1    1400 2400
+F 0 "#PWR018" H 800 2150 50  0001 C CNN
+F 1 "GND" H 805 2227 50  0000 C CNN
+F 2 "" H 800 2400 50  0001 C CNN
+F 3 "" H 800 2400 50  0001 C CNN
+	1    800  2400
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E8CE684
-P 1400 2000
+P 800 2000
 AR Path="/5E8CE684" Ref="#PWR?"  Part="1" 
 AR Path="/5E8BDF21/5E8CE684" Ref="#PWR017"  Part="1" 
-F 0 "#PWR017" H 1400 1750 50  0001 C CNN
-F 1 "GND" H 1405 1827 50  0000 C CNN
-F 2 "" H 1400 2000 50  0001 C CNN
-F 3 "" H 1400 2000 50  0001 C CNN
-	1    1400 2000
+F 0 "#PWR017" H 800 1750 50  0001 C CNN
+F 1 "GND" H 805 1827 50  0000 C CNN
+F 2 "" H 800 2000 50  0001 C CNN
+F 3 "" H 800 2000 50  0001 C CNN
+	1    800  2000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1400 2000 1500 2000
+	800  2000 900  2000
 Wire Wire Line
-	1400 2400 1500 2400
+	800  2400 900  2400
 Wire Wire Line
 	3600 1000 4050 1000
 Connection ~ 3600 1000
@@ -224,9 +202,6 @@ Text Label 2100 3050 0    50   ~ 0
 PB2
 Wire Wire Line
 	2100 3050 2400 3050
-Wire Wire Line
-	2650 4550 2900 4550
-Connection ~ 2900 4550
 Text Notes 2200 900  0    50   ~ 10
 Micro Controller Unit\n\n\n
 Wire Wire Line
@@ -386,21 +361,6 @@ Text HLabel 6500 4800 2    50   Input ~ 0
 GPIO_LATCH
 Text Notes 6350 1300 0    50   ~ 10
 SWD\n\n\n
-NoConn ~ 2400 2650
-NoConn ~ 2400 2550
-NoConn ~ 2400 2450
-NoConn ~ 2400 4050
-NoConn ~ 2400 3950
-NoConn ~ 2400 3850
-NoConn ~ 2400 3750
-NoConn ~ 2400 3650
-NoConn ~ 3700 4050
-NoConn ~ 3700 3950
-NoConn ~ 3700 3550
-NoConn ~ 3700 3350
-NoConn ~ 3700 3250
-NoConn ~ 3700 2950
-NoConn ~ 3700 2850
 NoConn ~ 2900 1550
 NoConn ~ 3300 1550
 NoConn ~ 3200 4550
@@ -657,8 +617,7 @@ F 3 "" H 9250 4400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8700 4400 9250 4400
-NoConn ~ 2400 2850
-Text Notes 4050 2950 0    50   ~ 0
+Text Notes 4600 3050 0    50   ~ 0
 Pull Down Resistor
 Text HLabel 3700 3150 2    50   Input ~ 0
 BYPASS_MODE_3V3
@@ -694,7 +653,6 @@ Text Label 4550 4350 2    50   ~ 0
 GPIO_KEYPAD_ROW_1
 Text Label 2350 4250 2    50   ~ 0
 GPIO_KEYPAD_COLUMN_4
-NoConn ~ 2400 2950
 Text Label 9500 1650 2    50   ~ 0
 GPIO_KEYPAD_ROW_4
 Wire Wire Line
@@ -707,17 +665,6 @@ Wire Wire Line
 	8650 1550 9650 1550
 Wire Wire Line
 	1650 3450 2400 3450
-$Comp
-L Device:R_Pack04 RN1
-U 1 1 5EA7B481
-P 1850 6700
-F 0 "RN1" V 1433 6700 50  0000 C CNN
-F 1 "R_Pack04" V 1524 6700 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2125 6700 50  0001 C CNN
-F 3 "~" H 1850 6700 50  0001 C CNN
-	1    1850 6700
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R_Pack04 RN2
 U 1 1 5EA7D58B
@@ -739,10 +686,6 @@ Text Label 4350 6600 0    50   ~ 0
 SYS_JTICK_SWCLK
 Text Label 850  6700 0    50   ~ 0
 SPI2_MOSI_MCU
-Text HLabel 2050 6700 2    50   Input ~ 0
-SPI2_MOSI
-Text HLabel 2050 6600 2    50   Input ~ 0
-SPI2_CSK
 Text Label 1750 4350 0    50   ~ 0
 SPI2_MOSI_MCU
 Text Label 1750 4150 0    50   ~ 0
@@ -761,16 +704,6 @@ Text Label 4350 3450 2    50   ~ 0
 GPIO_LATCH_MCU
 Wire Wire Line
 	3700 3450 4350 3450
-Text Label 1500 6500 2    50   ~ 0
-GPIO_LATCH_MCU
-Text HLabel 2050 6500 2    50   Input ~ 0
-GPIO_LATCH
-Wire Wire Line
-	1650 6500 850  6500
-Wire Wire Line
-	850  6600 1650 6600
-Wire Wire Line
-	1650 6700 850  6700
 Wire Wire Line
 	3950 6800 3350 6800
 Text Label 3350 6700 0    50   ~ 0
@@ -791,10 +724,6 @@ Text Label 4350 6800 0    50   ~ 0
 I2C1_SDA
 Wire Wire Line
 	4350 6700 4700 6700
-NoConn ~ 1650 6800
-NoConn ~ 2050 6800
-Text Notes 1600 6250 0    50   ~ 10
-I2C CROSSTALK\n\n\n
 Text Notes 3800 6250 0    50   ~ 10
 SWDIO/I2C CROSSTALK\n\n\n
 Wire Notes Line
@@ -803,6 +732,94 @@ Wire Notes Line
 	2900 7800 2950 7800
 Wire Notes Line
 	500  5200 11200 5200
+Wire Wire Line
+	1350 2050 2400 2050
+Wire Wire Line
+	1350 2350 2400 2350
 Text Notes 1250 7050 0    50   ~ 0
 Check: Concave or Convex footprint
+Text Notes 1600 6250 0    50   ~ 10
+I2C CROSSTALK\n\n\n
+NoConn ~ 2050 6800
+NoConn ~ 1650 6800
+Wire Wire Line
+	1650 6700 850  6700
+Wire Wire Line
+	850  6600 1650 6600
+Wire Wire Line
+	1650 6500 850  6500
+Text HLabel 2050 6500 2    50   Input ~ 0
+GPIO_LATCH
+Text Label 1500 6500 2    50   ~ 0
+GPIO_LATCH_MCU
+Text HLabel 2050 6600 2    50   Input ~ 0
+SPI2_CSK
+Text HLabel 2050 6700 2    50   Input ~ 0
+SPI2_MOSI
+$Comp
+L Device:R_Pack04 RN1
+U 1 1 5EA7B481
+P 1850 6700
+F 0 "RN1" V 1433 6700 50  0000 C CNN
+F 1 "R_Pack04" V 1524 6700 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2125 6700 50  0001 C CNN
+F 3 "~" H 1850 6700 50  0001 C CNN
+	1    1850 6700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3000 4550 3100 4550
+Connection ~ 3000 4550
+Wire Wire Line
+	2650 4550 2900 4550
+Wire Wire Line
+	2900 4550 3000 4550
+Connection ~ 2900 4550
+$Comp
+L MCU_ST_STM32F1:STM32F103C8Tx U?
+U 1 1 5E8CE625
+P 3100 3050
+AR Path="/5E8CE625" Ref="U?"  Part="1" 
+AR Path="/5E8BDF21/5E8CE625" Ref="U3"  Part="1" 
+F 0 "U3" H 3050 1461 50  0000 C CNN
+F 1 "STM32F103C8Tx" H 3050 1370 50  0000 C CNN
+F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 2500 1650 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 3100 3050 50  0001 C CNN
+	1    3100 3050
+	1    0    0    -1  
+$EndComp
+NoConn ~ 2400 2450
+NoConn ~ 2400 2550
+NoConn ~ 2400 2650
+NoConn ~ 4700 4950
+Text HLabel 2400 2850 0    50   Input ~ 0
+TRANSISTOR_B_SELECTION_0_3V3
+Text HLabel 2400 2950 0    50   Input ~ 0
+TRANSISTOR_B_SELECTION_1_3V3
+Text HLabel 2400 3650 0    50   Input ~ 0
+TRANSISTOR_B_SELECTION_2_3V3
+Text HLabel 2400 3750 0    50   Input ~ 0
+TRANSISTOR_B_SELECTION_3_3V3
+Text HLabel 2400 3850 0    50   Input ~ 0
+CAPACITOR_A_SELECTION_0_3V3
+Text HLabel 2400 3950 0    50   Input ~ 0
+CAPACITOR_A_SELECTION_1_3V3
+Text HLabel 2400 4050 0    50   Input ~ 0
+CAPACITOR_A_SELECTION_2_3V3
+Text HLabel 3750 2850 2    50   Input ~ 0
+TRANSISTOR_C_SELECTION_0_3V3
+Text HLabel 3700 2950 2    50   Input ~ 0
+TRANSISTOR_C_SELECTION_1_3V3
+Text HLabel 3700 3250 2    50   Input ~ 0
+TRANSISTOR_C_SELECTION_2_3V3
+Text HLabel 3700 3350 2    50   Input ~ 0
+TRANSISTOR_C_SELECTION_3_3V3
+Text HLabel 3700 3550 2    50   Input ~ 0
+CAPACITOR_D_SELECTION_0_3V3
+Text HLabel 3700 3950 2    50   Input ~ 0
+CAPACITOR_D_SELECTION_1_3V3
+Text HLabel 3700 4050 2    50   Input ~ 0
+CAPACITOR_D_SELECTION_2_3V3
+Wire Wire Line
+	3700 2850 3750 2850
 $EndSCHEMATC
