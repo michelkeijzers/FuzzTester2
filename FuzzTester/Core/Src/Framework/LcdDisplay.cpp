@@ -136,7 +136,7 @@ void LcdDisplay::SendCommand(uint8_t cmd)
 
 void LcdDisplay::SendData(uint8_t data)
 {
-    SendInternal(data, PIN_RS)
+    SendInternal(data, PIN_RS);
 }
 
 

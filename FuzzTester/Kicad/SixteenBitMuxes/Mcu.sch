@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 9
+Sheet 9 9
 Title "Guitar Pedal Effect Fuzz Digitally Controlled"
 Date "2020-04-07"
 Rev "0.1"
@@ -233,9 +233,9 @@ F 3 "~" H 6900 1500 50  0001 C CNN
 	1    6900 1500
 	-1   0    0    1   
 $EndComp
-Text Label 6000 1300 0    50   ~ 0
+Text Label 6050 1400 0    50   ~ 0
 SYS_JTMS_SWDIO
-Text Label 6000 1400 0    50   ~ 0
+Text Label 6000 1300 0    50   ~ 0
 SYS_JTICK_SWCLK
 $Comp
 L power:GND #PWR?
@@ -323,43 +323,7 @@ Text Label 7100 3300 0    50   ~ 0
 NRST
 Text Notes 6200 2750 0    50   ~ 10
 Boot/Reset\n
-$Comp
-L Connector:Conn_01x04_Male J?
-U 1 1 5EBB7B0E
-P 6300 4600
-AR Path="/5EBB7B0E" Ref="J?"  Part="1" 
-AR Path="/5E8F7778/5EBB7B0E" Ref="J?"  Part="1" 
-AR Path="/5E8BDF21/5EBB7B0E" Ref="J8"  Part="1" 
-F 0 "J8" H 6408 4881 50  0000 C CNN
-F 1 "SPI Test PinHeader" H 6408 4790 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 6300 4600 50  0001 C CNN
-F 3 "~" H 6300 4600 50  0001 C CNN
-	1    6300 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5EBB7B14
-P 7100 4600
-AR Path="/5EBB7B14" Ref="#PWR?"  Part="1" 
-AR Path="/5E8F7778/5EBB7B14" Ref="#PWR?"  Part="1" 
-AR Path="/5E8BDF21/5EBB7B14" Ref="#PWR023"  Part="1" 
-F 0 "#PWR023" H 7100 4350 50  0001 C CNN
-F 1 "GND" H 7105 4427 50  0000 C CNN
-F 2 "" H 7100 4600 50  0001 C CNN
-F 3 "" H 7100 4600 50  0001 C CNN
-	1    7100 4600
-	1    0    0    -1  
-$EndComp
-Text Notes 6250 4350 0    50   ~ 10
-SPI Test\n\n\n
-Text HLabel 6500 4500 2    50   Input ~ 0
-SPI2_CSK
-Text HLabel 6500 4700 2    50   Input ~ 0
-SPI2_MOSI
-Text HLabel 6500 4800 2    50   Input ~ 0
-GPIO_LATCH
-Text Notes 6350 1300 0    50   ~ 10
+Text Notes 6350 1200 0    50   ~ 10
 SWD\n\n\n
 NoConn ~ 2900 1550
 NoConn ~ 3300 1550
@@ -509,13 +473,13 @@ Text Notes 8500 2950 0    50   ~ 10
 Wire Wire Line
 	8700 3350 9150 3350
 Wire Wire Line
-	2400 4250 1400 4250
+	2400 2450 1400 2450
 Wire Wire Line
-	3700 3850 4650 3850
+	3700 2850 4650 2850
 Wire Wire Line
-	4650 3750 3700 3750
+	2400 2650 1450 2650
 Wire Wire Line
-	3700 3650 4650 3650
+	1450 2550 2400 2550
 Text Label 9500 1850 2    50   ~ 0
 GPIO_KEYPAD_ROW_2
 Text Label 9500 1750 2    50   ~ 0
@@ -564,8 +528,6 @@ F 3 "~" H 8150 1550 50  0001 C CNN
 	1    8150 1550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7100 4600 6500 4600
 Wire Wire Line
 	9150 3400 9150 3350
 Wire Wire Line
@@ -637,13 +599,13 @@ Wire Wire Line
 	2400 3150 1500 3150
 Text Label 2300 3350 2    50   ~ 0
 GPIO_KEYPAD_ROW_4
-Text Label 4650 3850 2    50   ~ 0
+Text Label 4650 2850 2    50   ~ 0
 GPIO_KEYPAD_COLUMN_1
 Text Label 2300 3250 2    50   ~ 0
 GPIO_KEYPAD_ROW_3
-Text Label 4650 3750 2    50   ~ 0
+Text Label 2400 2650 2    50   ~ 0
 GPIO_KEYPAD_COLUMN_2
-Text Label 4650 3650 2    50   ~ 0
+Text Label 2400 2550 2    50   ~ 0
 GPIO_KEYPAD_COLUMN_3
 Text Label 2300 3150 2    50   ~ 0
 GPIO_KEYPAD_ROW_2
@@ -651,7 +613,7 @@ Wire Wire Line
 	3700 4350 4550 4350
 Text Label 4550 4350 2    50   ~ 0
 GPIO_KEYPAD_ROW_1
-Text Label 2350 4250 2    50   ~ 0
+Text Label 2350 2450 2    50   ~ 0
 GPIO_KEYPAD_COLUMN_4
 Text Label 9500 1650 2    50   ~ 0
 GPIO_KEYPAD_ROW_4
@@ -676,54 +638,24 @@ F 3 "~" H 4150 6700 50  0001 C CNN
 	1    4150 6700
 	0    1    1    0   
 $EndComp
-Text Label 3050 6500 0    50   ~ 0
-SYS_JTMS_SWDIO_MCU
-Text Label 3050 6600 0    50   ~ 0
+Text Label 3050 6700 0    50   ~ 0
 SYS_JTICK_SWCLK_MCU
-Text Label 4350 6500 0    50   ~ 0
+Text Label 4350 6800 0    50   ~ 0
 SYS_JTMS_SWDIO
-Text Label 4350 6600 0    50   ~ 0
+Text Label 4350 6700 0    50   ~ 0
 SYS_JTICK_SWCLK
-Text Label 850  6700 0    50   ~ 0
-SPI2_MOSI_MCU
-Text Label 1750 4350 0    50   ~ 0
-SPI2_MOSI_MCU
-Text Label 1750 4150 0    50   ~ 0
-SPI2_CSK_MCU
-Wire Wire Line
-	1750 4150 2400 4150
-Text Label 850  6600 0    50   ~ 0
-SPI2_CSK_MCU
-Wire Wire Line
-	1750 4350 2400 4350
 Wire Wire Line
 	3700 4150 4650 4150
 Wire Wire Line
 	3700 4250 4650 4250
-Text Label 4350 3450 2    50   ~ 0
-GPIO_LATCH_MCU
-Wire Wire Line
-	3700 3450 4350 3450
-Wire Wire Line
-	3950 6800 3350 6800
-Text Label 3350 6700 0    50   ~ 0
-I2C1_SCL_MCU
-Text Label 3350 6800 0    50   ~ 0
-I2C1_SDA_MCU
-Wire Wire Line
-	3350 6700 3950 6700
 Wire Wire Line
 	3950 6600 3050 6600
 Wire Wire Line
 	3050 6500 3950 6500
-Wire Wire Line
-	4700 6800 4350 6800
-Text Label 4350 6700 0    50   ~ 0
+Text Label 4350 6600 0    50   ~ 0
 I2C1_SCL
-Text Label 4350 6800 0    50   ~ 0
+Text Label 4350 6500 0    50   ~ 0
 I2C1_SDA
-Wire Wire Line
-	4350 6700 4700 6700
 Text Notes 3800 6250 0    50   ~ 10
 SWDIO/I2C CROSSTALK\n\n\n
 Wire Notes Line
@@ -736,37 +668,6 @@ Wire Wire Line
 	1350 2050 2400 2050
 Wire Wire Line
 	1350 2350 2400 2350
-Text Notes 1250 7050 0    50   ~ 0
-Check: Concave or Convex footprint
-Text Notes 1600 6250 0    50   ~ 10
-I2C CROSSTALK\n\n\n
-NoConn ~ 2050 6800
-NoConn ~ 1650 6800
-Wire Wire Line
-	1650 6700 850  6700
-Wire Wire Line
-	850  6600 1650 6600
-Wire Wire Line
-	1650 6500 850  6500
-Text HLabel 2050 6500 2    50   Input ~ 0
-GPIO_LATCH
-Text Label 1500 6500 2    50   ~ 0
-GPIO_LATCH_MCU
-Text HLabel 2050 6600 2    50   Input ~ 0
-SPI2_CSK
-Text HLabel 2050 6700 2    50   Input ~ 0
-SPI2_MOSI
-$Comp
-L Device:R_Pack04 RN1
-U 1 1 5EA7B481
-P 1850 6700
-F 0 "RN1" V 1433 6700 50  0000 C CNN
-F 1 "R_Pack04" V 1524 6700 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2125 6700 50  0001 C CNN
-F 3 "~" H 1850 6700 50  0001 C CNN
-	1    1850 6700
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	3000 4550 3100 4550
 Connection ~ 3000 4550
@@ -788,10 +689,7 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    3100 3050
 	1    0    0    -1  
 $EndComp
-NoConn ~ 2400 2450
-NoConn ~ 2400 2550
-NoConn ~ 2400 2650
-NoConn ~ 4700 4950
+NoConn ~ 2400 4150
 Text HLabel 2400 2850 0    50   Input ~ 0
 TRANSISTOR_B_SELECTION_0_3V3
 Text HLabel 2400 2950 0    50   Input ~ 0
@@ -806,7 +704,7 @@ Text HLabel 2400 3950 0    50   Input ~ 0
 CAPACITOR_A_SELECTION_1_3V3
 Text HLabel 2400 4050 0    50   Input ~ 0
 CAPACITOR_A_SELECTION_2_3V3
-Text HLabel 3750 2850 2    50   Input ~ 0
+Text HLabel 3750 3650 2    50   Input ~ 0
 TRANSISTOR_C_SELECTION_0_3V3
 Text HLabel 3700 2950 2    50   Input ~ 0
 TRANSISTOR_C_SELECTION_1_3V3
@@ -821,5 +719,32 @@ CAPACITOR_D_SELECTION_1_3V3
 Text HLabel 3700 4050 2    50   Input ~ 0
 CAPACITOR_D_SELECTION_2_3V3
 Wire Wire Line
-	3700 2850 3750 2850
+	3700 3650 3750 3650
+Text Notes 8750 1150 0    50   ~ 10
+Keypad\n\n\n
+Text Label 3350 6600 0    50   ~ 0
+I2C1_SCL_MCU
+Text Label 3350 6500 0    50   ~ 0
+I2C1_SDA_MCU
+Text Label 3100 6800 0    50   ~ 0
+SYS_JTMS_SWDIO_MCU
+Wire Wire Line
+	4350 6600 5000 6600
+Wire Wire Line
+	4350 6500 5000 6500
+Wire Wire Line
+	4350 6700 5000 6700
+Wire Wire Line
+	4350 6800 5000 6800
+Wire Wire Line
+	3050 6800 3950 6800
+Wire Wire Line
+	3050 6700 3950 6700
+NoConn ~ 3700 3450
+NoConn ~ 3700 3750
+NoConn ~ 3700 3850
+NoConn ~ 2400 4250
+Text Notes 3500 7150 0    50   ~ 0
+Check: Concave or Convex footprint
+NoConn ~ 2400 4350
 $EndSCHEMATC
