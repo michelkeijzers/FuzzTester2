@@ -1,0 +1,1545 @@
+********************************************************************************
+***                       Micro-Cap 12.2.0.3 (64 bit)                        ***
+***                                                                          ***
+***                                                                          ***
+***                Transient Analysis of Fuzz 1000 Faces Full                ***
+***                            19-4-2020 02:05:08                            ***
+********************************************************************************
+Limits
+======
+Maximum Run Time           4ms
+Output Start Time (tstart) 0
+Maximum Time Step          0.001ms
+Number of Points           51
+Temperature                Linear 27
+Retrace Runs               1
+Run Options                Normal
+State Variables            Zero
+Operating Point            On
+Operating Point Only       Off
+Auto Scale Ranges          On
+Accumulate Plots           Off
+Fixed Time Step            Off
+Periodic Steady State      Off
+Ignore Expression Errors   Off
+
+
+*****************************************************
+***                Temperature=27                 ***
+*****************************************************
+
+Temperature=27
+
+DC Operating Point Voltages
+===========================
+Node         Voltage  Node         Voltage  Node         Voltage 
+1        -7.243E-053  2        -7.243E-053  3           557.179m 
+4             1.173   5           557.179m  6             9.000  
+7             1.173   8             7.500   9           600.364m 
+10          557.179m  11          600.364m  12       -3.795E-045 
+13       -7.590E-045  14          643.215u  15          638.663u 
+16       -7.243E-053  17          557.179m  18       -7.243E-053 
+19          557.179m  20       -7.243E-053  21          557.179m 
+22       -7.243E-053  23          557.179m  24       -7.243E-053 
+25          557.179m  26       -7.243E-053  27          557.179m 
+28       -7.243E-053  29          557.179m  30            7.404n 
+31          557.179m  32          755.483u  33           60.322u 
+34           60.322u  35          615.178u  36           60.322u 
+37          755.483u  38          675.289u  39          675.289u 
+40          674.674u  41          674.674u  42         -237.771u 
+43           17.928m  44          961.334u  45          309.941u 
+46          309.941u  47          618.593u  48          309.941u 
+49          961.334u  50          734.653u  51          734.653u 
+52          674.751u  53          674.751u  54            7.500  
+55       -7.590E-045  56            7.493m  57       -7.493E-038 
+58            7.493m  59       -7.493E-038  60            7.493m 
+61       -7.493E-038  62            7.493m  63       -7.493E-038 
+64            7.493m  65       -7.493E-038  66            7.493m 
+67       -7.493E-038  68            7.493m  69       -7.590E-045 
+70            7.500   71            1.173   72          321.327m 
+73          317.919m  74          600.356m  75          205.795m 
+76          205.795m  77          563.738m  78          563.738m 
+79          313.905m  80          563.738m  81          205.795m 
+82          232.682m  83          232.682m  84          313.639m 
+85          313.639m  86          600.678m  87          406.576m 
+88          406.576m  89          576.297m  90          576.297m 
+91          317.468m  92          576.297m  93          406.576m 
+94          376.487m  95          376.487m  96          313.731m 
+97          313.731m  98       -7.243E-053  99          557.179m 
+100      -7.243E-053  101         557.179m  102      -7.243E-053 
+103         557.179m  104      -7.243E-053  105         557.179m 
+106      -7.243E-053  107         557.179m  108           7.493m 
+109      -7.493E-038  110           7.493m  111      -7.493E-038 
+112           7.493m  113      -7.493E-038  114           7.493m 
+115      -7.493E-038  116           7.493m  117      -7.493E-038 
+
+
+Operating Point for Devices of Type Bipolar Junction Transistors NPN
+====================================================================
+Instance:                 Q3              Q5              Q7              Q8
+Using model:       MMBT2222A        MMBT3904     MMBT5551LT1         MMBTA42
+
+Beta Terms:
+BETADC              245.811         -14.275          -5.145           9.980n
+BETAAC              249.276           9.109m         -3.524u         50.000 
+
+Capacitance Terms:
+CPI                  48.364p          5.633p         17.774p          0.000 
+CMU                   4.573p          4.276p          6.802p          0.000 
+CBX                   3.118p        673.063f        755.755f          0.000 
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                    3.025m          4.742f       -283.573f          4.386u
+
+Current Terms:
+IB                  316.126n         -0.082f          0.714f        115.708n
+IC                   77.707u          1.172f         -3.675f          1.155f
+
+Resistance Terms:
+RPI                  82.416K          1.921T       12.427MEG       11.400MEG
+RX                    1.000           1.000          18.016           0.000 
+RO                  1.044MEG        848.092G         66.555G        228.001K
+
+Voltage Terms:
+VBE                 557.179m        638.663u          7.404n        557.179m
+VBC                -615.516m         -4.551u        237.779u        539.252m
+VCE                   1.173         643.215u       -237.771u         17.928m
+
+Frequency Terms:
+FT                  8.588MEG         71.318u         -1.782m         69.805T
+
+Power DC Terms:
+PD                   91.303u          0.001f          0.001f         64.470n
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                  316.126n         -0.082f          0.714f        115.708n
+Ic                   77.707u          1.172f         -3.675f          1.155f
+Ie                  -78.024u         -1.090f          2.961f       -115.708n
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    LIN             OFF             OFF             SAT
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+Instance:                 Q9             Q10             Q11             Q12
+Using model:           BC807          BC846B          BC847B          BC847C
+
+Beta Terms:
+BETADC               -5.886           2.360           2.360         -19.997 
+BETAAC               14.467m          1.076m          1.076m         70.882m
+
+Capacitance Terms:
+CPI                   0.000          11.314p         11.314p         11.319p
+CMU                   0.000           5.724p          5.724p          5.725p
+CBX                   0.000           0.000           0.000           0.000 
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                    0.145f         22.070f         22.070f         27.642f
+
+Current Terms:
+IB                   -0.199f          0.497f          0.497f         -0.059f
+IC                    1.172f          1.172f          1.172f          1.172f
+
+Resistance Terms:
+RPI                  99.603T         48.743G         48.743G          2.564T
+RX                    0.000           0.000           0.000           0.000 
+RO                  996.179G        719.730G        719.730G        717.796G
+
+Voltage Terms:
+VBE                 755.483u         60.322u         60.322u        615.178u
+VBC                -205.851u       -249.619u       -249.619u         -3.416u
+VCE                 961.334u        309.941u        309.941u        618.593u
+
+Frequency Terms:
+FT                    2.312K        206.162u        206.162u        258.117u
+
+Power DC Terms:
+PD                    0.001f      3.933E-019      3.933E-019          0.001f
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                   -0.199f          0.497f          0.497f         -0.059f
+Ic                    1.172f          1.172f          1.172f          1.172f
+Ie                   -0.973f         -1.669f         -1.669f         -1.113f
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    OFF             OFF             OFF             OFF
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+Instance:                Q13             Q14             Q15             Q16
+Using model:          BC848B           S9013          MPSA18          MPSA18
+
+Beta Terms:
+BETADC                2.360          -5.886          -9.864          -9.864 
+BETAAC                1.076m         14.467m          6.420           6.420 
+
+Capacitance Terms:
+CPI                  11.314p          0.000           8.603p          8.603p
+CMU                   5.724p          0.000           5.073p          5.073p
+CBX                   0.000           0.000           0.000           0.000 
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                   22.070f          0.145f         48.978f         48.978f
+
+Current Terms:
+IB                    0.497f         -0.199f         -0.119f         -0.119f
+IC                    1.172f          1.172f          1.172f          1.172f
+
+Resistance Terms:
+RPI                  48.743G         99.603T        131.082T        131.082T
+RX                    0.000           0.000           0.000           0.000 
+RO                  719.730G        996.179G        721.084G        721.084G
+
+Voltage Terms:
+VBE                  60.322u        755.483u        675.289u        675.289u
+VBC                -249.619u       -205.851u        -59.364u        -59.364u
+VCE                 309.941u        961.334u        734.653u        734.653u
+
+Frequency Terms:
+FT                  206.162u          2.312K        569.999u        569.999u
+
+Power DC Terms:
+PD                3.933E-019          0.001f          0.001f          0.001f
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                    0.497f         -0.199f         -0.119f         -0.119f
+Ic                    1.172f          1.172f          1.172f          1.172f
+Ie                   -1.669f         -0.973f         -1.053f         -1.053f
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    OFF             OFF             OFF             OFF
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+Instance:                Q17             Q18             Q20             Q21
+Using model:          2N5088          2N5088       MMBT2222A        MMBT3904
+
+Beta Terms:
+BETADC               -9.918          -9.918         265.134         -22.597m
+BETAAC             -113.481m       -113.481m        268.212         -20.874 
+
+Capacitance Terms:
+CPI                  14.150p         14.150p         51.361p          5.021p
+CMU                  13.266p         13.266p          2.255p          4.271p
+CBX                   0.000           0.000           1.538p        672.326f
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                  -23.554f        -23.554f          5.836m       -141.839f
+
+Current Terms:
+IB                   -0.118f         -0.118f        565.591n       -317.105f
+IC                    1.172f          1.172f        149.957u          7.165f
+
+Resistance Terms:
+RPI                   4.818T          4.818T         45.956K        147.170T
+RX                    0.000           0.000           1.000           1.000 
+RO                  722.689G        722.689G        579.231K        853.829G
+
+Voltage Terms:
+VBE                 674.674u        674.674u        572.332m       -282.445m
+VBC                 -77.524n        -77.524n         -6.328          -3.408m
+VCE                 674.751u        674.751u          6.900        -279.037m
+
+Frequency Terms:
+FT                 -136.731u       -136.731u       16.841MEG         -2.266m
+
+Power DC Terms:
+PD                    0.001f          0.001f          1.035m         87.565f
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                   -0.118f         -0.118f        565.591n       -317.105f
+Ic                    1.172f          1.172f        149.957u          7.165f
+Ie                   -1.054f         -1.054f       -150.523u        309.939f
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    OFF             OFF             LIN             OFF
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+Instance:                Q22             Q23             Q24             Q25
+Using model:     MMBT5551LT1         MMBTA42           BC807          BC846B
+
+Beta Terms:
+BETADC               -8.020m        -34.633m        -34.633m        -12.296m
+BETAAC              283.718n       -164.312u       -164.312u        -15.276m
+
+Capacitance Terms:
+CPI                  17.774p          0.000           0.000          10.948p
+CMU                   6.799p          0.000           0.000           5.693p
+CBX                 755.395f          0.000           0.000           0.000 
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                   22.829f         -0.002f         -0.002f       -148.000f
+
+Current Terms:
+IB                 -599.713f       -204.828f       -204.828f       -563.129f
+IC                    4.810f          7.094f          7.094f          6.924f
+
+Resistance Terms:
+RPI                12.428MEG        100.000T        100.000T        103.213G
+RX                   18.016           0.000           0.000           0.000 
+RO                   67.956G        999.998G        999.998G        805.302G
+
+Voltage Terms:
+VBE                  -7.451u       -394.569m       -394.569m        -36.626m
+VBC                -321.615u       -200.781m       -200.781m        -12.560m
+VCE                 314.164u       -193.787m       -193.787m        -24.066m
+
+Frequency Terms:
+FT                  143.457u        -26.151         -26.151          -1.415m
+
+Power DC Terms:
+PD                    0.006f         79.444f         79.444f         20.458f
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                 -599.713f       -204.828f       -204.828f       -563.129f
+Ic                    4.810f          7.094f          7.094f          6.924f
+Ie                  594.903f        197.734f        197.734f        556.205f
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    OFF             OFF             OFF             OFF
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+Instance:                Q26             Q27             Q28             Q29
+Using model:          BC847B          BC847C          BC848B           S9013
+
+Beta Terms:
+BETADC              -12.296m        -22.945m        -12.296m        -34.633m
+BETAAC              -15.276m       -181.991         -15.276m       -164.312u
+
+Capacitance Terms:
+CPI                  10.948p          9.074p         10.948p          0.000 
+CMU                   5.693p          5.716p          5.693p          0.000 
+CBX                   0.000           0.000           0.000           0.000 
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                 -148.000f       -333.110f       -148.000f         -0.002f
+
+Current Terms:
+IB                 -563.129f       -313.046f       -563.129f       -204.828f
+IC                    6.924f          7.183f          6.924f          7.094f
+
+Resistance Terms:
+RPI                 103.213G        546.338T        103.213G        100.000T
+RX                    0.000           0.000           0.000           0.000 
+RO                  805.302G        750.058G        805.302G        999.998G
+
+Voltage Terms:
+VBE                 -36.626m       -286.459m        -36.626m       -394.569m
+VBC                 -12.560m         -3.563m        -12.560m       -200.781m
+VCE                 -24.066m       -282.896m        -24.066m       -193.787m
+
+Frequency Terms:
+FT                   -1.415m         -3.585m         -1.415m        -26.151 
+
+Power DC Terms:
+PD                   20.458f         87.643f         20.458f         79.444f
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                 -563.129f       -313.046f       -563.129f       -204.828f
+Ic                    6.924f          7.183f          6.924f          7.094f
+Ie                  556.205f        305.863f        556.205f        197.734f
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    OFF             OFF             OFF             OFF
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+Instance:                Q30             Q31             Q32             Q33
+Using model:          MPSA18          MPSA18          2N5088          2N5088
+
+Beta Terms:
+BETADC              -30.663m        -30.663m        -22.947m        -22.947m
+BETAAC                1.313           1.313        -230.320        -230.320 
+
+Capacitance Terms:
+CPI                   7.086p          7.086p         11.341p         11.341p
+CMU                   4.695p          4.695p         13.266p         13.266p
+CBX                   0.000           0.000           0.000           0.000 
+CJS                   0.000           0.000           0.000           0.000 
+
+Conductance Terms:
+GM                    0.745f          0.745f       -379.378f       -379.378f
+
+Current Terms:
+IB                 -231.742f       -231.742f       -312.780f       -312.780f
+IC                    7.106f          7.106f          7.177f          7.177f
+
+Resistance Terms:
+RPI                1761.845T       1761.845T        607.098T        607.098T
+RX                    0.000           0.000           0.000           0.000 
+RO                  999.307G        999.307G        724.957G        724.957G
+
+Voltage Terms:
+VBE                -367.682m       -367.682m       -286.725m       -286.725m
+VBC                -143.805m       -143.805m        -91.637u        -91.637u
+VCE                -223.877m       -223.877m       -286.633m       -286.633m
+
+Frequency Terms:
+FT                   10.065u         10.065u         -2.454m         -2.454m
+
+Power DC Terms:
+PD                   83.616f         83.616f         87.624f         87.624f
+PS                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ib                 -231.742f       -231.742f       -312.780f       -312.780f
+Ic                    7.106f          7.106f          7.177f          7.177f
+Ie                  224.636f        224.636f        305.602f        305.602f
+Is                    0.000           0.000           0.000           0.000 
+
+Condition:
+State                    OFF             OFF             OFF             OFF
+
+Device Variables:
+area                  1.000           1.000           1.000           1.000 
+vbe                   0.000           0.000           0.000           0.000 
+vce                   0.000           0.000           0.000           0.000 
+
+
+
+Operating Point for Devices of Type Resistor
+============================================
+Instance:               V3.RS              R3              R4              R8
+V                 -7.243E-053          7.827           1.500          43.184m
+Power DC Terms:
+PD                 1.000E-097        612.667u        224.872u         18.649n
+
+DC Pin Currents:
+Ir                -1.000E-047         78.273u        149.957u        431.843n
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:          SWITCH8.R1      SWITCH8.R2      SWITCH9.R1      SWITCH9.R2
+V                   -316.127p        557.179m       -556.541m        638.663u
+Power DC Terms:
+PD                     0.100f        310.449f          0.310f      4.079E-019
+
+DC Pin Currents:
+Ir                  -316.127n        557.179f         -0.557f          0.639f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH12.R1     SWITCH12.R2     SWITCH13.R1     SWITCH13.R2
+V                     77.707n          1.173           1.172           1.173 
+Power DC Terms:
+PD                     6.038p          1.375p          1.374f          1.375p
+
+DC Pin Currents:
+Ir                    77.707u          1.173p          1.172f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH16.R1     SWITCH16.R2     SWITCH17.R1     SWITCH17.R2
+V                      0.000         557.179m          0.000         557.179m
+Power DC Terms:
+PD                     0.000         310.449f          0.000         310.449f
+
+DC Pin Currents:
+Ir                     0.000         557.179f          0.000         557.179f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH18.R1     SWITCH18.R2     SWITCH19.R1     SWITCH19.R2
+V                  8.346E-068     -7.243E-053      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                 1.000E-097      1.000E-112      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                 1.000E-047     -1.000E-062      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH20.R1     SWITCH20.R2     SWITCH21.R1     SWITCH21.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH22.R1     SWITCH22.R2     SWITCH23.R1     SWITCH23.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH24.R1     SWITCH24.R2     SWITCH25.R1     SWITCH25.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH26.R1     SWITCH26.R2     SWITCH27.R1     SWITCH27.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH28.R1     SWITCH28.R2     SWITCH29.R1     SWITCH29.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH30.R1     SWITCH30.R2     SWITCH31.R1     SWITCH31.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH32.R1     SWITCH32.R2     SWITCH33.R1     SWITCH33.R2
+V                   -557.179m          7.404n       -115.709p        557.179m
+Power DC Terms:
+PD                     0.310f      5.483E-029          0.013f        310.449f
+
+DC Pin Currents:
+Ir                    -0.557f      7.404E-021       -115.709n        557.179f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH34.R1     SWITCH34.R2     SWITCH35.R1     SWITCH35.R2
+V                   -556.424m        755.483u       -557.119m         60.322u
+Power DC Terms:
+PD                     0.310f          0.001f          0.310f      3.639E-021
+
+DC Pin Currents:
+Ir                    -0.556f          0.755f         -0.557f          0.060f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH36.R1     SWITCH36.R2     SWITCH37.R1     SWITCH37.R2
+V                   -557.119m         60.322u       -556.564m        615.178u
+Power DC Terms:
+PD                     0.310f      3.639E-021          0.310f      3.784E-019
+
+DC Pin Currents:
+Ir                    -0.557f          0.060f         -0.557f          0.615f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH38.R1     SWITCH38.R2     SWITCH39.R1     SWITCH39.R2
+V                   -557.119m         60.322u       -556.424m        755.483u
+Power DC Terms:
+PD                     0.310f      3.639E-021          0.310f          0.001f
+
+DC Pin Currents:
+Ir                    -0.557f          0.060f         -0.556f          0.755f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH40.R1     SWITCH40.R2     SWITCH41.R1     SWITCH41.R2
+V                   -556.504m        675.289u       -556.504m        675.289u
+Power DC Terms:
+PD                     0.310f      4.560E-019          0.310f      4.560E-019
+
+DC Pin Currents:
+Ir                    -0.557f          0.675f         -0.557f          0.675f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH42.R1     SWITCH42.R2     SWITCH43.R1     SWITCH43.R2
+V                   -556.505m        674.674u       -556.505m        674.674u
+Power DC Terms:
+PD                     0.310f      4.552E-019          0.310f      4.552E-019
+
+DC Pin Currents:
+Ir                    -0.557f          0.675f         -0.557f          0.675f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH45.R1     SWITCH45.R2     SWITCH46.R1     SWITCH46.R2
+V                      1.173           1.173           1.155           1.173 
+Power DC Terms:
+PD                     1.376f          1.375p          1.333f          1.375p
+
+DC Pin Currents:
+Ir                     1.173f          1.173p          1.155f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH47.R1     SWITCH47.R2     SWITCH48.R1     SWITCH48.R2
+V                      1.172           1.173           1.172           1.173 
+Power DC Terms:
+PD                     1.373f          1.375p          1.374f          1.375p
+
+DC Pin Currents:
+Ir                     1.172f          1.173p          1.172f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH49.R1     SWITCH49.R2     SWITCH50.R1     SWITCH50.R2
+V                      1.172           1.173           1.172           1.173 
+Power DC Terms:
+PD                     1.374f          1.375p          1.374f          1.375p
+
+DC Pin Currents:
+Ir                     1.172f          1.173p          1.172f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH51.R1     SWITCH51.R2     SWITCH52.R1     SWITCH52.R2
+V                      1.172           1.173           1.172           1.173 
+Power DC Terms:
+PD                     1.374f          1.375p          1.373f          1.375p
+
+DC Pin Currents:
+Ir                     1.172f          1.173p          1.172f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH53.R1     SWITCH53.R2     SWITCH54.R1     SWITCH54.R2
+V                      1.172           1.173           1.172           1.173 
+Power DC Terms:
+PD                     1.373f          1.375p          1.374f          1.375p
+
+DC Pin Currents:
+Ir                     1.172f          1.173p          1.172f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH55.R1     SWITCH55.R2     SWITCH82.R1     SWITCH82.R2
+V                      1.172           1.173       7.493E-038     -7.590E-045
+Power DC Terms:
+PD                     1.373f          1.375p      5.614E-090      5.761E-101
+
+DC Pin Currents:
+Ir                     1.172f          1.173p      7.493E-053     -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH83.R1     SWITCH83.R2     SWITCH84.R1     SWITCH84.R2
+V                  7.500E-053     -7.590E-045         -7.493           7.493m
+Power DC Terms:
+PD                 1.000E-097      5.761E-101         56.144f          0.056f
+
+DC Pin Currents:
+Ir                 1.000E-047     -7.590E-057         -7.493f          7.493f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH85.R1     SWITCH85.R2     SWITCH86.R1     SWITCH86.R2
+V                     -7.994f          7.500       7.493E-038     -7.590E-045
+Power DC Terms:
+PD                 6.390E-026         56.256p      5.614E-090      5.761E-101
+
+DC Pin Currents:
+Ir                    -7.994p          7.500p      7.493E-053     -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH87.R1     SWITCH87.R2     SWITCH88.R1     SWITCH88.R2
+V                     -7.493           7.493m      7.493E-038     -7.590E-045
+Power DC Terms:
+PD                    56.144f          0.056f      5.614E-090      5.761E-101
+
+DC Pin Currents:
+Ir                    -7.493f          7.493f      7.493E-053     -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH89.R1     SWITCH89.R2     SWITCH90.R1     SWITCH90.R2
+V                     -7.493           7.493m      7.493E-038     -7.590E-045
+Power DC Terms:
+PD                    56.144f          0.056f      5.614E-090      5.761E-101
+
+DC Pin Currents:
+Ir                    -7.493f          7.493f      7.493E-053     -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH91.R1     SWITCH91.R2     SWITCH92.R1     SWITCH92.R2
+V                     -7.493           7.493m      7.493E-038     -7.590E-045
+Power DC Terms:
+PD                    56.144f          0.056f      5.614E-090      5.761E-101
+
+DC Pin Currents:
+Ir                    -7.493f          7.493f      7.493E-053     -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH93.R1     SWITCH93.R2     SWITCH94.R1     SWITCH94.R2
+V                     -7.493           7.493m      7.493E-038     -7.590E-045
+Power DC Terms:
+PD                    56.144f          0.056f      5.614E-090      5.761E-101
+
+DC Pin Currents:
+Ir                    -7.493f          7.493f      7.493E-053     -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH95.R1     SWITCH95.R2     SWITCH96.R1     SWITCH96.R2
+V                     -7.493           7.493m          0.000      -7.590E-045
+Power DC Terms:
+PD                    56.144f          0.056f          0.000       5.761E-101
+
+DC Pin Currents:
+Ir                    -7.493f          7.493f          0.000      -7.590E-057
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:         SWITCH97.R1     SWITCH97.R2     SWITCH98.R1     SWITCH98.R2
+V                     -7.493           7.493m          1.172           1.173 
+Power DC Terms:
+PD                    56.144f          0.056f          1.374f          1.375p
+
+DC Pin Currents:
+Ir                    -7.493f          7.493f          1.172f          1.173p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH100.R1    SWITCH100.R2    SWITCH101.R1    SWITCH101.R2
+V                   -565.592p          1.173        -854.777m        317.919m
+Power DC Terms:
+PD                     0.320f          1.375p          0.731f        101.072f
+
+DC Pin Currents:
+Ir                  -565.592n          1.173p         -0.855f        317.919f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH102.R1    SWITCH102.R2    SWITCH103.R1    SWITCH103.R2
+V                    149.957n          7.500           7.179           7.500 
+Power DC Terms:
+PD                    22.487p         56.256p         51.539f         56.256p
+
+DC Pin Currents:
+Ir                   149.957u          7.500p          7.179f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH104.R1    SWITCH104.R2    SWITCH105.R1    SWITCH105.R2
+V                   -572.339m        600.356m       -966.900m        205.795m
+Power DC Terms:
+PD                     0.328f        360.428f          0.935f         42.352f
+
+DC Pin Currents:
+Ir                    -0.572f        600.356f         -0.967f        205.795f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH106.R1    SWITCH106.R2    SWITCH107.R1    SWITCH107.R2
+V                   -966.900m        205.795m       -608.958m        563.738m
+Power DC Terms:
+PD                     0.935f         42.352f          0.371f        317.800f
+
+DC Pin Currents:
+Ir                    -0.967f        205.795f         -0.609f        563.738f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH108.R1    SWITCH108.R2    SWITCH109.R1    SWITCH109.R2
+V                   -608.958m        563.738m       -858.790m        313.905m
+Power DC Terms:
+PD                     0.371f        317.800f          0.738f         98.536f
+
+DC Pin Currents:
+Ir                    -0.609f        563.738f         -0.859f        313.905f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH110.R1    SWITCH110.R2    SWITCH111.R1    SWITCH111.R2
+V                   -608.958m        563.738m       -966.900m        205.795m
+Power DC Terms:
+PD                     0.371f        317.800f          0.935f         42.352f
+
+DC Pin Currents:
+Ir                    -0.609f        563.738f         -0.967f        205.795f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH112.R1    SWITCH112.R2    SWITCH113.R1    SWITCH113.R2
+V                   -940.014m        232.682m       -940.014m        232.682m
+Power DC Terms:
+PD                     0.884f         54.141f          0.884f         54.141f
+
+DC Pin Currents:
+Ir                    -0.940f        232.682f         -0.940f        232.682f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH114.R1    SWITCH114.R2    SWITCH115.R1    SWITCH115.R2
+V                   -859.056m        313.639m       -859.056m        313.639m
+Power DC Terms:
+PD                     0.738f         98.369f          0.738f         98.369f
+
+DC Pin Currents:
+Ir                    -0.859f        313.639f         -0.859f        313.639f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH117.R1    SWITCH117.R2    SWITCH118.R1    SWITCH118.R2
+V                      6.900           7.500           7.094           7.500 
+Power DC Terms:
+PD                    47.607f         56.256p         50.323f         56.256p
+
+DC Pin Currents:
+Ir                     6.900f          7.500p          7.094f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH119.R1    SWITCH119.R2    SWITCH120.R1    SWITCH120.R2
+V                      7.094           7.500           6.924           7.500 
+Power DC Terms:
+PD                    50.323f         56.256p         47.944f         56.256p
+
+DC Pin Currents:
+Ir                     7.094f          7.500p          6.924f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH121.R1    SWITCH121.R2    SWITCH122.R1    SWITCH122.R2
+V                      6.924           7.500           7.183           7.500 
+Power DC Terms:
+PD                    47.944f         56.256p         51.595f         56.256p
+
+DC Pin Currents:
+Ir                     6.924f          7.500p          7.183f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH123.R1    SWITCH123.R2    SWITCH124.R1    SWITCH124.R2
+V                      6.924           7.500           7.094           7.500 
+Power DC Terms:
+PD                    47.944f         56.256p         50.323f         56.256p
+
+DC Pin Currents:
+Ir                     6.924f          7.500p          7.094f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH125.R1    SWITCH125.R2    SWITCH126.R1    SWITCH126.R2
+V                      7.124           7.500           7.187           7.500 
+Power DC Terms:
+PD                    50.751f         56.256p         51.649f         56.256p
+
+DC Pin Currents:
+Ir                     7.124f          7.500p          7.187f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH127.R1    SWITCH127.R2    SWITCH128.R1    SWITCH128.R2
+V                      7.124           7.500           7.187           7.500 
+Power DC Terms:
+PD                    50.751f         56.256p         51.649f         56.256p
+
+DC Pin Currents:
+Ir                     7.124f          7.500p          7.187f          7.500p
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH130.R1    SWITCH130.R2    SWITCH131.R1    SWITCH131.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH132.R1    SWITCH132.R2    SWITCH133.R1    SWITCH133.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH134.R1    SWITCH134.R2    SWITCH135.R1    SWITCH135.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH136.R1    SWITCH136.R2    SWITCH137.R1    SWITCH137.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH138.R1    SWITCH138.R2    SWITCH139.R1    SWITCH139.R2
+V                      0.000         557.179m      8.346E-068     -7.243E-053
+Power DC Terms:
+PD                     0.000         310.449f      1.000E-097      1.000E-112
+
+DC Pin Currents:
+Ir                     0.000         557.179f      1.000E-047     -1.000E-062
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH140.R1    SWITCH140.R2    SWITCH141.R1    SWITCH141.R2
+V                  7.493E-038     -7.590E-045         -7.493           7.493m
+Power DC Terms:
+PD                 5.614E-090      5.761E-101         56.144f          0.056f
+
+DC Pin Currents:
+Ir                 7.493E-053     -7.590E-057         -7.493f          7.493f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH142.R1    SWITCH142.R2    SWITCH143.R1    SWITCH143.R2
+V                  7.493E-038     -7.590E-045         -7.493           7.493m
+Power DC Terms:
+PD                 5.614E-090      5.761E-101         56.144f          0.056f
+
+DC Pin Currents:
+Ir                 7.493E-053     -7.590E-057         -7.493f          7.493f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH144.R1    SWITCH144.R2    SWITCH145.R1    SWITCH145.R2
+V                  7.493E-038     -7.590E-045         -7.493           7.493m
+Power DC Terms:
+PD                 5.614E-090      5.761E-101         56.144f          0.056f
+
+DC Pin Currents:
+Ir                 7.493E-053     -7.590E-057         -7.493f          7.493f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH146.R1    SWITCH146.R2    SWITCH147.R1    SWITCH147.R2
+V                  7.493E-038     -7.590E-045         -7.493           7.493m
+Power DC Terms:
+PD                 5.614E-090      5.761E-101         56.144f          0.056f
+
+DC Pin Currents:
+Ir                 7.493E-053     -7.590E-057         -7.493f          7.493f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:        SWITCH148.R1    SWITCH148.R2    SWITCH149.R1    SWITCH149.R2
+V                  7.493E-038     -7.590E-045         -7.493           7.493m
+Power DC Terms:
+PD                 5.614E-090      5.761E-101         56.144f          0.056f
+
+DC Pin Currents:
+Ir                 7.493E-053     -7.590E-057         -7.493f          7.493f
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:               X2.R1           X2.R2           X3.R1           X3.R2
+V                      0.000           0.000         600.364m          0.000 
+Power DC Terms:
+PD                     0.000           0.000          90.109u          0.000 
+
+DC Pin Currents:
+Ir                     0.000           0.000         150.091u          0.000 
+
+Device Variables:
+tc1                    0.000           0.000           0.000           0.000 
+tc2                    0.000           0.000           0.000           0.000 
+
+
+Instance:               X4.R1           X4.R2
+V                 -3.795E-045     -3.795E-045
+Power DC Terms:
+PD                 2.881E-094      2.881E-094
+
+DC Pin Currents:
+Ir                -7.590E-050     -7.590E-050
+
+Device Variables:
+tc1                    0.000           0.000 
+tc2                    0.000           0.000 
+
+
+
+Operating Point for Devices of Type Capacitor
+=============================================
+Instance:                  C1              C3              C5              C6
+V                   -557.179m       -600.364m       -557.179m       -557.179m
+Power DC Terms:
+PS                     0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000           0.000 
+
+
+Instance:                  C7              C8              C9             C10
+V                   -557.179m       -557.179m       -557.179m       -557.179m
+Power DC Terms:
+PS                     0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000           0.000 
+
+
+Instance:                 C11             C12             C13             C14
+V                   -557.179m          7.500           7.493m          7.493m
+Power DC Terms:
+PS                     0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000           0.000 
+
+
+Instance:                 C15             C16             C17             C18
+V                      7.493m          7.493m          7.493m          7.493m
+Power DC Terms:
+PS                     0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000           0.000 
+
+
+Instance:                 C19             C20             C21             C22
+V                      7.493m       -557.179m       -557.179m       -557.179m
+Power DC Terms:
+PS                     0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000           0.000 
+
+
+Instance:                 C23             C24             C25             C26
+V                   -557.179m       -557.179m          7.493m          7.493m
+Power DC Terms:
+PS                     0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000           0.000 
+
+
+Instance:                 C27             C28             C29
+V                      7.493m          7.493m          7.493m
+Power DC Terms:
+PS                     0.000           0.000           0.000 
+
+DC Pin Currents:
+Ic                     0.000           0.000           0.000 
+
+Device Variables:
+ic                     0.000           0.000           0.000 
+
+
+
+Operating Point for Devices of Type Sine Source
+===============================================
+Instance:                  V3
+Using model:             60HZ
+V                 -7.243E-053
+Power DC Terms:
+PG                     0.000 
+
+DC Pin Currents:
+ISource           -7.243E-050
+
+
+
+Operating Point for Devices of Type SPICE Source
+================================================
+Instance:                 V4      SWITCH8.V1      SWITCH9.V1     SWITCH12.V1
+V                     9.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    2.054m          0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource            -228.230u       -316.126n          0.082f         77.707u
+
+
+Instance:        SWITCH13.V1     SWITCH16.V1     SWITCH17.V1     SWITCH18.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               1.174p        557.179f        568.434f      7.243E-103
+
+
+Instance:        SWITCH19.V1     SWITCH20.V1     SWITCH21.V1     SWITCH22.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.243E-103        557.179f      7.243E-103        557.179f
+
+
+Instance:        SWITCH23.V1     SWITCH24.V1     SWITCH25.V1     SWITCH26.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.243E-103        557.179f      7.243E-103        557.179f
+
+
+Instance:        SWITCH27.V1     SWITCH28.V1     SWITCH29.V1     SWITCH30.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.243E-103        557.179f      7.243E-103        557.179f
+
+
+Instance:        SWITCH31.V1     SWITCH32.V1     SWITCH33.V1     SWITCH34.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.243E-103         -0.557f       -115.708n          0.199f
+
+
+Instance:        SWITCH35.V1     SWITCH36.V1     SWITCH37.V1     SWITCH38.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource              -0.497f         -0.497f          0.059f         -0.497f
+
+
+Instance:        SWITCH39.V1     SWITCH40.V1     SWITCH41.V1     SWITCH42.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               0.199f          0.119f          0.119f          0.118f
+
+
+Instance:        SWITCH43.V1     SWITCH45.V1     SWITCH46.V1     SWITCH47.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               0.118f          1.174p          1.174p          1.174p
+
+
+Instance:        SWITCH48.V1     SWITCH49.V1     SWITCH50.V1     SWITCH51.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               1.174p          1.174p          1.174p          1.174p
+
+
+Instance:        SWITCH52.V1     SWITCH53.V1     SWITCH54.V1     SWITCH55.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               1.174p          1.174p          1.174p          1.174p
+
+
+Instance:        SWITCH82.V1     SWITCH83.V1     SWITCH84.V1     SWITCH85.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.492E-053      7.500E-050     -7.493E-053     -7.500E-050
+
+
+Instance:        SWITCH86.V1     SWITCH87.V1     SWITCH88.V1     SWITCH89.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.492E-053     -7.493E-053      7.492E-053     -7.493E-053
+
+
+Instance:        SWITCH90.V1     SWITCH91.V1     SWITCH92.V1     SWITCH93.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.492E-053     -7.493E-053      7.492E-053     -7.493E-053
+
+
+Instance:        SWITCH94.V1     SWITCH95.V1     SWITCH96.V1     SWITCH97.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.492E-053     -7.493E-053     -7.590E-057     -7.493E-053
+
+
+Instance:        SWITCH98.V1    SWITCH100.V1    SWITCH101.V1    SWITCH102.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               1.174p       -565.591n        317.024f        149.957u
+
+
+Instance:       SWITCH103.V1    SWITCH104.V1    SWITCH105.V1    SWITCH106.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               7.508p        599.784f        204.828f        204.828f
+
+
+Instance:       SWITCH107.V1    SWITCH108.V1    SWITCH109.V1    SWITCH110.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource             563.129f        563.129f        313.046f        563.129f
+
+
+Instance:       SWITCH111.V1    SWITCH112.V1    SWITCH113.V1    SWITCH114.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource             204.828f        231.742f        231.742f        312.780f
+
+
+Instance:       SWITCH115.V1    SWITCH117.V1    SWITCH118.V1    SWITCH119.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource             312.780f          7.507p          7.508p          7.508p
+
+
+Instance:       SWITCH120.V1    SWITCH121.V1    SWITCH122.V1    SWITCH123.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               7.507p          7.507p          7.508p          7.507p
+
+
+Instance:       SWITCH124.V1    SWITCH125.V1    SWITCH126.V1    SWITCH127.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               7.508p          7.508p          7.508p          7.508p
+
+
+Instance:       SWITCH128.V1    SWITCH130.V1    SWITCH131.V1    SWITCH132.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource               7.508p        557.179f      7.243E-103        557.179f
+
+
+Instance:       SWITCH133.V1    SWITCH134.V1    SWITCH135.V1    SWITCH136.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.243E-103        557.179f      7.243E-103        557.179f
+
+
+Instance:       SWITCH137.V1    SWITCH138.V1    SWITCH139.V1    SWITCH140.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource           7.243E-103        557.179f      7.243E-103      7.492E-053
+
+
+Instance:       SWITCH141.V1    SWITCH142.V1    SWITCH143.V1    SWITCH144.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource          -7.493E-053      7.492E-053     -7.493E-053      7.492E-053
+
+
+Instance:       SWITCH145.V1    SWITCH146.V1    SWITCH147.V1    SWITCH148.V1
+V                     0.000           0.000           0.000           0.000 
+Power DC Terms:
+PG                    0.000           0.000           0.000           0.000 
+
+DC Pin Currents:
+ISource          -7.493E-053      7.492E-053     -7.493E-053      7.492E-053
+
+
+Instance:       SWITCH149.V1
+V                     0.000 
+Power DC Terms:
+PG                    0.000 
+
+DC Pin Currents:
+ISource          -7.493E-053
+
+
+Function Values
+==================
+ 
+
