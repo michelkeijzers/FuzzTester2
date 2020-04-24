@@ -1,0 +1,28 @@
+
+Critical bugs/problems
+----------------------
+- LCD bug: LCD stops during startup (I2C Initialization problem, see Github, question asked at electronics.stack.exchange).
+
+
+Nice to have
+----
+- Button: Swap subscriber index and debounce time
+- LCD improvement: only send changed characters (copy characters from display in array, costs 4x20 = 80 bytes max), but goto-xy also takes time
+- LCD improvement: send only one character per interrupt (to spread the transmit times)
+
+
+Planning
+--------
+- Control CD4052's for transistors per group of four via a CD4051.
+- Disassemble 74HC595 board
+- Create simple form of Fuzz (with one or two transistors per group, one or two capacitors)
+- Build analog part of fuzz on main test board
+- Replace 2 LEDs with capacitors per capacitor group
+- Replace 2 LEDs with transistors per transistor group
+- Test analog fuzz 
+- Replace all capacitors
+- Replace all transistors
+
+
+
+
