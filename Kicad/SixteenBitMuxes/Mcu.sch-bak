@@ -644,22 +644,10 @@ Text Label 4350 6800 0    50   ~ 0
 SYS_JTMS_SWDIO
 Text Label 4350 6700 0    50   ~ 0
 SYS_JTICK_SWCLK
-Text Label 1750 4350 0    50   ~ 0
-SPI2_MOSI_MCU
-Text Label 1750 4150 0    50   ~ 0
-SPI2_CSK_MCU
-Wire Wire Line
-	1750 4150 2400 4150
-Wire Wire Line
-	1750 4350 2400 4350
 Wire Wire Line
 	3700 4150 4650 4150
 Wire Wire Line
 	3700 4250 4650 4250
-Text Label 4350 3450 2    50   ~ 0
-GPIO_LATCH_MCU
-Wire Wire Line
-	3700 3450 4350 3450
 Wire Wire Line
 	3950 6600 3050 6600
 Wire Wire Line
@@ -701,7 +689,7 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    3100 3050
 	1    0    0    -1  
 $EndComp
-NoConn ~ 4700 4950
+NoConn ~ 2400 4150
 Text HLabel 2400 2850 0    50   Input ~ 0
 TRANSISTOR_B_SELECTION_0_3V3
 Text HLabel 2400 2950 0    50   Input ~ 0
@@ -752,10 +740,11 @@ Wire Wire Line
 	3050 6800 3950 6800
 Wire Wire Line
 	3050 6700 3950 6700
-NoConn ~ 4750 4750
+NoConn ~ 3700 3450
 NoConn ~ 3700 3750
 NoConn ~ 3700 3850
 NoConn ~ 2400 4250
 Text Notes 3500 7150 0    50   ~ 0
 Check: Concave or Convex footprint
+NoConn ~ 2400 4350
 $EndSCHEMATC

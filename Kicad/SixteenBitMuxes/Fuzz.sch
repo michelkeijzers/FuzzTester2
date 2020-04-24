@@ -210,7 +210,7 @@ Text Notes 2550 3150 2    50   ~ 10
 Audio In/Out and Bypass\n\n
 Text Notes 8750 3600 2    50   ~ 10
 Level Shifters\n
-Text Notes 4950 4900 2    50   ~ 10
+Text Notes 5100 4900 2    50   ~ 10
 Power Regulator\n
 Text Notes 2950 4900 2    50   ~ 10
 Micro Controller Unit and User Interface\n

@@ -25,7 +25,7 @@ void Update();
 
 const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 2;
 // 0: KeyPad_INT 1: LCD Display
-//TEST
+///TEST
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
