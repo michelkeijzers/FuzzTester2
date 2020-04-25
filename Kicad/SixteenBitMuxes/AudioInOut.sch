@@ -200,7 +200,7 @@ Wire Wire Line
 Connection ~ 4350 2700
 NoConn ~ 4850 2500
 Text Notes 4950 2750 0    50   ~ 0
-For both Jack Audio signal \nas 1602 Backlight
+\n
 Wire Notes Line
 	550  3000 6300 3000
 NoConn ~ 4850 2400
