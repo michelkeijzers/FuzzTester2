@@ -198,13 +198,11 @@ Wire Wire Line
 Wire Wire Line
 	4250 2700 4350 2700
 Connection ~ 4350 2700
-Text HLabel 3850 2400 0    50   Input ~ 0
-1602_BACK_LIGHT_PIN_1
-Text HLabel 4850 2400 2    50   Input ~ 0
-1602_BACK_LIGHT_PIN_2
 NoConn ~ 4850 2500
 Text Notes 4950 2750 0    50   ~ 0
 For both Jack Audio signal \nas 1602 Backlight
 Wire Notes Line
 	550  3000 6300 3000
+NoConn ~ 4850 2400
+NoConn ~ 3850 2400
 $EndSCHEMATC

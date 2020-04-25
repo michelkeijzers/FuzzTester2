@@ -380,8 +380,6 @@ Wire Wire Line
 	3100 1450 3100 1550
 Wire Notes Line
 	5350 550  5350 7700
-Wire Notes Line
-	7600 550  7600 5200
 $Comp
 L Device:R R?
 U 1 1 5EA32EA1
@@ -538,47 +536,32 @@ Wire Wire Line
 	9150 3150 9300 3150
 Wire Wire Line
 	9150 3250 9150 3150
-Text Notes 8500 4300 0    50   ~ 10
+Text Notes 7300 4450 0    50   ~ 10
 Bypass\n\n\n
 $Comp
 L Connector:Conn_01x02_Male J12
 U 1 1 5EBECF25
-P 8500 4400
-F 0 "J12" H 8608 4581 50  0000 C CNN
-F 1 "Bypass Switch JST XH" H 8608 4490 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 8500 4400 50  0001 C CNN
-F 3 "~" H 8500 4400 50  0001 C CNN
-	1    8500 4400
+P 7300 4550
+F 0 "J12" H 7408 4731 50  0000 C CNN
+F 1 "Bypass Switch JST XH" H 7408 4640 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 7300 4550 50  0001 C CNN
+F 3 "~" H 7300 4550 50  0001 C CNN
+	1    7300 4550
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector:Conn_01x06_Male J11
-U 1 1 5E92561C
-P 8500 3350
-F 0 "J11" H 8608 3731 50  0000 C CNN
-F 1 "LCD JST XH" H 8608 3640 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical" H 8500 3350 50  0001 C CNN
-F 3 "~" H 8500 3350 50  0001 C CNN
-	1    8500 3350
-	1    0    0    -1  
-$EndComp
-Text HLabel 8700 3550 2    50   Input ~ 0
-1602_BACK_LIGHT_PIN_1
-Text HLabel 8700 3650 2    50   Input ~ 0
-1602_BACK_LIGHT_PIN_2
 $Comp
 L power:+3V3 #PWR046
 U 1 1 5E9950D9
-P 9250 4400
-F 0 "#PWR046" H 9250 4250 50  0001 C CNN
-F 1 "+3V3" H 9265 4573 50  0000 C CNN
-F 2 "" H 9250 4400 50  0001 C CNN
-F 3 "" H 9250 4400 50  0001 C CNN
-	1    9250 4400
+P 8050 4550
+F 0 "#PWR046" H 8050 4400 50  0001 C CNN
+F 1 "+3V3" H 8065 4723 50  0000 C CNN
+F 2 "" H 8050 4550 50  0001 C CNN
+F 3 "" H 8050 4550 50  0001 C CNN
+	1    8050 4550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8700 4400 9250 4400
+	7500 4550 8050 4550
 Text Notes 4600 3050 0    50   ~ 0
 Pull Down Resistor
 Text HLabel 3700 3150 2    50   Input ~ 0
@@ -587,10 +570,10 @@ Text Label 4500 3050 2    50   ~ 0
 BYPASS_SWITCH_3V3
 Wire Wire Line
 	3700 3050 4500 3050
-Text Label 9450 4500 2    50   ~ 0
+Text Label 8250 4650 2    50   ~ 0
 BYPASS_SWITCH_3V3
 Wire Wire Line
-	8700 4500 9450 4500
+	7500 4650 8250 4650
 Wire Wire Line
 	2400 3350 1500 3350
 Wire Wire Line
@@ -630,36 +613,34 @@ Wire Wire Line
 $Comp
 L Device:R_Pack04 RN2
 U 1 1 5EA7D58B
-P 4150 6700
-F 0 "RN2" V 3733 6700 50  0000 C CNN
-F 1 "R_Pack04" V 3824 6700 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4425 6700 50  0001 C CNN
-F 3 "~" H 4150 6700 50  0001 C CNN
-	1    4150 6700
+P 3050 6600
+F 0 "RN2" V 2633 6600 50  0000 C CNN
+F 1 "R_Pack04" V 2724 6600 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 3325 6600 50  0001 C CNN
+F 3 "~" H 3050 6600 50  0001 C CNN
+	1    3050 6600
 	0    1    1    0   
 $EndComp
-Text Label 3050 6700 0    50   ~ 0
+Text Label 1950 6600 0    50   ~ 0
 SYS_JTICK_SWCLK_MCU
-Text Label 4350 6800 0    50   ~ 0
+Text Label 3250 6700 0    50   ~ 0
 SYS_JTMS_SWDIO
-Text Label 4350 6700 0    50   ~ 0
+Text Label 3250 6600 0    50   ~ 0
 SYS_JTICK_SWCLK
 Wire Wire Line
 	3700 4150 4650 4150
 Wire Wire Line
 	3700 4250 4650 4250
 Wire Wire Line
-	3950 6600 3050 6600
+	2850 6500 1950 6500
 Wire Wire Line
-	3050 6500 3950 6500
-Text Label 4350 6600 0    50   ~ 0
+	1950 6400 2850 6400
+Text Label 3250 6500 0    50   ~ 0
 I2C1_SCL
-Text Label 4350 6500 0    50   ~ 0
+Text Label 3250 6400 0    50   ~ 0
 I2C1_SDA
-Text Notes 3800 6250 0    50   ~ 10
+Text Notes 2700 6150 0    50   ~ 10
 SWDIO/I2C CROSSTALK\n\n\n
-Wire Notes Line
-	2900 5200 2900 7800
 Wire Notes Line
 	2900 7800 2950 7800
 Wire Notes Line
@@ -722,29 +703,42 @@ Wire Wire Line
 	3700 3650 3750 3650
 Text Notes 8750 1150 0    50   ~ 10
 Keypad\n\n\n
-Text Label 3350 6600 0    50   ~ 0
+Text Label 2250 6500 0    50   ~ 0
 I2C1_SCL_MCU
-Text Label 3350 6500 0    50   ~ 0
+Text Label 2250 6400 0    50   ~ 0
 I2C1_SDA_MCU
-Text Label 3100 6800 0    50   ~ 0
+Text Label 2000 6700 0    50   ~ 0
 SYS_JTMS_SWDIO_MCU
 Wire Wire Line
-	4350 6600 5000 6600
+	3250 6500 3900 6500
 Wire Wire Line
-	4350 6500 5000 6500
+	3250 6400 3900 6400
 Wire Wire Line
-	4350 6700 5000 6700
+	3250 6600 3900 6600
 Wire Wire Line
-	4350 6800 5000 6800
+	3250 6700 3900 6700
 Wire Wire Line
-	3050 6800 3950 6800
+	1950 6700 2850 6700
 Wire Wire Line
-	3050 6700 3950 6700
+	1950 6600 2850 6600
 NoConn ~ 3700 3450
 NoConn ~ 3700 3750
 NoConn ~ 3700 3850
 NoConn ~ 2400 4250
-Text Notes 3500 7150 0    50   ~ 0
+Text Notes 2400 7050 0    50   ~ 0
 Check: Concave or Convex footprint
 NoConn ~ 2400 4350
+$Comp
+L Connector:Conn_01x04_Male J11
+U 1 1 5EA543F3
+P 8500 3250
+F 0 "J11" H 8608 3531 50  0000 C CNN
+F 1 "LCD JST XH" H 8608 3440 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical" H 8500 3250 50  0001 C CNN
+F 3 "~" H 8500 3250 50  0001 C CNN
+	1    8500 3250
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	7700 500  7700 3900
 $EndSCHEMATC

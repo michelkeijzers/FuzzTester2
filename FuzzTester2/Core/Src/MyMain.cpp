@@ -15,7 +15,7 @@
 #include "Main.h"
 
 #include "stm32f1xx_hal.h"
-#include "Eeprom/eeprom.h"
+#include "presets.h"
 
 extern I2C_HandleTypeDef hi2c1;
 extern SPI_HandleTypeDef hspi2;
@@ -23,9 +23,11 @@ extern SPI_HandleTypeDef hspi2;
 void ProcessKeyPad(char key);
 void Update();
 
+Presets _presets;
+
+
 const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 2;
 // 0: KeyPad_INT 1: LCD Display
-///TEST
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
@@ -354,29 +356,21 @@ void MyInit()
    //_lcdDisplay.I2C_Scan();
    _lcdDisplay.Init();
 
+   HAL_Delay(2000);
+
    // Keypad init.
-    _keyPad.Init();
+   _keyPad.Init();
 
-    // Selections
-    _selections.capacitorA   = 0;
-    _selections.transistorB  = 0;
-    _selections.transistorC  = 0;
-    _selections.capacitorD   = 0;
-    _selections.lastSelected = Capacitor1;
+   // Selections
+   _selections.capacitorA   = 0;
+   _selections.transistorB  = 0;
+   _selections.transistorC  = 0;
+   _selections.capacitorD   = 0;
+   _selections.lastSelected = Capacitor1;
 
-    _updateNeeded = true;
+   _updateNeeded = true;
 
-    // EEPROM test
-
-    uint32_t n = 0;
-    if (EE_Format())
-    {
-       if (EE_Write(0, 0x12345678))
-       {
-          EE_Read(0, &n);
-       }
-    }
-
+   _presets.Load();
 }
 
 

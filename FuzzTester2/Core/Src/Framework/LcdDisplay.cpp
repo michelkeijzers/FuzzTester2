@@ -24,6 +24,8 @@ LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel,
       UPDATE_LCD_FUNCTION_PTR callbackFunction, uint16_t refreshTime, uint8_t sysTickSubscriberIndex)
 : _hI2c(hI2c),
   _i2cChannel(i2cChannel << 1),
+  _backLight(0),
+  _displayControl(0x04),
   _callbackFunction(callbackFunction)
 {
    SysTickSubscribers::SetSubscriber(sysTickSubscriberIndex, this);
@@ -41,6 +43,13 @@ void LcdDisplay::SetLine(uint8_t line, const char* text)
 	// set address to 0x40 for second line;
    SendCommand(0b10000000 + 0x40 * line);
    SendString(text);
+}
+
+
+void LcdDisplay::SetBackLight(bool backLight)
+{
+   _backLight = backLight ? 1 : 0;
+   Init();
 }
 
 
@@ -116,10 +125,11 @@ HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
     uint8_t lo = (data << 4) & 0xF0;
 
     uint8_t data_arr[4];
-    data_arr[0] = up|flags|BACKLIGHT|PIN_EN;
-    data_arr[1] = up|flags|BACKLIGHT;
-    data_arr[2] = lo|flags|BACKLIGHT|PIN_EN;
-    data_arr[3] = lo|flags|BACKLIGHT;
+    uint8_t backLightValue = _backLight ? BACKLIGHT : 0;
+    data_arr[0] = up|flags|backLightValue|PIN_EN;
+    data_arr[1] = up|flags|backLightValue;
+    data_arr[2] = lo|flags|backLightValue|PIN_EN;
+    data_arr[3] = lo|flags|backLightValue;
 
     //res = HAL_I2C_Master_Transmit_IT(_hI2c, _i2cChannel, data_arr, sizeof(data_arr));
     res = HAL_I2C_Master_Transmit(_hI2c, _i2cChannel, data_arr, sizeof(data_arr), HAL_MAX_DELAY);

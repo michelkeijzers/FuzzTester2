@@ -3,6 +3,8 @@
  *
  *  Created on: Jan 30, 2020
  *      Author: Michel Keijzers
+ *
+ * See: https://github.com/mathertel/LiquidCrystal_PCF8574/blob/master/src/LiquidCrystal_PCF8574.cpp
  */
 
 #ifndef LCD_DISPLAY_H_
@@ -26,6 +28,8 @@ public:
 
 	void SetLine(uint8_t line, const char* text);
 
+	void SetBackLight(bool backLight);
+
 private:
 	HAL_StatusTypeDef SendInternal(uint8_t data, uint8_t flags);
 	void SendCommand(uint8_t cmd);
@@ -37,6 +41,8 @@ private:
 private:
 	I2C_HandleTypeDef* _hI2c;
 	uint8_t _i2cChannel;
+    uint8_t _backLight;
+    uint8_t _displayControl;
 
 	UPDATE_LCD_FUNCTION_PTR _callbackFunction;
 };
