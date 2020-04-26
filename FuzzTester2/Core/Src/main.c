@@ -41,12 +41,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc1;
-
 I2C_HandleTypeDef hi2c1;
-
-SPI_HandleTypeDef hspi1;
-SPI_HandleTypeDef hspi2;
 
 /* USER CODE BEGIN PV */
 
@@ -56,9 +51,6 @@ SPI_HandleTypeDef hspi2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_SPI1_Init(void);
-static void MX_SPI2_Init(void);
-static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 
 void MyInit();
@@ -101,9 +93,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_SPI1_Init();
-  MX_SPI2_Init();
-  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
  
@@ -130,7 +119,6 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
@@ -158,57 +146,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-  {
-    Error_Handler();
-  }
-}
-
-/**
-  * @brief ADC1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_ADC1_Init(void)
-{
-
-  /* USER CODE BEGIN ADC1_Init 0 */
-
-  /* USER CODE END ADC1_Init 0 */
-
-  ADC_ChannelConfTypeDef sConfig = {0};
-
-  /* USER CODE BEGIN ADC1_Init 1 */
-
-  /* USER CODE END ADC1_Init 1 */
-  /** Common config 
-  */
-  hadc1.Instance = ADC1;
-  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
-  hadc1.Init.DiscontinuousConvMode = DISABLE;
-  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc1.Init.NbrOfConversion = 1;
-  if (HAL_ADC_Init(&hadc1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** Configure Regular Channel 
-  */
-  sConfig.Channel = ADC_CHANNEL_1;
-  sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN ADC1_Init 2 */
-
-  /* USER CODE END ADC1_Init 2 */
-
 }
 
 /**
@@ -246,82 +183,6 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief SPI1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SPI1_Init(void)
-{
-
-  /* USER CODE BEGIN SPI1_Init 0 */
-
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI1_Init 2 */
-
-  /* USER CODE END SPI1_Init 2 */
-
-}
-
-/**
-  * @brief SPI2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SPI2_Init(void)
-{
-
-  /* USER CODE BEGIN SPI2_Init 0 */
-
-  /* USER CODE END SPI2_Init 0 */
-
-  /* USER CODE BEGIN SPI2_Init 1 */
-
-  /* USER CODE END SPI2_Init 1 */
-  /* SPI2 parameter configuration*/
-  hspi2.Instance = SPI2;
-  hspi2.Init.Mode = SPI_MODE_MASTER;
-  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
-  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi2.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI2_Init 2 */
-
-  /* USER CODE END SPI2_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -337,56 +198,58 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIO_USER_LED_GPIO_Port, GPIO_USER_LED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_KEYPAD_COLUMN_4_Pin|GPIO_KEYPAD_COLUMN_3_Pin|GPIO_KEYPAD_COLUMN_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_LATCH_Pin|GPIO_KEYPAD_ROW_4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_KEYPAD_COLUMN_1_Pin|GPIO_TRANSISTOR_C_SELECTION_1_Pin|GPIO_TRANSISTOR_C_SELECTION_2_Pin|GPIO_TRANSISTOR_C_SELECTION_3_Pin 
+                          |GPIO_LATCH_Pin|GPIO_CAPACITOR_D_SELECTION_0_Pin|GPIO_CAPACITOR_D_SELECTION_1_Pin|GPIO_CAPACITOR_D_SELECTION_2_Pin 
+                          |GPIO_KEYPAD_ROW_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12|GPIO_KEYPAD_ROW_3_Pin|GPIO_KEYPAD_ROW_2_Pin|GPIO_KEYPAD_ROW_1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_TRANSISTOR_B_SELECTION_0_Pin|GPIO_TRANSISTOR_B_SELECTION_1_Pin|GPIO_CAPACITOR_A_SELECTION_0_Pin|GPIO_CAPACITOR_A_SELECTION_1_Pin 
+                          |GPIO_CAPACITOR_A_SELECTION_2_Pin|GPIO_KEYPAD_ROW_2_Pin|GPIO_KEYPAD_ROW_3_Pin|GPIO_KEYPAD_ROW_4_Pin 
+                          |GPIO_TRANSISTOR_B_SELECTION_3_Pin|GPIO_TRANSISTOR_B_SELECTION_2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : GPIO_USER_LED_Pin */
-  GPIO_InitStruct.Pin = GPIO_USER_LED_Pin;
+  /*Configure GPIO pins : GPIO_KEYPAD_COLUMN_4_Pin GPIO_KEYPAD_COLUMN_3_Pin GPIO_KEYPAD_COLUMN_2_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_4_Pin|GPIO_KEYPAD_COLUMN_3_Pin|GPIO_KEYPAD_COLUMN_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIO_USER_LED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : GPIO_LATCH_Pin */
-  GPIO_InitStruct.Pin = GPIO_LATCH_Pin;
+  /*Configure GPIO pins : GPIO_KEYPAD_COLUMN_1_Pin GPIO_TRANSISTOR_C_SELECTION_1_Pin GPIO_TRANSISTOR_C_SELECTION_2_Pin GPIO_TRANSISTOR_C_SELECTION_3_Pin 
+                           GPIO_LATCH_Pin GPIO_CAPACITOR_D_SELECTION_0_Pin GPIO_CAPACITOR_D_SELECTION_1_Pin GPIO_CAPACITOR_D_SELECTION_2_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_1_Pin|GPIO_TRANSISTOR_C_SELECTION_1_Pin|GPIO_TRANSISTOR_C_SELECTION_2_Pin|GPIO_TRANSISTOR_C_SELECTION_3_Pin 
+                          |GPIO_LATCH_Pin|GPIO_CAPACITOR_D_SELECTION_0_Pin|GPIO_CAPACITOR_D_SELECTION_1_Pin|GPIO_CAPACITOR_D_SELECTION_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIO_LATCH_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  /*Configure GPIO pins : GPIO_BYPASS_SWITCH_Pin GPIO_TRANSISTOR_C_SELECTION_0_Pin */
+  GPIO_InitStruct.Pin = GPIO_BYPASS_SWITCH_Pin|GPIO_TRANSISTOR_C_SELECTION_0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : GPIO_TRANSISTOR_B_SELECTION_0_Pin GPIO_TRANSISTOR_B_SELECTION_1_Pin GPIO_CAPACITOR_A_SELECTION_0_Pin GPIO_CAPACITOR_A_SELECTION_1_Pin 
+                           GPIO_CAPACITOR_A_SELECTION_2_Pin GPIO_TRANSISTOR_B_SELECTION_3_Pin GPIO_TRANSISTOR_B_SELECTION_2_Pin */
+  GPIO_InitStruct.Pin = GPIO_TRANSISTOR_B_SELECTION_0_Pin|GPIO_TRANSISTOR_B_SELECTION_1_Pin|GPIO_CAPACITOR_A_SELECTION_0_Pin|GPIO_CAPACITOR_A_SELECTION_1_Pin 
+                          |GPIO_CAPACITOR_A_SELECTION_2_Pin|GPIO_TRANSISTOR_B_SELECTION_3_Pin|GPIO_TRANSISTOR_B_SELECTION_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : GPIO_KEYPAD_COLUMN_4_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIO_KEYPAD_COLUMN_4_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : GPIO_KEYPAD_COLUMN_3_Pin GPIO_KEYPAD_COLUMN_2_Pin GPIO_KEYPAD_COLUMN_1_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_COLUMN_3_Pin|GPIO_KEYPAD_COLUMN_2_Pin|GPIO_KEYPAD_COLUMN_1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : GPIO_KEYPAD_ROW_4_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_ROW_4_Pin;
+  /*Configure GPIO pin : GPIO_KEYPAD_ROW_1_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_ROW_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIO_KEYPAD_ROW_4_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIO_KEYPAD_ROW_1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GPIO_KEYPAD_ROW_3_Pin GPIO_KEYPAD_ROW_2_Pin GPIO_KEYPAD_ROW_1_Pin */
-  GPIO_InitStruct.Pin = GPIO_KEYPAD_ROW_3_Pin|GPIO_KEYPAD_ROW_2_Pin|GPIO_KEYPAD_ROW_1_Pin;
+  /*Configure GPIO pins : GPIO_KEYPAD_ROW_2_Pin GPIO_KEYPAD_ROW_3_Pin GPIO_KEYPAD_ROW_4_Pin */
+  GPIO_InitStruct.Pin = GPIO_KEYPAD_ROW_2_Pin|GPIO_KEYPAD_ROW_3_Pin|GPIO_KEYPAD_ROW_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;

@@ -638,17 +638,15 @@ Text HLabel 3700 3350 2    50   Input ~ 0
 TRANSISTOR_C_SELECTION_3_3V3
 Text HLabel 3700 3550 2    50   Input ~ 0
 CAPACITOR_D_SELECTION_0_3V3
-Text HLabel 3700 3950 2    50   Input ~ 0
+Text HLabel 3700 3750 2    50   Input ~ 0
 CAPACITOR_D_SELECTION_1_3V3
-Text HLabel 3700 4050 2    50   Input ~ 0
+Text HLabel 3700 3850 2    50   Input ~ 0
 CAPACITOR_D_SELECTION_2_3V3
 Wire Wire Line
 	3700 3650 3750 3650
 Text Notes 8750 1150 0    50   ~ 10
 Keypad\n\n\n
 NoConn ~ 3700 3450
-NoConn ~ 3700 3750
-NoConn ~ 3700 3850
 NoConn ~ 2400 4250
 NoConn ~ 2400 4350
 $Comp
@@ -741,4 +739,7 @@ Text Label 8250 4650 2    50   ~ 0
 BYPASS_SWITCH_3V3
 Wire Wire Line
 	7500 4650 8250 4650
+NoConn ~ 3700 3950
+NoConn ~ 3700 4050
+NoConn ~ -800 2650
 $EndSCHEMATC

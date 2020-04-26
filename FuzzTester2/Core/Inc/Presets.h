@@ -10,16 +10,23 @@
 
 #include <stdint.h>
 
+#include "Preset.h"
+
 class Presets
 {
 public:
-   const uint8_t NR_OF_PRESETS = 64;
+   static const uint8_t NrOfPresets = 32;
 
    Presets();
 
    virtual ~Presets();
 
    void Load();
+
+   void Flash();
+
+private:
+   Preset _presets[NrOfPresets];
 };
 
 #endif /* SRC_PRESETS_H_ */

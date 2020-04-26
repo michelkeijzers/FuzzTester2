@@ -1,30 +1,32 @@
 
+#include "Main.h"
 
 #include <assert.h>
+#include <Components.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/param.h>
 
+#include "stm32f1xx_hal.h"
+
 #include <Framework/KeyPad.h>
 #include <Framework/KeyPad.h>
 #include <Framework/LcdDisplay.h>
-#include <Framework/ShiftRegister.h>
 #include "Framework/SysTickSubscribers.h"
 
-#include "Main.h"
+#include "Components.h"
+#include "Presets.h"
 
-#include "stm32f1xx_hal.h"
-#include "presets.h"
 
 extern I2C_HandleTypeDef hi2c1;
-extern SPI_HandleTypeDef hspi2;
+
 
 void ProcessKeyPad(char key);
 void Update();
 
+Components _components;
 Presets _presets;
-
 
 const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 2;
 // 0: KeyPad_INT 1: LCD Display
@@ -53,79 +55,9 @@ char _lcdLine1[17];
 LcdDisplay       _lcdDisplay   (&hi2c1, 0x27, &Update, 99, 1);
 bool _updateNeeded = false;
 
-// Menu
-
-const char* _capacitorInfos[] =
-{
-   //1234567890123456              TH   0805
-    "Cap A1: 10nF Cer", // 1      Ceramic  Yes
-    "Cap A2: 33nF Cer", // 2      Ceramic  Yes
-    "Cap A3: 47nF Cer", // 3      Ceramic  Yes
-    "Cap A4:100nF Cer", // 4      Ceramic  Yes
-    "Cap A5:0.47uF El", // 5      Elec     Yes
-    "Cap A6:   1uF El", // 6      Elec     Yes
-    "Cap A7: 4.7uF El", // 7      Elec    Ordered
-    "Cap A8:  10uF El", // 8      Elec    Ordered
-};
-
-const char* _transistorInfos[] =
-{
-
-  //1234567890123456
-   "Trans B01:2N2222", //  1    MMBT222A SMD
-   "Trans B02:2N3904", //  2    MMBT3904 SMD
-   "Trans B03:2N5088", //  3    2N5088 (TH)               Ebay: MMBT5088 E 5/10
-   "Trans B04:2N5551", //  4    MMBT5551 SMD
-   "Trans B05:A42   ", //  5                   A42
-   "Trans B06:BC337 ", //  6                     BC807
-   "Trans B07:BC547B", //  7                     BC846B
-   "Trans B08:BC548B", //  8                    BC847B
-   "Trans B09:BC639 ", //  9                   BC847C
-   "Trans B10:C945  ", // 10                   C945
-   "Trans B11:C1815 ", // 11                 2SC1815
-   "Trans B12:MPSA18", // 12     MPSA18 (TH)
-   "Trans B13:S8050 ", // 13    (S)S8050  SMD
-   "Trans B14:S9013 ", // 14       S9013  SMD
-   "Trans B15:S9014 ", // 15       S9014  SMD
-   "Trans B16:S9018 ", // 16                   S9018
-   "Trans B17:TODO  ", // 17                   BC848B
-   "Trans B18:TODO  ", // 18
-   "Trans B19:TODO  ", // 19                 2SC1623
-   "Trans B20:TODO  ", // 20
-
-   // SMDs BCxxxx:  PNP 807-40   NPN 817-40   NPN 846B   847B 847C   NPN 848B   PNP 856B    PNP 857B
-};
-
-const uint8_t NR_OF_CAPACITORS = 8;
-const uint8_t NR_OF_TRANSISTORS = 20;
-
-enum ESelected
-{
-   Capacitor1,
-   Transistor1,
-   Transistor2,
-   Capacitor2
-};
-
-
-struct SelectionsStruct
-{
-   uint8_t debugNumber; // max 2 digits
-   uint8_t capacitorA;
-   uint8_t transistorB;
-   uint8_t transistorC;
-   uint8_t capacitorD;
-   ESelected lastSelected;
-};
-
-SelectionsStruct _selections;
-
 // Shift registers
 
-ShiftRegister    _shiftRegister(&hspi2, GPIO_LATCH_GPIO_Port, GPIO_LATCH_Pin);
-
-
-uint32_t CapacitorAMapping[NR_OF_CAPACITORS] =
+uint32_t CapacitorAMapping[Components::NrOfCapacitors] =
 {
 //                                 E-top       F        G    H-bottom
 //                                76543210 76543210 76543210 76543210
@@ -137,10 +69,11 @@ uint32_t CapacitorAMapping[NR_OF_CAPACITORS] =
    0x00000040, // Cap A6                                     010
    0x00000020, // Cap A7                                     001
    0x00000000, // Cap A8                                     000
+   //TODO
 };
 
 
-uint32_t TransistorBMapping[NR_OF_TRANSISTORS] =
+uint32_t TransistorBMapping[Components::NrOfTransistors] =
 {
 //                                 E-top       F        G    H-bottom
 //                                76543210 76543210 76543210 76543210
@@ -160,14 +93,11 @@ uint32_t TransistorBMapping[NR_OF_TRANSISTORS] =
    0x00002003, // Trans B14                           10          011
    0x00001003, // Trans B15                           01          011
    0x00000003, // Trans B16                           00          011
-   0x0000C004, // Trans B17                         11            100
-   0x00008004, // Trans B18                         10            100
-   0x00004004, // Trans B19                         01            100
-   0x00000004, // Trans B20                         00            100
+   //TODO
 };
 
 
-uint32_t TransistorCMapping[NR_OF_TRANSISTORS] =
+uint32_t TransistorCMapping[Components::NrOfTransistors] =
 {
 //                                 E-top       F        G    H-bottom
 //                                76543210 76543210 76543210 76543210
@@ -187,14 +117,11 @@ uint32_t TransistorCMapping[NR_OF_TRANSISTORS] =
    0x20030000, // Trans C14         10          011
    0x10030000, // Trans C15         01          011
    0x00030000, // Trans C16         00          011
-   0xC0040000, // Trans C17       11            100
-   0x80040000, // Trans C18       10            100
-   0x40040000, // Trans C19       01            100
-   0x00040000, // Trans C20       00            100
+  // TODO
 };
 
 
-uint32_t CapacitorDMapping[NR_OF_CAPACITORS] =
+uint32_t CapacitorDMapping[Components::NrOfCapacitors] =
 {
 //                                 E-top       F        G    H-bottom
 //                                76543210 76543210 76543210 76543210
@@ -206,60 +133,44 @@ uint32_t CapacitorDMapping[NR_OF_CAPACITORS] =
    0x00400000, // Cap D6                   010
    0x00200000, // Cap D7                   001
    0x00000000, // Cap D8                   000
+   //TODO
 };
 
 
 void UpdateMultiplexers()
 {
-   uint32_t data = CapacitorAMapping [_selections.capacitorA ] |
-                   TransistorBMapping[_selections.transistorB] |
-                   TransistorCMapping[_selections.transistorC] |
-                   CapacitorDMapping [_selections.capacitorD ];
+   Preset& preset = _components.GetCurrentPatch();
 
-   _shiftRegister.ShiftOut((uint8_t*) (&data),  sizeof(data));
+   uint32_t data = CapacitorAMapping [preset.GetIndex(Preset::EType::CapacitorA )] |
+                   TransistorBMapping[preset.GetIndex(Preset::EType::TransistorB)] |
+                   TransistorBMapping[preset.GetIndex(Preset::EType::TransistorC)] |
+                   CapacitorAMapping [preset.GetIndex(Preset::EType::CapacitorD )];
+
+   //TODO
 }
 
 
 void UpdateLcdLine0()
 {
+   Preset& preset = _components.GetCurrentPatch();
+
    //                       1 2 34 56 78910 11121314
-   snprintf(_lcdLine0, 17, "A%1d B%02d C%02d D%1d %2d",
-    _selections.capacitorA  + 1,
-    _selections.transistorB + 1,
-    _selections.transistorC + 1,
-    _selections.capacitorD  + 1,
-   _selections.debugNumber);
+   snprintf(_lcdLine0, 17, "A%1d B%02d C%02d D%1d   ",
+      preset.GetIndex(Preset::EType::CapacitorA ) + 1,
+      preset.GetIndex(Preset::EType::TransistorB) + 1,
+      preset.GetIndex(Preset::EType::TransistorC) + 1,
+      preset.GetIndex(Preset::EType::CapacitorD ) + 1);
    _lcdDisplay.SetLine(0, _lcdLine0);
 }
 
 
 void UpdateLcdLine1()
 {
-   switch(_selections.lastSelected)
-   {
-   case Capacitor1:
-      snprintf(_lcdLine1, 17, "%s", _capacitorInfos[_selections.capacitorA]);
-      break;
+   char componentInfo[Components::MaxComponentNameLength];
 
-   case Transistor1:
-      snprintf(_lcdLine1, 17, "%s", _transistorInfos[_selections.transistorB]);
-      break;
+   _components.GetInfoString(componentInfo);
 
-   case Transistor2:
-      snprintf(_lcdLine1, 17, "%s", _transistorInfos[_selections.transistorC]);
-      _lcdLine1[6] = 'C';
-      break;
-
-   case Capacitor2:
-      snprintf(_lcdLine1, 17, "%s", _capacitorInfos[_selections.capacitorD]);
-      _lcdLine1[4] = 'D';
-      break;
-
-   default:
-      assert(false);
-   }
-
-   _lcdDisplay.SetLine(1, _lcdLine1);
+   _lcdDisplay.SetLine(1, componentInfo);
 }
 
 
@@ -279,64 +190,22 @@ void Update()
 
 void ProcessKeyPad(char key)
 {
+   Preset& preset = _components.GetCurrentPatch();
+
    switch (key)
    {
-   case '1':
-      _selections.capacitorA = MAX(0, _selections.capacitorA - 1);
-      _selections.lastSelected = Capacitor1;
-      break;
-
-   case '4':
-      _selections.capacitorA = MIN(NR_OF_CAPACITORS - 1, _selections.capacitorA + 1);
-      _selections.lastSelected = Capacitor1;
-      break;
-
-   case '7':
-      _selections.lastSelected = Capacitor1;
-      break;
-
-   case '2':
-      _selections.transistorB = MAX(0, _selections.transistorB - 1);
-      _selections.lastSelected = Transistor1;
-      break;
-
-   case '5':
-      _selections.transistorB = MIN(NR_OF_TRANSISTORS - 1, _selections.transistorB + 1);
-      _selections.lastSelected = Transistor1;
-      break;
-
-   case '8':
-      _selections.lastSelected = Transistor1;
-      break;
-
-   case '3':
-      _selections.transistorC = MAX(0, _selections.transistorC - 1);
-      _selections.lastSelected = Transistor2;
-      break;
-
-   case '6':
-      _selections.transistorC = MIN(NR_OF_TRANSISTORS - 1, _selections.transistorC + 1);
-      _selections.lastSelected = Transistor2;
-      break;
-
-   case '9':
-      _selections.lastSelected = Transistor2;
-      break;
-
-   case 'A':
-      _selections.capacitorD = MAX(0, _selections.capacitorD - 1);
-      _selections.lastSelected = Capacitor2;
-      break;
-
-   case 'B':
-      _selections.capacitorD = MIN(NR_OF_CAPACITORS - 1, _selections.capacitorD + 1);
-      _selections.lastSelected = Capacitor2;
-      break;
-
-   case 'C':
-      _selections.lastSelected = Capacitor2;
-      break;
-
+   case '1': preset.DecreaseIndex(Preset::EType::CapacitorA ); break;
+   case '4': preset.IncreaseIndex(Preset::EType::CapacitorA ); break;
+   case '7': _components.SetLastSelectedType(Preset::EType::CapacitorA ); break;
+   case '2': preset.DecreaseIndex(Preset::EType::TransistorB); break;
+   case '5': preset.IncreaseIndex(Preset::EType::TransistorB); break;
+   case '8': _components.SetLastSelectedType(Preset::EType::TransistorB); break;
+   case '3': preset.DecreaseIndex(Preset::EType::TransistorC); break;
+   case '6': preset.IncreaseIndex(Preset::EType::TransistorC); break;
+   case '9': _components.SetLastSelectedType(Preset::EType::TransistorC); break;
+   case 'A': preset.DecreaseIndex(Preset::EType::CapacitorD ); break;
+   case 'B': preset.IncreaseIndex(Preset::EType::CapacitorD ); break;
+   case 'C': _components.SetLastSelectedType(Preset::EType::CapacitorD ); break;
    case '*': // Fall through
    case '0': // Fall through
    case '#': // Fall through
@@ -361,12 +230,6 @@ void MyInit()
    // Keypad init.
    _keyPad.Init();
 
-   // Selections
-   _selections.capacitorA   = 0;
-   _selections.transistorB  = 0;
-   _selections.transistorC  = 0;
-   _selections.capacitorD   = 0;
-   _selections.lastSelected = Capacitor1;
 
    _updateNeeded = true;
 

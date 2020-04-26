@@ -26,9 +26,24 @@ void Presets::Load()
     // Load presets.
     // EEPROM test
 
+   //TODO
+
     uint32_t n = 0;
     if (EE_Write(0, 0x12345678))
     {
        EE_Read(0, &n);
     }
+}
+
+
+void Presets::Flash()
+{
+   //TODO
+
+   // Flash
+   uint32_t n = 0;
+   if (EE_Write(0, 0x12345678))
+   {
+      EE_Read(0, &n);
+   }
 }

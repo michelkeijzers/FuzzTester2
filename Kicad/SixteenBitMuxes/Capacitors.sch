@@ -203,21 +203,6 @@ Wire Wire Line
 	5250 4250 5250 5050
 Wire Wire Line
 	5250 5050 5350 5050
-$Comp
-L Device:C C?
-U 1 1 5E9AD5F3
-P 5500 5050
-AR Path="/5E87C69B/5E9AD5F3" Ref="C?"  Part="1" 
-AR Path="/5E984186/5E9AD5F3" Ref="C?"  Part="1" 
-AR Path="/5E983DF3/5E9AD5F3" Ref="C19"  Part="1" 
-AR Path="/5F9F739D/5E9AD5F3" Ref="C44"  Part="1" 
-F 0 "C19" V 5248 5050 50  0000 C CNN
-F 1 "C" V 5339 5050 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5538 4900 50  0001 C CNN
-F 3 "~" H 5500 5050 50  0001 C CNN
-	1    5500 5050
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	5350 4650 5300 4650
 Wire Wire Line
@@ -305,12 +290,27 @@ $EndComp
 Wire Wire Line
 	4250 4450 4350 4450
 Connection ~ 4350 4450
-Wire Notes Line
-	6950 1450 6950 5450
+$Comp
+L Device:C C?
+U 1 1 5E9AD5F3
+P 5500 5050
+AR Path="/5E87C69B/5E9AD5F3" Ref="C?"  Part="1" 
+AR Path="/5E984186/5E9AD5F3" Ref="C?"  Part="1" 
+AR Path="/5E983DF3/5E9AD5F3" Ref="C19"  Part="1" 
+AR Path="/5F9F739D/5E9AD5F3" Ref="C44"  Part="1" 
+F 0 "C19" V 5248 5050 50  0000 C CNN
+F 1 "42uF" V 5339 5050 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5538 4900 50  0001 C CNN
+F 3 "~" H 5500 5050 50  0001 C CNN
+	1    5500 5050
+	0    1    1    0   
+$EndComp
 Wire Notes Line
 	6950 5450 2450 5450
 Wire Notes Line
-	2450 5450 2450 1450
+	6950 1450 6950 5450
 Wire Notes Line
 	2450 1450 6950 1450
+Wire Notes Line
+	2450 5450 2450 1450
 $EndSCHEMATC
