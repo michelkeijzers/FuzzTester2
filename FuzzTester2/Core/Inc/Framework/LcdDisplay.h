@@ -14,7 +14,10 @@
 
 #include "Framework/ISysTickSubscriber.h"
 
+
 typedef void (*UPDATE_LCD_FUNCTION_PTR)();
+
+// In case I2C is not used.
 
 class LcdDisplay : ISysTickSubscriber
 {

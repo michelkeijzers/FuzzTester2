@@ -1,4 +1,4 @@
-update=13-4-2020 00:20:24
+update=26-4-2020 16:20:26
 version=1
 last_client=kicad
 [general]
@@ -293,6 +293,17 @@ dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
 [pcbnew/Netclasses/5]
+Name=I2C
+Clearance=0.2
+TrackWidth=0.254
+ViaDiameter=0.6
+ViaDrill=0.4
+uViaDiameter=0.3
+uViaDrill=0.1
+dPairWidth=0.2
+dPairGap=0.25
+dPairViaGap=0.25
+[pcbnew/Netclasses/6]
 Name=Power 3V3
 Clearance=0.2
 TrackWidth=0.381
@@ -303,7 +314,7 @@ uViaDrill=0.1
 dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
-[pcbnew/Netclasses/6]
+[pcbnew/Netclasses/7]
 Name=Power 5V
 Clearance=0.2
 TrackWidth=0.381
@@ -314,7 +325,7 @@ uViaDrill=0.1
 dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
-[pcbnew/Netclasses/7]
+[pcbnew/Netclasses/8]
 Name=Power 9V
 Clearance=0.2
 TrackWidth=0.381

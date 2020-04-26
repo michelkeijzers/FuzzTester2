@@ -25,6 +25,13 @@
 
 #include "stm32f1xx_hal.h"
 
+
+// In case SPI is not used.
+#ifndef SPI_HandleTypeDef
+#define SPI_HandleTypeDef void*
+#endif
+
+
 class ShiftRegister
 {
 public:
