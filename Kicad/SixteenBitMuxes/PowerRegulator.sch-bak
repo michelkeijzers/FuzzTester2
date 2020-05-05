@@ -199,9 +199,9 @@ F 3 "" H 4000 3150 50  0001 C CNN
 $EndComp
 Text Notes 3250 2300 0    20   ~ 0
 9 mA, 81 mW
-Text Notes 4950 2050 0    31   ~ 0
+Text Notes 4950 1900 0    31   ~ 0
 5V: LCD: about 60 mA\nPd = (9 V - 5V) * 60 mA = 240 mW\nTj = Ta(max) + Pd * (Thermal Resistance (junction-to-ambient) =\n125 = 30 + Pd * 70 => 1.36 W\nNo heat sink needed
-Text Notes 4950 3100 0    31   ~ 0
+Text Notes 4950 2900 0    31   ~ 0
 3.3V: STM32: about 100 mA \nPd = (9 V - 3.3V) * 100 mA = 570 mW\nTj = Ta(max) + Pd * (Thermal Resistance (junction-to-ambient) =\n125 = 30 + Pd * 70 => 1.36 W\nNo heat sink needed
 Connection ~ 3550 2850
 $Comp
@@ -321,7 +321,7 @@ U 1 1 5E99E117
 P 4550 3000
 F 0 "C4" H 4665 3046 50  0000 L CNN
 F 1 "22uF" H 4665 2955 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm" H 4550 3000 50  0001 C CNN
+F 2 "Diode_SMD:D_SMB_Handsoldering" H 4550 3000 50  0001 C CNN
 F 3 "~" H 4550 3000 50  0001 C CNN
 	1    4550 3000
 	1    0    0    -1  
@@ -333,7 +333,7 @@ U 1 1 5E99F224
 P 4550 1950
 F 0 "C3" H 4665 1996 50  0000 L CNN
 F 1 "22uF" H 4665 1905 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm" H 4550 1950 50  0001 C CNN
+F 2 "Diode_SMD:D_SMB_Handsoldering" H 4550 1950 50  0001 C CNN
 F 3 "~" H 4550 1950 50  0001 C CNN
 	1    4550 1950
 	1    0    0    -1  
@@ -485,4 +485,8 @@ Connection ~ 1950 2300
 Wire Wire Line
 	1150 2300 1450 2300
 Connection ~ 1150 2300
+Text Notes 4950 2100 0    31   ~ 0
+22 uF Tantalum advised ->\n47 uf Tantalum in inventory instead
+Text Notes 4950 3100 0    31   ~ 0
+22 uF Tantalum advised ->\n47 uf Tantalum in inventory instead
 $EndSCHEMATC

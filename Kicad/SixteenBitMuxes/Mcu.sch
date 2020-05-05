@@ -382,59 +382,45 @@ Wire Notes Line
 	5350 550  5350 7700
 $Comp
 L Device:R R?
-U 1 1 5EA32EA1
-P 8500 1550
-AR Path="/5EA32EA1" Ref="R?"  Part="1" 
-AR Path="/5E8F7778/5EA32EA1" Ref="R?"  Part="1" 
-AR Path="/5E8BDF21/5EA32EA1" Ref="R8"  Part="1" 
-F 0 "R8" V 8450 1700 50  0000 C CNN
-F 1 "1K" V 8500 1550 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8430 1550 50  0001 C CNN
-F 3 "~" H 8500 1550 50  0001 C CNN
-	1    8500 1550
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R?
 U 1 1 5EA32EA7
-P 8500 1450
+P 9550 2000
 AR Path="/5EA32EA7" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5EA32EA7" Ref="R?"  Part="1" 
 AR Path="/5E8BDF21/5EA32EA7" Ref="R7"  Part="1" 
-F 0 "R7" V 8450 1600 50  0000 C CNN
-F 1 "1K" V 8500 1450 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8430 1450 50  0001 C CNN
-F 3 "~" H 8500 1450 50  0001 C CNN
-	1    8500 1450
-	0    1    1    0   
+F 0 "R7" V 9500 2150 50  0000 C CNN
+F 1 "10K" V 9550 2000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9480 2000 50  0001 C CNN
+F 3 "~" H 9550 2000 50  0001 C CNN
+	1    9550 2000
+	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5EA32EAD
-P 8500 1350
+P 9400 2000
 AR Path="/5EA32EAD" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5EA32EAD" Ref="R?"  Part="1" 
 AR Path="/5E8BDF21/5EA32EAD" Ref="R6"  Part="1" 
-F 0 "R6" V 8450 1500 50  0000 C CNN
-F 1 "1K" V 8500 1350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8430 1350 50  0001 C CNN
-F 3 "~" H 8500 1350 50  0001 C CNN
-	1    8500 1350
-	0    1    1    0   
+F 0 "R6" V 9350 2150 50  0000 C CNN
+F 1 "10K" V 9400 2000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9330 2000 50  0001 C CNN
+F 3 "~" H 9400 2000 50  0001 C CNN
+	1    9400 2000
+	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5EA32EB3
-P 8500 1250
+P 9250 2000
 AR Path="/5EA32EB3" Ref="R?"  Part="1" 
 AR Path="/5E8F7778/5EA32EB3" Ref="R?"  Part="1" 
 AR Path="/5E8BDF21/5EA32EB3" Ref="R5"  Part="1" 
-F 0 "R5" V 8450 1400 50  0000 C CNN
-F 1 "1K" V 8500 1250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8430 1250 50  0001 C CNN
-F 3 "~" H 8500 1250 50  0001 C CNN
-	1    8500 1250
-	0    1    1    0   
+F 0 "R5" V 9200 2150 50  0000 C CNN
+F 1 "10K" V 9250 2000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9180 2000 50  0001 C CNN
+F 3 "~" H 9250 2000 50  0001 C CNN
+	1    9250 2000
+	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -464,42 +450,14 @@ F 3 "" H 9500 3400 50  0001 C CNN
 	1    9500 3400
 	1    0    0    -1  
 $EndComp
-Text Notes 10550 800  0    50   ~ 10
-Key Pad\n\n\n\n
 Text Notes 8500 2950 0    50   ~ 10
 1602 LCD\n\n\n
 Wire Wire Line
 	8700 3350 9150 3350
-Wire Wire Line
-	2400 2450 1400 2450
-Wire Wire Line
-	3700 2850 4650 2850
-Wire Wire Line
-	2400 2650 1450 2650
-Wire Wire Line
-	1450 2550 2400 2550
-Text Label 9500 1850 2    50   ~ 0
-GPIO_KEYPAD_ROW_2
-Text Label 9500 1750 2    50   ~ 0
-GPIO_KEYPAD_ROW_3
-Wire Wire Line
-	9650 1750 8350 1750
-Wire Wire Line
-	8350 1850 9650 1850
-Wire Wire Line
-	9650 1950 8350 1950
-Text Label 9500 1950 2    50   ~ 0
-GPIO_KEYPAD_ROW_1
-Wire Wire Line
-	9650 1650 8350 1650
-Text Label 9650 1350 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_2
-Text Label 9650 1450 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_3
-Text Label 9650 1250 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_1
-Text Label 9650 1550 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_4
+Text Label 10400 1550 2    50   ~ 0
+GPIO_BUTTON_ENTER
+Text Label 10550 1750 2    50   ~ 0
+GPIO_BUTTON_INCREASE
 Wire Notes Line
 	5350 2450 11200 2450
 Wire Notes Line
@@ -512,20 +470,6 @@ Wire Wire Line
 	8700 3450 9050 3450
 Wire Wire Line
 	8700 3150 9050 3150
-$Comp
-L Connector:Conn_01x08_Male J?
-U 1 1 5EA32E9B
-P 8150 1550
-AR Path="/5EA32E9B" Ref="J?"  Part="1" 
-AR Path="/5E8F7778/5EA32E9B" Ref="J?"  Part="1" 
-AR Path="/5E8BDF21/5EA32E9B" Ref="J10"  Part="1" 
-F 0 "J10" H 8258 2031 50  0000 C CNN
-F 1 "Key Pad JST XH" H 8250 1950 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical" H 8150 1550 50  0001 C CNN
-F 3 "~" H 8150 1550 50  0001 C CNN
-	1    8150 1550
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	9150 3400 9150 3350
 Wire Wire Line
@@ -538,8 +482,6 @@ Wire Wire Line
 	9150 3250 9150 3150
 Text Notes 4600 3050 0    50   ~ 0
 Pull Down Resistor
-Text HLabel 3700 3150 2    50   Input ~ 0
-BYPASS_MODE_3V3
 Text Label 4500 3050 2    50   ~ 0
 BYPASS_SWITCH_3V3
 Wire Wire Line
@@ -551,33 +493,11 @@ Wire Wire Line
 Wire Wire Line
 	2400 3150 1500 3150
 Text Label 2300 3350 2    50   ~ 0
-GPIO_KEYPAD_ROW_4
-Text Label 4650 2850 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_1
+GPIO_BUTTON_INCREASE
 Text Label 2300 3250 2    50   ~ 0
-GPIO_KEYPAD_ROW_3
-Text Label 2400 2650 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_2
-Text Label 2400 2550 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_3
+GPIO_BUTTON_ENTER
 Text Label 2300 3150 2    50   ~ 0
-GPIO_KEYPAD_ROW_2
-Wire Wire Line
-	3700 4350 4550 4350
-Text Label 4550 4350 2    50   ~ 0
-GPIO_KEYPAD_ROW_1
-Text Label 2350 2450 2    50   ~ 0
-GPIO_KEYPAD_COLUMN_4
-Text Label 9500 1650 2    50   ~ 0
-GPIO_KEYPAD_ROW_4
-Wire Wire Line
-	8650 1250 9650 1250
-Wire Wire Line
-	8650 1350 9650 1350
-Wire Wire Line
-	8650 1450 9650 1450
-Wire Wire Line
-	8650 1550 9650 1550
+GPIO_BUTTON_DECREASE
 Wire Wire Line
 	1650 3450 2400 3450
 Wire Wire Line
@@ -586,8 +506,6 @@ Wire Wire Line
 	3700 4250 4650 4250
 Wire Notes Line
 	2900 7800 2950 7800
-Wire Notes Line
-	500  5200 11200 5200
 Wire Wire Line
 	1350 2050 2400 2050
 Wire Wire Line
@@ -614,21 +532,17 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    0    0    -1  
 $EndComp
 NoConn ~ 2400 4150
-Text HLabel 2400 2850 0    50   Input ~ 0
-TRANSISTOR_B_SELECTION_0_3V3
 Text HLabel 2400 2950 0    50   Input ~ 0
 TRANSISTOR_B_SELECTION_1_3V3
 Text HLabel 2400 3650 0    50   Input ~ 0
 TRANSISTOR_B_SELECTION_2_3V3
 Text HLabel 2400 3750 0    50   Input ~ 0
 TRANSISTOR_B_SELECTION_3_3V3
-Text HLabel 2400 3850 0    50   Input ~ 0
-CAPACITOR_A_SELECTION_0_3V3
 Text HLabel 2400 3950 0    50   Input ~ 0
 CAPACITOR_A_SELECTION_1_3V3
 Text HLabel 2400 4050 0    50   Input ~ 0
 CAPACITOR_A_SELECTION_2_3V3
-Text HLabel 3750 3650 2    50   Input ~ 0
+Text HLabel 3700 3650 2    50   Input ~ 0
 TRANSISTOR_C_SELECTION_0_3V3
 Text HLabel 3700 2950 2    50   Input ~ 0
 TRANSISTOR_C_SELECTION_1_3V3
@@ -644,8 +558,6 @@ Text HLabel 3700 3850 2    50   Input ~ 0
 CAPACITOR_D_SELECTION_2_3V3
 Wire Wire Line
 	3700 3650 3750 3650
-Text Notes 8750 1150 0    50   ~ 10
-Keypad\n\n\n
 NoConn ~ 3700 3450
 NoConn ~ 2400 4250
 NoConn ~ 2400 4350
@@ -707,39 +619,157 @@ Wire Wire Line
 	1950 6600 2850 6600
 Text Notes 2400 7050 0    50   ~ 0
 Check: Concave or Convex footprint
-Wire Notes Line
-	7700 500  7700 3900
-Text Notes 7300 4450 0    50   ~ 10
+Text Notes 6450 4200 0    50   ~ 10
 Bypass\n\n\n
 $Comp
 L Connector:Conn_01x02_Male J12
 U 1 1 5EBECF25
-P 7300 4550
-F 0 "J12" H 7408 4731 50  0000 C CNN
-F 1 "Bypass Switch JST XH" H 7408 4640 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 7300 4550 50  0001 C CNN
-F 3 "~" H 7300 4550 50  0001 C CNN
-	1    7300 4550
+P 6200 4300
+F 0 "J12" H 6308 4481 50  0000 C CNN
+F 1 "Bypass Switch JST XH" H 6308 4390 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" H 6200 4300 50  0001 C CNN
+F 3 "~" H 6200 4300 50  0001 C CNN
+	1    6200 4300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3V3 #PWR046
 U 1 1 5E9950D9
-P 8050 4550
-F 0 "#PWR046" H 8050 4400 50  0001 C CNN
-F 1 "+3V3" H 8065 4723 50  0000 C CNN
-F 2 "" H 8050 4550 50  0001 C CNN
-F 3 "" H 8050 4550 50  0001 C CNN
-	1    8050 4550
+P 6950 4300
+F 0 "#PWR046" H 6950 4150 50  0001 C CNN
+F 1 "+3V3" H 6965 4473 50  0000 C CNN
+F 2 "" H 6950 4300 50  0001 C CNN
+F 3 "" H 6950 4300 50  0001 C CNN
+	1    6950 4300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7500 4550 8050 4550
-Text Label 8250 4650 2    50   ~ 0
+	6400 4300 6950 4300
+Text Label 7150 4400 2    50   ~ 0
 BYPASS_SWITCH_3V3
 Wire Wire Line
-	7500 4650 8250 4650
+	6400 4400 7150 4400
 NoConn ~ 3700 3950
 NoConn ~ 3700 4050
 NoConn ~ -800 2650
+$Comp
+L Connector:Conn_01x06_Male J10
+U 1 1 5ECC424B
+P 8300 1450
+F 0 "J10" H 8408 1831 50  0000 C CNN
+F 1 "JST XH Buttons" H 8408 1740 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical" H 8300 1450 50  0001 C CNN
+F 3 "~" H 8300 1450 50  0001 C CNN
+	1    8300 1450
+	1    0    0    -1  
+$EndComp
+Text Label 10550 1350 2    50   ~ 0
+GPIO_BUTTON_DECREASE
+Connection ~ 9250 1350
+Wire Wire Line
+	9250 1350 10550 1350
+Wire Wire Line
+	9400 1550 10400 1550
+Connection ~ 9400 1550
+Wire Wire Line
+	9550 1750 10550 1750
+Connection ~ 9550 1750
+$Comp
+L power:+3V3 #PWR023
+U 1 1 5ECEF799
+P 8800 1000
+F 0 "#PWR023" H 8800 850 50  0001 C CNN
+F 1 "+3V3" H 8815 1173 50  0000 C CNN
+F 2 "" H 8800 1000 50  0001 C CNN
+F 3 "" H 8800 1000 50  0001 C CNN
+	1    8800 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 1350 9250 1350
+Wire Wire Line
+	8500 1550 9400 1550
+Wire Wire Line
+	8500 1750 9550 1750
+Wire Wire Line
+	8500 1650 8800 1650
+Wire Wire Line
+	8800 1650 8800 1450
+Wire Wire Line
+	8500 1450 8800 1450
+Connection ~ 8800 1450
+Wire Wire Line
+	8800 1450 8800 1250
+Wire Wire Line
+	8500 1250 8800 1250
+Connection ~ 8800 1250
+Wire Wire Line
+	8800 1250 8800 1000
+Text Notes 9200 900  0    20   ~ 0
+See  MicroCap ThreeSwitches
+NoConn ~ 3700 2850
+NoConn ~ 2400 2650
+NoConn ~ 2400 2550
+NoConn ~ 2400 2450
+NoConn ~ 3700 4350
+Text HLabel 2400 3850 0    50   Input ~ 0
+CAPACITOR_A_SELECTION_0_3V3
+Text HLabel 2400 2850 0    50   Input ~ 0
+TRANSISTOR_B_SELECTION_0_3V3
+Wire Notes Line
+	7700 500  7700 3900
+Wire Notes Line
+	500  5200 11200 5200
+$Comp
+L power:GND #PWR0118
+U 1 1 5EE03286
+P 9400 2150
+F 0 "#PWR0118" H 9400 1900 50  0001 C CNN
+F 1 "GND" H 9405 1977 50  0000 C CNN
+F 2 "" H 9400 2150 50  0001 C CNN
+F 3 "" H 9400 2150 50  0001 C CNN
+	1    9400 2150
+	1    0    0    -1  
+$EndComp
+Text HLabel 3700 3150 2    50   Input ~ 0
+BYPASS_MODE_3V3
+$Comp
+L Device:R R?
+U 1 1 5EE7BBB4
+P 6400 4550
+AR Path="/5EE7BBB4" Ref="R?"  Part="1" 
+AR Path="/5E8F7778/5EE7BBB4" Ref="R?"  Part="1" 
+AR Path="/5E8BDF21/5EE7BBB4" Ref="R?"  Part="1" 
+F 0 "R?" V 6350 4700 50  0000 C CNN
+F 1 "10K" V 6400 4550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6330 4550 50  0001 C CNN
+F 3 "~" H 6400 4550 50  0001 C CNN
+	1    6400 4550
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5EE7BBBA
+P 6400 4700
+F 0 "#PWR?" H 6400 4450 50  0001 C CNN
+F 1 "GND" H 6405 4527 50  0000 C CNN
+F 2 "" H 6400 4700 50  0001 C CNN
+F 3 "" H 6400 4700 50  0001 C CNN
+	1    6400 4700
+	1    0    0    -1  
+$EndComp
+Connection ~ 6400 4400
+Wire Wire Line
+	9550 1750 9550 1850
+Wire Wire Line
+	9400 1850 9400 1550
+Wire Wire Line
+	9250 1850 9250 1350
+Wire Wire Line
+	9250 2150 9400 2150
+Connection ~ 9400 2150
+Wire Wire Line
+	9400 2150 9550 2150
+Text Notes 9200 1050 0    50   ~ 10
+Buttons\n\n\n\n
 $EndSCHEMATC
