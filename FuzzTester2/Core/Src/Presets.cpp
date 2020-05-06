@@ -7,11 +7,17 @@
 
 #include "Presets.h"
 
+#include <stdlib.h>
+#include <sys/param.h>
+
 #include "stm32f1xx_hal.h"
 #include "Eeprom/eeprom.h"
 
 
 Presets::Presets()
+:
+  _presetIndex(0),
+  _isDirty    (false)
 {
 }
 
@@ -21,29 +27,127 @@ Presets::~Presets()
 }
 
 
-void Presets::Load()
+uint8_t Presets::GetPresetIndex()
 {
-    // Load presets.
-    // EEPROM test
-
-   //TODO
-
-    uint32_t n = 0;
-    if (EE_Write(0, 0x12345678))
-    {
-       EE_Read(0, &n);
-    }
+   return _presetIndex;
 }
 
 
-void Presets::Flash()
+Preset& Presets::GetPreset()
 {
-   //TODO
+   return _presets[_presetIndex];
+}
 
-   // Flash
-   uint32_t n = 0;
-   if (EE_Write(0, 0x12345678))
+
+void Presets::SetPresetIndex(uint8_t index)
+{
+   _presetIndex = index;
+   _isDirty = true;
+}
+
+
+
+/**
+ * Returns current preset
+ *
+ * Order: current index (4 bytes), preset data 0..100 * 4 bytes
+ */
+bool Presets::Load()
+{
+   uint32_t value;
+
+   bool loadOk = EE_Read(0, &value);
+   if (loadOk)
    {
-      EE_Read(0, &n);
+      _presetIndex = value;
+   }
+
+   for (uint8_t presetIndex = 0; presetIndex < NrOfPresets; presetIndex++)
+   {
+      Preset& preset = _presets[presetIndex];
+
+      loadOk &= EE_Read(presetIndex + 1, &value);
+      if (loadOk)
+      {
+         preset.SetIndex(Components::EType::CapacitorA ,  value             >> 24);
+         preset.SetIndex(Components::EType::TransistorB, (value & 0xff0000) >> 16);
+         preset.SetIndex(Components::EType::TransistorC, (value &   0xff00) >>  8);
+         preset.SetIndex(Components::EType::CapacitorD,   value &     0xff       );
+      }
+   }
+
+   LimitBoundaries();
+
+   _isDirty = true;
+
+   return loadOk;
+}
+
+
+bool Presets::Save()
+{
+   bool saveOk = EE_Format();
+   saveOk &= EE_Write(0, _presetIndex);
+
+   for (uint8_t presetIndex = 0; presetIndex < NrOfPresets; presetIndex++)
+   {
+      Preset& preset = _presets[presetIndex];
+
+      uint32_t value =
+       (preset.GetIndex(Components::EType::CapacitorA ) << 24) +
+       (preset.GetIndex(Components::EType::TransistorB) << 16) +
+       (preset.GetIndex(Components::EType::TransistorC) <<  8) +
+        preset.GetIndex(Components::EType::CapacitorD );
+
+      saveOk &= EE_Write(presetIndex + 1, value);
+   }
+
+   _isDirty = true;
+
+   return saveOk;
+}
+
+
+
+bool Presets::IsFlashDataEqual()
+{
+   bool isFlashDataEqual = true;
+
+   uint32_t flashValue;
+   isFlashDataEqual &= EE_Read(0, &flashValue);
+
+   for (uint8_t presetIndex = 0; isFlashDataEqual && (presetIndex < NrOfPresets); presetIndex++)
+   {
+      isFlashDataEqual &= EE_Read(presetIndex + 1, &flashValue);
+
+      Preset& preset = _presets[presetIndex];
+      uint32_t presetValue =
+         (preset.GetIndex(Components::EType::CapacitorA ) << 24) +
+         (preset.GetIndex(Components::EType::TransistorB) << 16) +
+         (preset.GetIndex(Components::EType::TransistorC) <<  8) +
+          preset.GetIndex(Components::EType::CapacitorD );
+
+      isFlashDataEqual &= (presetValue == flashValue);
+   }
+
+   return isFlashDataEqual;
+}
+
+
+bool Presets::CheckDirty()
+{
+   bool isDirty = _isDirty;
+   _isDirty = false;
+   return isDirty;
+}
+
+
+void Presets::LimitBoundaries()
+{
+   _presetIndex = MAX(0, MIN(NrOfPresets -1, _presetIndex));
+
+   for (uint8_t presetIndex = 0; presetIndex < NrOfPresets; presetIndex++)
+   {
+      _presets[presetIndex].LimitBoundaries();
    }
 }

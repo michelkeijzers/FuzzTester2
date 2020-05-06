@@ -106,13 +106,29 @@ void BaseButton::OnTick()
       break;
 
    case EState::WaitForFirstHold:
-      SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _nextHoldTime);
-      _state = WaitForNextHold;
-      OnButtonHold();
+      if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
+      {
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, _nextHoldTime);
+        _state = WaitForNextHold;
+        OnButtonHold();
+      }
+      else
+      {
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);
+        _state = Released;
+      }
       break;
 
    case EState::WaitForNextHold:
-      OnButtonHold();
+      if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
+      {
+         OnButtonHold();
+      }
+      else
+      {
+         SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, 0);
+        _state = Released;
+      }
       break;
 
    case EState::ReleasedDebouncing:

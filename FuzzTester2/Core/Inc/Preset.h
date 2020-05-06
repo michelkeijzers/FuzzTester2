@@ -10,30 +10,31 @@
 
 #include <stdint.h>
 
+#include "Components.h"
+
 class Preset
 {
 public:
-   enum EType
-   {
-      CapacitorA,
-      TransistorB,
-      TransistorC,
-      CapacitorD
-   };
-
    Preset();
    virtual ~Preset();
 
-   uint8_t GetIndex  (EType type);
-   void DecreaseIndex(EType type);
-   void IncreaseIndex(EType type);
-   void SetIndex     (EType type, int index);
+   bool DecreaseIndex(Components::EType type);
+   bool IncreaseIndex(Components::EType type);
+
+   uint8_t GetIndex  (Components::EType type);
+   void SetIndex(Components::EType type, uint8_t index);
+
+   bool CheckDirty();
+
+   void LimitBoundaries();
 
 private:
    uint8_t _capacitorA;
    uint8_t _transistorB;
    uint8_t _transistorC;
    uint8_t _capacitorD;
+
+   bool _isDirty;
 };
 
 #endif /* INC_PRESET_H_ */

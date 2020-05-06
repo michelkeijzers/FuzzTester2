@@ -15,18 +15,35 @@
 class Presets
 {
 public:
-   static const uint8_t NrOfPresets = 32;
+   static const uint8_t NrOfPresets = 100;
 
    Presets();
 
    virtual ~Presets();
 
-   void Load();
+   Preset& GetPreset();
 
-   void Flash();
+   uint8_t GetPresetIndex();
+
+   void SetPresetIndex(uint8_t presetIndex);
+
+   bool Load();
+
+   bool Save();
+
+   bool IsFlashDataEqual();
+
+   bool CheckDirty();
 
 private:
+   void LimitBoundaries();
+
+
    Preset _presets[NrOfPresets];
+
+   uint8_t _presetIndex;
+
+   bool _isDirty;
 };
 
 #endif /* SRC_PRESETS_H_ */

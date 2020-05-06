@@ -197,8 +197,8 @@ F 3 "" H 4000 3150 50  0001 C CNN
 	1    4000 3150
 	1    0    0    -1  
 $EndComp
-Text Notes 3250 2300 0    20   ~ 0
-9 mA, 81 mW
+Text Notes 3000 3050 0    31   ~ 0
+D1 LED\n\nVfw = 2 V\n I = (9-2)/1 = \n  7 mA
 Text Notes 4950 1900 0    31   ~ 0
 5V: LCD: about 60 mA\nPd = (9 V - 5V) * 60 mA = 240 mW\nTj = Ta(max) + Pd * (Thermal Resistance (junction-to-ambient) =\n125 = 30 + Pd * 70 => 1.36 W\nNo heat sink needed
 Text Notes 4950 2900 0    31   ~ 0

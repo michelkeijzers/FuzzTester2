@@ -96,7 +96,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
  
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -213,8 +212,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GPIO_BYPASS_SWITCH_Pin GPIO_BYPASS_MODE_Pin GPIO_TRANSISTOR_C_SELECTION_0_Pin */
-  GPIO_InitStruct.Pin = GPIO_BYPASS_SWITCH_Pin|GPIO_BYPASS_MODE_Pin|GPIO_TRANSISTOR_C_SELECTION_0_Pin;
+  /*Configure GPIO pin : GPIO_BYPASS_SWITCH_Pin */
+  GPIO_InitStruct.Pin = GPIO_BYPASS_SWITCH_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIO_BYPASS_SWITCH_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : GPIO_BYPASS_MODE_Pin GPIO_TRANSISTOR_C_SELECTION_0_Pin */
+  GPIO_InitStruct.Pin = GPIO_BYPASS_MODE_Pin|GPIO_TRANSISTOR_C_SELECTION_0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -230,9 +235,22 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : GPIO_BUTTON_DECREASE_Pin GPIO_BUTTON_ENTER_Pin GPIO_BUTTON_INCREASE_Pin */
   GPIO_InitStruct.Pin = GPIO_BUTTON_DECREASE_Pin|GPIO_BUTTON_ENTER_Pin|GPIO_BUTTON_INCREASE_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 
 }
 

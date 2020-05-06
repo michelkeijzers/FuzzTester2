@@ -381,48 +381,6 @@ Wire Wire Line
 Wire Notes Line
 	5350 550  5350 7700
 $Comp
-L Device:R R?
-U 1 1 5EA32EA7
-P 9550 2000
-AR Path="/5EA32EA7" Ref="R?"  Part="1" 
-AR Path="/5E8F7778/5EA32EA7" Ref="R?"  Part="1" 
-AR Path="/5E8BDF21/5EA32EA7" Ref="R7"  Part="1" 
-F 0 "R7" V 9500 2150 50  0000 C CNN
-F 1 "10K" V 9550 2000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9480 2000 50  0001 C CNN
-F 3 "~" H 9550 2000 50  0001 C CNN
-	1    9550 2000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5EA32EAD
-P 9400 2000
-AR Path="/5EA32EAD" Ref="R?"  Part="1" 
-AR Path="/5E8F7778/5EA32EAD" Ref="R?"  Part="1" 
-AR Path="/5E8BDF21/5EA32EAD" Ref="R6"  Part="1" 
-F 0 "R6" V 9350 2150 50  0000 C CNN
-F 1 "10K" V 9400 2000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9330 2000 50  0001 C CNN
-F 3 "~" H 9400 2000 50  0001 C CNN
-	1    9400 2000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5EA32EB3
-P 9250 2000
-AR Path="/5EA32EB3" Ref="R?"  Part="1" 
-AR Path="/5E8F7778/5EA32EB3" Ref="R?"  Part="1" 
-AR Path="/5E8BDF21/5EA32EB3" Ref="R5"  Part="1" 
-F 0 "R5" V 9200 2150 50  0000 C CNN
-F 1 "10K" V 9250 2000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9180 2000 50  0001 C CNN
-F 3 "~" H 9250 2000 50  0001 C CNN
-	1    9250 2000
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5EA32EC2
 P 9300 3150
@@ -454,9 +412,9 @@ Text Notes 8500 2950 0    50   ~ 10
 1602 LCD\n\n\n
 Wire Wire Line
 	8700 3350 9150 3350
-Text Label 10400 1550 2    50   ~ 0
+Text Label 9600 1550 2    50   ~ 0
 GPIO_BUTTON_ENTER
-Text Label 10550 1750 2    50   ~ 0
+Text Label 9800 1750 2    50   ~ 0
 GPIO_BUTTON_INCREASE
 Wire Notes Line
 	5350 2450 11200 2450
@@ -487,11 +445,11 @@ BYPASS_SWITCH_3V3
 Wire Wire Line
 	3700 3050 4500 3050
 Wire Wire Line
-	2400 3350 1500 3350
+	2400 3350 1400 3350
 Wire Wire Line
 	1500 3250 2400 3250
 Wire Wire Line
-	2400 3150 1500 3150
+	2400 3150 1400 3150
 Text Label 2300 3350 2    50   ~ 0
 GPIO_BUTTON_INCREASE
 Text Label 2300 3250 2    50   ~ 0
@@ -655,25 +613,16 @@ NoConn ~ -800 2650
 $Comp
 L Connector:Conn_01x06_Male J10
 U 1 1 5ECC424B
-P 8300 1450
-F 0 "J10" H 8408 1831 50  0000 C CNN
-F 1 "JST XH Buttons" H 8408 1740 50  0000 C CNN
-F 2 "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical" H 8300 1450 50  0001 C CNN
-F 3 "~" H 8300 1450 50  0001 C CNN
-	1    8300 1450
+P 8350 1450
+F 0 "J10" H 8458 1831 50  0000 C CNN
+F 1 "JST XH Buttons" H 8458 1740 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical" H 8350 1450 50  0001 C CNN
+F 3 "~" H 8350 1450 50  0001 C CNN
+	1    8350 1450
 	1    0    0    -1  
 $EndComp
-Text Label 10550 1350 2    50   ~ 0
+Text Label 9750 1350 2    50   ~ 0
 GPIO_BUTTON_DECREASE
-Connection ~ 9250 1350
-Wire Wire Line
-	9250 1350 10550 1350
-Wire Wire Line
-	9400 1550 10400 1550
-Connection ~ 9400 1550
-Wire Wire Line
-	9550 1750 10550 1750
-Connection ~ 9550 1750
 $Comp
 L power:+3V3 #PWR023
 U 1 1 5ECEF799
@@ -686,22 +635,16 @@ F 3 "" H 8800 1000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8500 1350 9250 1350
-Wire Wire Line
-	8500 1550 9400 1550
-Wire Wire Line
-	8500 1750 9550 1750
-Wire Wire Line
-	8500 1650 8800 1650
+	8550 1650 8800 1650
 Wire Wire Line
 	8800 1650 8800 1450
 Wire Wire Line
-	8500 1450 8800 1450
+	8550 1450 8800 1450
 Connection ~ 8800 1450
 Wire Wire Line
 	8800 1450 8800 1250
 Wire Wire Line
-	8500 1250 8800 1250
+	8550 1250 8800 1250
 Connection ~ 8800 1250
 Wire Wire Line
 	8800 1250 8800 1000
@@ -720,56 +663,22 @@ Wire Notes Line
 	7700 500  7700 3900
 Wire Notes Line
 	500  5200 11200 5200
-$Comp
-L power:GND #PWR0118
-U 1 1 5EE03286
-P 9400 2150
-F 0 "#PWR0118" H 9400 1900 50  0001 C CNN
-F 1 "GND" H 9405 1977 50  0000 C CNN
-F 2 "" H 9400 2150 50  0001 C CNN
-F 3 "" H 9400 2150 50  0001 C CNN
-	1    9400 2150
-	1    0    0    -1  
-$EndComp
 Text HLabel 3700 3150 2    50   Input ~ 0
 BYPASS_MODE_3V3
-$Comp
-L Device:R R?
-U 1 1 5EE7BBB4
-P 6400 4550
-AR Path="/5EE7BBB4" Ref="R?"  Part="1" 
-AR Path="/5E8F7778/5EE7BBB4" Ref="R?"  Part="1" 
-AR Path="/5E8BDF21/5EE7BBB4" Ref="R?"  Part="1" 
-F 0 "R?" V 6350 4700 50  0000 C CNN
-F 1 "10K" V 6400 4550 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6330 4550 50  0001 C CNN
-F 3 "~" H 6400 4550 50  0001 C CNN
-	1    6400 4550
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5EE7BBBA
-P 6400 4700
-F 0 "#PWR?" H 6400 4450 50  0001 C CNN
-F 1 "GND" H 6405 4527 50  0000 C CNN
-F 2 "" H 6400 4700 50  0001 C CNN
-F 3 "" H 6400 4700 50  0001 C CNN
-	1    6400 4700
-	1    0    0    -1  
-$EndComp
-Connection ~ 6400 4400
-Wire Wire Line
-	9550 1750 9550 1850
-Wire Wire Line
-	9400 1850 9400 1550
-Wire Wire Line
-	9250 1850 9250 1350
-Wire Wire Line
-	9250 2150 9400 2150
-Connection ~ 9400 2150
-Wire Wire Line
-	9400 2150 9550 2150
 Text Notes 9200 1050 0    50   ~ 10
 Buttons\n\n\n\n
+Text Notes 7300 4400 0    50   ~ 0
+Internal Pull-down resistor
+Wire Wire Line
+	8550 1350 9750 1350
+Wire Wire Line
+	8550 1550 9600 1550
+Wire Wire Line
+	8550 1750 9800 1750
+Text Notes 9900 1350 0    50   ~ 0
+Internal Pull-down resistor
+Text Notes 9900 1550 0    50   ~ 0
+Internal Pull-down resistor
+Text Notes 9900 1750 0    50   ~ 0
+Internal Pull-down resistor
 $EndSCHEMATC

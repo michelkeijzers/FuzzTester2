@@ -6,60 +6,170 @@
  */
 
 #include "Preset.h"
-#include "components.h"
+#include "Components.h"
 
 #include <assert.h>
 #include <sys/param.h>
 
 Preset::Preset()
+:
+   _capacitorA (0),
+   _transistorB(0),
+   _transistorC(0),
+   _capacitorD (0),
+   _isDirty    (false)
 {
-   _capacitorA   = 0;
-   _transistorB  = 0;
-   _transistorC  = 0;
-   _capacitorD   = 0;
-
-
 }
+
 
 Preset::~Preset()
 {
 }
 
 
-void Preset::DecreaseIndex(EType type)
+bool Preset::DecreaseIndex(Components::EType type)
 {
+   uint8_t previousValue;
+   bool changed = false;
+
    switch (type)
    {
-      case EType::CapacitorA : _capacitorA = MAX(0, _capacitorA - 1); break;
-      case EType::TransistorB: _transistorB = MAX(0, _transistorB - 1); break;
-      case EType::TransistorC: _transistorC = MAX(0, _transistorC - 1); break;
-      case EType::CapacitorD : _capacitorD = MAX(0, _capacitorD - 1); break;
-      default: assert(false);
+   case Components::EType::CapacitorA:
+      previousValue = _capacitorA;
+      _capacitorA = MAX(0, _capacitorA - 1);
+      changed = (previousValue != _capacitorA);
+      _isDirty |= changed;
+      break;
+
+   case Components::EType::TransistorB:
+      previousValue = _transistorB;
+      _transistorB = MAX(0, _transistorB - 1);
+      changed = (previousValue != _transistorB);
+      _isDirty |= (previousValue != _transistorB);
+      break;
+
+   case Components::EType::TransistorC:
+      previousValue = _transistorC;
+      _transistorC = MAX(0, _transistorC - 1);
+      changed = (previousValue != _transistorC);
+      _isDirty |= changed;
+      break;
+
+   case Components::EType::CapacitorD:
+      previousValue = _capacitorD;
+      _capacitorD = MAX(0, _capacitorD - 1);
+      changed = (previousValue != _capacitorD);
+      _isDirty |= changed;
+      break;
+
+   default:
+      assert(false);
    }
+
+   return changed;
 }
 
 
-void Preset::IncreaseIndex(EType type)
+bool Preset::IncreaseIndex(Components::EType type)
 {
-   switch (type)
-      {
-      case EType::CapacitorA : _capacitorA = MIN(Components::NrOfCapacitors - 1, _capacitorA + 1); break;
-      case EType::TransistorB: _transistorB = MIN(Components::NrOfTransistors - 1, _transistorB + 1); break;
-      case EType::TransistorC: _transistorC = MIN(Components::NrOfTransistors - 1, _transistorC + 1); break;
-      case EType::CapacitorD : _capacitorD = MIN(Components::NrOfCapacitors - 1, _capacitorD + 1); break;
-      default: assert(false);
-      }
-}
+   uint8_t previousValue = _capacitorA;
+   bool changed = false;
 
-
-uint8_t Preset::GetIndex(EType type)
-{
    switch (type)
    {
-   case EType::CapacitorA : return _capacitorA; break;
-   case EType::TransistorB: return _transistorB; break;
-   case EType::TransistorC: return _transistorC; break;
-   case EType::CapacitorD : return _capacitorD; break;
+   case Components::EType::CapacitorA :
+      previousValue = _capacitorA;
+      _capacitorA = MIN(Components::NrOfCapacitors - 1, _capacitorA + 1);
+      changed = (previousValue != _capacitorA);
+      _isDirty |= changed;
+      break;
+
+   case Components::EType::TransistorB:
+      previousValue = _transistorB;
+      _transistorB = MIN(Components::NrOfTransistors - 1, _transistorB + 1);
+      changed = (previousValue != _transistorB);
+      _isDirty |= changed;
+      break;
+
+   case Components::EType::TransistorC:
+      previousValue = _transistorC;
+      _transistorC = MIN(Components::NrOfTransistors - 1, _transistorC + 1);
+      changed = (previousValue != _transistorC);
+      _isDirty |= changed;
+      break;
+
+   case Components::EType::CapacitorD :
+      previousValue = _capacitorD;
+      _capacitorD = MIN(Components::NrOfCapacitors - 1, _capacitorD + 1);
+      changed = (previousValue != _capacitorD);
+      _isDirty |= changed;
+      break;
+
+   default:
+      assert(false);
+   }
+
+   return changed;
+}
+
+
+uint8_t Preset::GetIndex(Components::EType type)
+{
+   uint8_t index = 0;
+
+   switch (type)
+   {
+   case Components::EType::CapacitorA :
+      index =  _capacitorA;
+      break;
+
+   case Components::EType::TransistorB:
+      index =  _transistorB;
+      break;
+
+   case Components::EType::TransistorC:
+      index =  _transistorC;
+      break;
+
+   case Components::EType::CapacitorD :
+      index =  _capacitorD;
+      break;
+
    default: assert(false);
    }
+
+   return index;
+}
+
+
+bool Preset::CheckDirty()
+{
+   bool isDirty = _isDirty;
+   _isDirty = false;
+   return isDirty;
+}
+
+
+/**
+ * Debug only
+ */
+void Preset::SetIndex(Components::EType type, uint8_t index)
+{
+   switch (type)
+   {
+   case Components::EType::CapacitorA :  _capacitorA = index; break;
+   case Components::EType::TransistorB:  _transistorB = index; break;
+   case Components::EType::TransistorC:  _transistorC = index; break;
+   case Components::EType::CapacitorD :  _capacitorD = index; break;
+   default: assert(false);
+   }
+}
+
+
+void Preset::LimitBoundaries()
+{
+   _capacitorA  = MAX(0, MIN(Components::NrOfCapacitors  - 1, _capacitorA ));
+   _transistorB = MAX(0, MIN(Components::NrOfTransistors - 1, _transistorB));
+   _transistorC = MAX(0, MIN(Components::NrOfTransistors - 1, _transistorC));
+   _capacitorD  = MAX(0, MIN(Components::NrOfCapacitors  - 1, _capacitorD ));
 }

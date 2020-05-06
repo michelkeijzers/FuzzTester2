@@ -5,10 +5,14 @@
  *      Author: miche
  */
 
+#include "stm32f1xx_hal.h"
+
+#include "assert.h"
+
 #include <Framework/LcdDisplay.h>
 #include <Framework/SysTickSubscribers.h>
+#include "Framework/HalUtils.h"
 
-#include "stm32f1xx_hal.h"
 
 // #define LCD_ADDR (0x27 << 1)
 
@@ -24,6 +28,7 @@ LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel,
       UPDATE_LCD_FUNCTION_PTR callbackFunction, uint16_t refreshTime, uint8_t sysTickSubscriberIndex)
 : _hI2c(hI2c),
   _i2cChannel(i2cChannel << 1),
+  _isInitialized(false),
   _backLight(0),
   _displayControl(0x04),
   _callbackFunction(callbackFunction)
@@ -35,6 +40,18 @@ LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel,
 
 LcdDisplay::~LcdDisplay()
 {
+}
+
+
+uint8_t LcdDisplay::GetMaxLineLength()
+{
+   return 16;
+}
+
+
+uint8_t LcdDisplay::GetMaxLines()
+{
+   return 2;
 }
 
 
@@ -71,11 +88,18 @@ void LcdDisplay::I2C_Scan()
 }
 
 
+bool LcdDisplay::IsInitialized()
+{
+   return _isInitialized;
+}
+
 
 void LcdDisplay::Init()
 {
+    _isInitialized = false;
+
     // Wait 15..40 ms after LCD power applied
-    HAL_Delay(50);
+     HalUtils::Delay(50);
 
     // Try several times - one try may go just for initializing the
     // IO Expander to get LCD bus to known state.
@@ -84,7 +108,7 @@ void LcdDisplay::Init()
         // Try going to 8-bit mode using two nibbles of 0x03
         SendCommand(0b00110011);
         // Wait more than 4.1 ms
-        HAL_Delay(6);
+        HalUtils::Delay(6);
     }
 
     // Try going to 4-bit mode using nibbles 0x03 and 0x02
@@ -101,14 +125,94 @@ void LcdDisplay::Init()
     // display & cursor home (keep this!)
     SendCommand(0b00000010);
     // Cursor Home needs more than 1.5 ms to execute
-    HAL_Delay(3);
+    HalUtils::Delay(3);
     // display on, cursor off, blink off
     SendCommand(0b00001100);
     // clear display (optional here)
     SendCommand(0b00000001);
     // Clear Display needs more than 1.5 ms to execute
-    HAL_Delay(3);
+    HalUtils::Delay(3);
 
+    _isInitialized = true;
+}
+
+
+void LcdDisplay::BlankDisplay()
+{
+   SendCommand(8);
+}
+
+
+void LcdDisplay::RestoreDisplay()
+{
+   SendCommand(12);
+}
+
+
+void LcdDisplay::ClearScreen()
+{
+   SendCommand(1);
+}
+
+
+void LcdDisplay::ScrollOneCharLeft()
+{
+   SendCommand(24);
+}
+
+
+void LcdDisplay::ScrollOneCharRight()
+{
+   SendCommand(28);
+}
+
+
+void LcdDisplay::SetCursorType(ECursorType cursorType)
+{
+    switch (cursorType)
+    {
+    case None:
+       SendCommand(12);
+       break;
+
+    case Underline:
+       SendCommand(14);
+       break;
+
+    case Block:
+       SendCommand(15);
+       break;
+
+    default:
+       assert(false);
+    }
+}
+
+
+void LcdDisplay::SetCursorPosition(uint8_t x, uint8_t y)
+{
+   assert(x < GetMaxLineLength());
+   assert(y < GetMaxLines());
+
+   SendCommand(128 + GetMaxLineLength() * y + x);
+}
+
+
+void LcdDisplay::CursorHome()
+{
+   SendCommand(2);
+}
+
+
+void LcdDisplay::CursorLeft()
+{
+   SendCommand(16);
+}
+
+
+void LcdDisplay::CursorRight()
+{
+   SendCommand(20);
 }
 
 
@@ -133,7 +237,7 @@ HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
 
     //res = HAL_I2C_Master_Transmit_IT(_hI2c, _i2cChannel, data_arr, sizeof(data_arr));
     res = HAL_I2C_Master_Transmit(_hI2c, _i2cChannel, data_arr, sizeof(data_arr), HAL_MAX_DELAY);
-    //HAL_Delay(LCD_DELAY_MS);
+    //HalUtils::Delay(LCD_DELAY_MS);
     return res;
 }
 

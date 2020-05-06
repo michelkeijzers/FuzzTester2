@@ -5,24 +5,26 @@
  *      Author: miche
  */
 
-#include <Components.h>
+#include "Components.h"
 
 #include <assert.h>
 #include <string.h>
+
+#include "Preset.h"
 
 
 const char* capacitorInfos[] =
 {
    //TODO update
   //1234567890123456              TH   0805
-   "Cap A1: 10nF Cer", // 1      Ceramic  Yes
-   "Cap A2: 33nF Cer", // 2      Ceramic  Yes
-   "Cap A3: 47nF Cer", // 3      Ceramic  Yes
-   "Cap A4:100nF Cer", // 4      Ceramic  Yes
-   "Cap A5:0.47uF El", // 5      Elec     Yes
-   "Cap A6:   1uF El", // 6      Elec     Yes
-   "Cap A7: 4.7uF El", // 7      Elec    Ordered
-   "Cap A8:  10uF El", // 8      Elec    Ordered
+   "Cap ?1: 10nF Cer", // 1      Ceramic  Yes
+   "Cap ?2: 33nF Cer", // 2      Ceramic  Yes
+   "Cap ?3: 47nF Cer", // 3      Ceramic  Yes
+   "Cap ?4:100nF Cer", // 4      Ceramic  Yes
+   "Cap ?5:0.47uF El", // 5      Elec     Yes
+   "Cap ?6:   1uF El", // 6      Elec     Yes
+   "Cap ?7: 4.7uF El", // 7      Elec    Ordered
+   "Cap ?8:  10uF El", // 8      Elec    Ordered
 };
 
 
@@ -56,8 +58,6 @@ const char* transistorInfos[] =
 
 Components::Components()
 {
-   _lastSelectedType = Preset::EType::CapacitorA;
-
 }
 
 
@@ -66,48 +66,31 @@ Components::~Components()
 }
 
 
-
-Preset& Components::GetCurrentPatch()
+/* static */ void Components::GetInfoString(char* textBuffer, Preset& preset, EType type)
 {
-   return _currentPatch;
-}
-
-
-void Components::SetLastSelectedType(Preset::EType type)
-{
-   _lastSelectedType = type;
-}
-
-
-void Components::GetInfoString(char* textBuffer)
-{
-   char type;
-
-   switch (_lastSelectedType)
+   switch (type)
    {
-   case Preset::EType::CapacitorA :
-      strcpy(textBuffer, capacitorInfos [_currentPatch.GetIndex(Preset::EType::CapacitorA )]);
-      type = 'A';
+   case EType::CapacitorA :
+      strcpy(textBuffer, capacitorInfos [preset.GetIndex(EType::CapacitorA )]);
+      textBuffer[4] = 'A';
       break;
 
-   case Preset::EType::TransistorB:
-      strcpy(textBuffer, transistorInfos[_currentPatch.GetIndex(Preset::EType::TransistorB)]);
-      type = 'B';
+   case EType::TransistorB:
+      strcpy(textBuffer, transistorInfos[preset.GetIndex(EType::TransistorB)]);
+      textBuffer[6] = 'B';
       break;
 
-   case Preset::EType::TransistorC:
-      strcpy(textBuffer, transistorInfos[_currentPatch.GetIndex(Preset::EType::TransistorB)]);
-      type = 'C';
+   case EType::TransistorC:
+      strcpy(textBuffer, transistorInfos[preset.GetIndex(EType::TransistorC)]);
+      textBuffer[6] = 'C';
       break;
 
-   case Preset::EType::CapacitorD :
-      strcpy(textBuffer, capacitorInfos [_currentPatch.GetIndex(Preset::EType::CapacitorD )]);
-      type = 'D';
+   case EType::CapacitorD :
+      strcpy(textBuffer, capacitorInfos [preset.GetIndex(EType::CapacitorD )]);
+      textBuffer[4] = 'D';
       break;
 
    default:
       assert(false);
    }
-
-   textBuffer[6] = type; // Replace ?
 }

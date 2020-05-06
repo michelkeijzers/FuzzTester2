@@ -10,13 +10,20 @@
 
 #include <stdint.h>
 
-#include "Preset.h"
+class Preset;
 
 
 class Components
-
 {
 public:
+   enum EType
+   {
+      CapacitorA,
+      TransistorB,
+      TransistorC,
+      CapacitorD
+   };
+
    Components();
    virtual ~Components();
 
@@ -24,17 +31,7 @@ public:
    static const uint8_t NrOfCapacitors = 8;
    static const uint8_t NrOfTransistors = 16;
 
-
-   Preset& GetCurrentPatch();
-
-   void GetInfoString(char* textBuffer);
-
-   void SetLastSelectedType(Preset::EType type);
-
-private:
-   Preset _currentPatch;
-
-   Preset::EType _lastSelectedType;
+   static void GetInfoString(char* textBuffer, Preset& preset, EType type);
 };
 
 #endif /* INC_COMPONENTS_H_ */
