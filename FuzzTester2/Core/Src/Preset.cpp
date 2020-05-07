@@ -27,89 +27,93 @@ Preset::~Preset()
 }
 
 
+bool Preset::DecreaseParameterIndex(uint8_t* parameter)
+{
+   bool isChanged = false;
+
+   if (*parameter > 0)
+   {
+      isChanged = true;
+      _isDirty = true;
+      (*parameter)--;
+   }
+
+   return isChanged;
+}
+
+
 bool Preset::DecreaseIndex(Components::EType type)
 {
-   uint8_t previousValue;
-   bool changed = false;
+   bool isChanged = false;
 
    switch (type)
    {
    case Components::EType::CapacitorA:
-      previousValue = _capacitorA;
-      _capacitorA = MAX(0, _capacitorA - 1);
-      changed = (previousValue != _capacitorA);
-      _isDirty |= changed;
+      isChanged = DecreaseParameterIndex(&_capacitorA);
       break;
 
    case Components::EType::TransistorB:
-      previousValue = _transistorB;
-      _transistorB = MAX(0, _transistorB - 1);
-      changed = (previousValue != _transistorB);
-      _isDirty |= (previousValue != _transistorB);
+      isChanged = DecreaseParameterIndex(&_transistorB);
       break;
 
    case Components::EType::TransistorC:
-      previousValue = _transistorC;
-      _transistorC = MAX(0, _transistorC - 1);
-      changed = (previousValue != _transistorC);
-      _isDirty |= changed;
+      isChanged = DecreaseParameterIndex(&_transistorC);
       break;
 
    case Components::EType::CapacitorD:
-      previousValue = _capacitorD;
-      _capacitorD = MAX(0, _capacitorD - 1);
-      changed = (previousValue != _capacitorD);
-      _isDirty |= changed;
+      isChanged = DecreaseParameterIndex(&_capacitorD);
       break;
 
    default:
       assert(false);
    }
 
-   return changed;
+   return isChanged;
+}
+
+
+bool Preset::IncreaseParameterIndex(uint8_t* parameter, uint8_t nrOfItems)
+{
+   bool isChanged = false;
+
+   if (*parameter < nrOfItems - 1)
+   {
+      isChanged = true;
+      _isDirty = true;
+      (*parameter)++;
+   }
+
+   return isChanged;
 }
 
 
 bool Preset::IncreaseIndex(Components::EType type)
 {
-   uint8_t previousValue = _capacitorA;
-   bool changed = false;
+   bool isChanged = false;
 
    switch (type)
    {
    case Components::EType::CapacitorA :
-      previousValue = _capacitorA;
-      _capacitorA = MIN(Components::NrOfCapacitors - 1, _capacitorA + 1);
-      changed = (previousValue != _capacitorA);
-      _isDirty |= changed;
+      isChanged = IncreaseParameterIndex(&_capacitorA, Components::NrOfCapacitors);
       break;
 
    case Components::EType::TransistorB:
-      previousValue = _transistorB;
-      _transistorB = MIN(Components::NrOfTransistors - 1, _transistorB + 1);
-      changed = (previousValue != _transistorB);
-      _isDirty |= changed;
+      isChanged = IncreaseParameterIndex(&_transistorB, Components::NrOfTransistors);
       break;
 
    case Components::EType::TransistorC:
-      previousValue = _transistorC;
-      _transistorC = MIN(Components::NrOfTransistors - 1, _transistorC + 1);
-      changed = (previousValue != _transistorC);
-      _isDirty |= changed;
+      isChanged = IncreaseParameterIndex(&_transistorC, Components::NrOfTransistors);
       break;
 
    case Components::EType::CapacitorD :
-      previousValue = _capacitorD;
-      _capacitorD = MIN(Components::NrOfCapacitors - 1, _capacitorD + 1);
-      changed = (previousValue != _capacitorD);
-      _isDirty |= changed;
+      isChanged = IncreaseParameterIndex(&_capacitorD, Components::NrOfCapacitors);
       break;
 
    default:
       assert(false);
    }
 
-   return changed;
+   return isChanged;
 }
 
 

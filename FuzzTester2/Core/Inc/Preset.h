@@ -18,7 +18,9 @@ public:
    Preset();
    virtual ~Preset();
 
+   bool DecreaseParameterIndex(uint8_t* parameter);
    bool DecreaseIndex(Components::EType type);
+   bool IncreaseParameterIndex(uint8_t* parameter, uint8_t nrOfItems);
    bool IncreaseIndex(Components::EType type);
 
    uint8_t GetIndex  (Components::EType type);

@@ -26,11 +26,11 @@ public:
    uint8_t GetPresetIndex();
 
    void SetPresetIndex(uint8_t presetIndex);
+   bool DecreasePresetIndex();
+   bool IncreasePresetIndex();
 
    bool Load();
-
    bool Store();
-
    bool IsFlashDataEqual();
 
    bool CheckDirty();

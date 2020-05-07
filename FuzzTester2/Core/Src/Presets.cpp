@@ -46,6 +46,36 @@ void Presets::SetPresetIndex(uint8_t index)
 }
 
 
+bool Presets::DecreasePresetIndex()
+{
+   bool isChanged = false;
+
+   if (_presetIndex > 0)
+   {
+      isChanged = true;
+      _isDirty = true;
+      _presetIndex--;
+   }
+
+   return isChanged;
+}
+
+
+bool Presets::IncreasePresetIndex()
+{
+   bool isChanged = false;
+
+   if (_presetIndex < NrOfPresets - 1)
+   {
+      isChanged = true;
+      _isDirty = true;
+      _presetIndex++;
+   }
+
+   return isChanged;
+}
+
+
 
 /**
  * Returns current preset
