@@ -84,7 +84,7 @@ bool Presets::Load()
 }
 
 
-bool Presets::Save()
+bool Presets::Store()
 {
    bool saveOk = EE_Format();
    saveOk &= EE_Write(0, _presetIndex);

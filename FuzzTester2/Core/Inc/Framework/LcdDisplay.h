@@ -49,7 +49,6 @@ public:
 	uint8_t GetMaxLines();
 
 	void BlankDisplay(); // Without clearing
-	void RestoreDisplay(); // Without showing display;
 	void ClearScreen();
 
 	void ScrollOneCharLeft(); // All lines
@@ -76,6 +75,9 @@ private:
 	bool _isInitialized;
     uint8_t _backLight;
     uint8_t _displayControl;
+    ECursorType _cursorType;
+    uint8_t _cursorPosX;
+    uint8_t _cursorPosY;
 
 	UPDATE_LCD_FUNCTION_PTR _callbackFunction;
 };

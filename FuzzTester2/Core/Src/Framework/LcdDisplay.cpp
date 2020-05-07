@@ -31,6 +31,7 @@ LcdDisplay::LcdDisplay(I2C_HandleTypeDef* hI2c, uint8_t i2cChannel,
   _isInitialized(false),
   _backLight(0),
   _displayControl(0x04),
+  _cursorType(ECursorType::None),
   _callbackFunction(callbackFunction)
 {
    SysTickSubscribers::SetSubscriber(sysTickSubscriberIndex, this);
@@ -139,31 +140,25 @@ void LcdDisplay::Init()
 
 void LcdDisplay::BlankDisplay()
 {
-   SendCommand(8);
-}
-
-
-void LcdDisplay::RestoreDisplay()
-{
-   SendCommand(12);
+   //SendCommand(8);
 }
 
 
 void LcdDisplay::ClearScreen()
 {
-   SendCommand(1);
+   //SendCommand(1);
 }
 
 
 void LcdDisplay::ScrollOneCharLeft()
 {
-   SendCommand(24);
+   //SendCommand(24);
 }
 
 
 void LcdDisplay::ScrollOneCharRight()
 {
-   SendCommand(28);
+   //SendCommand(28);
 }
 
 
@@ -172,20 +167,22 @@ void LcdDisplay::SetCursorType(ECursorType cursorType)
     switch (cursorType)
     {
     case None:
-       SendCommand(12);
+       //SendCommand(12);
        break;
 
     case Underline:
-       SendCommand(14);
+       //SendCommand(14);
        break;
 
     case Block:
-       SendCommand(15);
+       //SendCommand(15);
        break;
 
     default:
        assert(false);
     }
+
+    _cursorType = cursorType;
 }
 
 
@@ -194,25 +191,25 @@ void LcdDisplay::SetCursorPosition(uint8_t x, uint8_t y)
    assert(x < GetMaxLineLength());
    assert(y < GetMaxLines());
 
-   SendCommand(128 + GetMaxLineLength() * y + x);
+   //SendCommand(128 + GetMaxLineLength() * y + x);
 }
 
 
 void LcdDisplay::CursorHome()
 {
-   SendCommand(2);
+   //SendCommand(2);
 }
 
 
 void LcdDisplay::CursorLeft()
 {
-   SendCommand(16);
+   //SendCommand(16);
 }
 
 
 void LcdDisplay::CursorRight()
 {
-   SendCommand(20);
+   //SendCommand(20);
 }
 
 

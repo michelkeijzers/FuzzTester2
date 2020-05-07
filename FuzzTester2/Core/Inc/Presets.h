@@ -29,7 +29,7 @@ public:
 
    bool Load();
 
-   bool Save();
+   bool Store();
 
    bool IsFlashDataEqual();
 

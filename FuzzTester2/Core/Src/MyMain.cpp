@@ -48,8 +48,8 @@ enum EOverrideScreen
    MaxValueReached,
    PresetsLoaded,
    PresetsLoadError,
-   PresetsSaved,
-   PresetsSaveError,
+   PresetsStored,
+   PresetsStoreError,
    NoPresetsChanged,
    LastOverrideScreen
 };
@@ -137,11 +137,11 @@ void UpdateLcdNumbers()
 
    //                       1 2 34 56 78910 11121314
    snprintf(line, 17, "%02d:A%1d B%02d C%02d D%1d",
-      _presets.GetPresetIndex(),
-      preset.GetIndex(Components::EType::CapacitorA ) + 1,
-      preset.GetIndex(Components::EType::TransistorB) + 1,
-      preset.GetIndex(Components::EType::TransistorC) + 1,
-      preset.GetIndex(Components::EType::CapacitorD ) + 1);
+      _presets.GetPresetIndex() % 100,
+      (preset.GetIndex(Components::EType::CapacitorA ) + 1) % 10,
+      (preset.GetIndex(Components::EType::TransistorB) + 1) % 100,
+      (preset.GetIndex(Components::EType::TransistorC) + 1) % 100,
+      (preset.GetIndex(Components::EType::CapacitorD ) + 1) % 10);
    _lcdDisplay.SetLine(0, line);
 }
 
@@ -158,7 +158,8 @@ void UpdateLcdComponent(EMode mode)
 {
    char text[_lcdDisplay.GetMaxLineLength() + 1];
 
-   Components::EType type;
+   Components::EType type = Components::EType::CapacitorA;
+
    switch (mode)
    {
    case EMode::SelectCapacitorA :
@@ -211,14 +212,14 @@ void ShowOverrideScreen()
       _lcdDisplay.SetLine(1, "loading presets!");
       break;
 
-   case EOverrideScreen::PresetsSaved:
-      _lcdDisplay.SetLine(0, " Presets saved  ");
+   case EOverrideScreen::PresetsStored:
+      _lcdDisplay.SetLine(0, " Presets stored ");
       _lcdDisplay.SetLine(1, "  into memory   ");
       break;
 
-   case EOverrideScreen::PresetsSaveError:
+   case EOverrideScreen::PresetsStoreError:
       _lcdDisplay.SetLine(0, "  Error while   ");
-      _lcdDisplay.SetLine(1, "saving presets! ");
+      _lcdDisplay.SetLine(1, "storing presets!");
       break;
 
    case EOverrideScreen::NoPresetsChanged:
@@ -245,8 +246,8 @@ uint8_t GetOverrideScreenTicks()
 
    case PresetsLoaded:      // Fall through
    case PresetsLoadError:   // Fall through
-   case PresetsSaved:       // Fall through
-   case PresetsSaveError:   // Fall through
+   case PresetsStored:      // Fall through
+   case PresetsStoreError:  // Fall through
    case NoPresetsChanged:   // Fall through
    case LastOverrideScreen:
       ticks = 10;
@@ -272,8 +273,9 @@ void Update()
       _overrideTimer++;
       if (_overrideTimer <= GetOverrideScreenTicks())
       {
-         ShowOverrideScreen();
+         _lcdDisplay.SetCursorPosition(0, 0);
          _lcdDisplay.SetCursorType(LcdDisplay::ECursorType::None);
+         ShowOverrideScreen();
       }
       else
       {
@@ -328,7 +330,7 @@ void Update()
 
       case EMode::PresetsMemory:
          _lcdDisplay.SetLine(0, " PRESETS MEMORY ");
-         _lcdDisplay.SetLine(1, "LOAD        SAVE");
+         _lcdDisplay.SetLine(1, "LOAD       STORE");
          _lcdDisplay.SetCursorType(LcdDisplay::ECursorType::None);
          break;
 
@@ -500,11 +502,18 @@ void ProcessIncreaseButton(bool hold)
       break;
 
    case EMode::PresetsMemory:
-      _overrideScreen = _presets.IsFlashDataEqual()
-         ? NoPresetsChanged
-         : (_presets.Save()
-            ? EOverrideScreen::PresetsSaved
-            : EOverrideScreen::PresetsSaveError);
+      if (_presets.IsFlashDataEqual())
+      {
+         _overrideScreen = EOverrideScreen::NoPresetsChanged;
+      }
+      if (_presets.Store())
+      {
+         _overrideScreen = EOverrideScreen::PresetsStored;
+      }
+      else
+      {
+         _overrideScreen = EOverrideScreen::PresetsStoreError;
+      }
       break;
 
    case EMode::ScreenLock:
@@ -538,6 +547,7 @@ void MyInit()
    HalUtils::Delay(2000);
 
    _lcdDisplay.SetBackLight(true);
+   HalUtils::Delay(1000);
 
    // Presets.
    _presets.Load();
