@@ -13,8 +13,10 @@
 #include "Preset.h"
 
 
-class Presets
+class Eeprom;
 
+
+class Presets
 {
 public:
    static const uint8_t NrOfPresets = 100;
@@ -39,7 +41,6 @@ public:
 
 private:
    void LimitBoundaries();
-
 
    Preset _presets[NrOfPresets];
 

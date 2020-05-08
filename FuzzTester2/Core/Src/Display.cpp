@@ -106,7 +106,7 @@ bool Display::Update()
          break;
 
       case Mode::EMode::ScreenLock:
-         _lcdDisplay.SetLine(0, " SCREEEN LOCKED ");
+         _lcdDisplay.SetLine(0, " SCREEN LOCKED  ");
          _lcdDisplay.SetLine(1, "HOLD  ----  HOLD");
          _lcdDisplay.SetCursorType(LcdDisplay::ECursorType::None);
          break;

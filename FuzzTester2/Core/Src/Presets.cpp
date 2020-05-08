@@ -5,6 +5,7 @@
  *      Author: Michel Keijzers
  */
 
+#include <Eeprom/Eeprom.h>
 #include "Presets.h"
 
 #include <stdlib.h>
@@ -12,13 +13,14 @@
 
 #include "stm32f1xx_hal.h"
 
-#include "Eeprom/eeprom.h"
+
+Eeprom _eeprom(Eeprom::EDensity::F1LowDensity, 31);
 
 
 Presets::Presets()
 :
   _presetIndex(0),
-  _isDirty    (false)
+  _isDirty(false)
 {
 }
 
@@ -86,7 +88,7 @@ bool Presets::Load()
 {
    uint32_t value;
 
-   bool loadOk = EE_Read(0, &value);
+   bool loadOk = _eeprom.Read(0, &value);
    if (loadOk)
    {
       _presetIndex = value;
@@ -96,7 +98,7 @@ bool Presets::Load()
    {
       Preset& preset = _presets[presetIndex];
 
-      loadOk &= EE_Read(presetIndex + 1, &value);
+      loadOk &= _eeprom.Read(presetIndex + 1, &value);
       if (loadOk)
       {
          preset.SetIndex(Components::EType::CapacitorA ,  value             >> 24);
@@ -116,8 +118,8 @@ bool Presets::Load()
 
 bool Presets::Store()
 {
-   bool saveOk = EE_Format();
-   saveOk &= EE_Write(0, _presetIndex);
+   bool saveOk = _eeprom.Format();
+   saveOk &= _eeprom.Write(0, _presetIndex);
 
    for (uint8_t presetIndex = 0; presetIndex < NrOfPresets; presetIndex++)
    {
@@ -129,7 +131,7 @@ bool Presets::Store()
        (preset.GetIndex(Components::EType::TransistorC) <<  8) +
         preset.GetIndex(Components::EType::CapacitorD );
 
-      saveOk &= EE_Write(presetIndex + 1, value);
+      saveOk &= _eeprom.Write(presetIndex + 1, value);
    }
 
    _isDirty = true;
@@ -143,11 +145,11 @@ bool Presets::IsFlashDataEqual()
    bool isFlashDataEqual = true;
 
    uint32_t flashValue;
-   isFlashDataEqual &= EE_Read(0, &flashValue);
+   isFlashDataEqual &= _eeprom.Read(0, &flashValue);
 
    for (uint8_t presetIndex = 0; isFlashDataEqual && (presetIndex < NrOfPresets); presetIndex++)
    {
-      isFlashDataEqual &= EE_Read(presetIndex + 1, &flashValue);
+      isFlashDataEqual &= _eeprom.Read(presetIndex + 1, &flashValue);
 
       Preset& preset = _presets[presetIndex];
       uint32_t presetValue =

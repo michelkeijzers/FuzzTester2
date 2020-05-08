@@ -136,6 +136,7 @@ void ProcessDecreaseButton(bool hold)
    case Mode::EMode::ScreenLock: // Fall Through
    case Mode::EMode::Bypass:
       // Do nothing
+      break;
 
    default:
       assert(false);
