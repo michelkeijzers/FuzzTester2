@@ -2,7 +2,7 @@
  * Presets.cpp
  *
  *  Created on: Apr 24, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #include "Presets.h"
@@ -11,6 +11,7 @@
 #include <sys/param.h>
 
 #include "stm32f1xx_hal.h"
+
 #include "Eeprom/eeprom.h"
 
 
@@ -76,7 +77,6 @@ bool Presets::IncreasePresetIndex()
 }
 
 
-
 /**
  * Returns current preset
  *
@@ -136,7 +136,6 @@ bool Presets::Store()
 
    return saveOk;
 }
-
 
 
 bool Presets::IsFlashDataEqual()

@@ -2,7 +2,7 @@
  * KeyPad_INT.cpp
  *
  *  Created on: Feb 1, 2020
- *      Author: michel
+ *      Author: Michel Keijzersl
  *
  * If pollTime = 10 ms, do not use a debounce speed of 10 ms (use 20 ms)
  */

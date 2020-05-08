@@ -2,7 +2,7 @@
  * Components.h
  *
  *  Created on: Apr 26, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef INC_COMPONENTS_H_

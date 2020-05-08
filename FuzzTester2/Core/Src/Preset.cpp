@@ -2,7 +2,7 @@
  * Preset.cpp
  *
  *  Created on: Apr 26, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #include "Preset.h"
@@ -10,6 +10,7 @@
 
 #include <assert.h>
 #include <sys/param.h>
+
 
 Preset::Preset()
 :

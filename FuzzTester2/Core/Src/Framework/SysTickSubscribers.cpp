@@ -2,7 +2,7 @@
  * SysTickSubscribers.cpp
  *
  *  Created on: Feb 8, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #include "Framework/SysTickSubscribers.h"
@@ -14,8 +14,6 @@ SysTickSubscriberData*  SysTickSubscribers::_data = 0;
 uint8_t                 SysTickSubscribers::_nrOfSubscribers = 0;
 
 uint32_t                SysTickSubscribers::_tickValue = 0;
-
-
 
 
 SysTickSubscribers::SysTickSubscribers(uint8_t nrOfSubscribers)

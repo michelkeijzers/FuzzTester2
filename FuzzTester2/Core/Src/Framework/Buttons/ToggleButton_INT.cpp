@@ -2,7 +2,7 @@
  * ToggleButton_INT.cpp
  *
  *  Created on: Feb 1, 2020
- *      Author: michel
+ *      Author: Michel Keijzersl
  */
 
 #include <Framework/Buttons/ToggleButton_INT.h>

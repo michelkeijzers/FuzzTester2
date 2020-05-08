@@ -2,7 +2,7 @@
  * BaseButton.cpp
  *
  *  Created on: Feb 9, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #include <assert.h>

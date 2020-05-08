@@ -2,7 +2,7 @@
  * Presets.h
  *
  *  Created on: Apr 24, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef SRC_PRESETS_H_
@@ -12,7 +12,9 @@
 
 #include "Preset.h"
 
+
 class Presets
+
 {
 public:
    static const uint8_t NrOfPresets = 100;

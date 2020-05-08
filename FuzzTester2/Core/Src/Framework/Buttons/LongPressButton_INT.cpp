@@ -2,7 +2,7 @@
  * Button_INT.cpp
  *
  *  Created on: Feb 1, 2020
- *      Author: michel
+ *      Author: Michel Keijzersl
  */
 
 #include <Framework/Buttons/LongPressButton_INT.h>

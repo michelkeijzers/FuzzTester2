@@ -2,7 +2,7 @@
  * Mode.cpp
  *
  *  Created on: May 8, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #include "Mode.h"

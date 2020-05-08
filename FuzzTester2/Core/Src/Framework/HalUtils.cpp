@@ -2,7 +2,7 @@
  * HalUtils.cpp
  *
  *  Created on: Apr 27, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #include <Framework/HalUtils.h>

@@ -2,7 +2,7 @@
  * ShiftRegister.cpp
  *
  *  Created on: Jan 30, 2020
- *      Author: michel
+ *      Author: Michel Keijzersl
  */
 
 #include <Framework/ShiftRegister.h>

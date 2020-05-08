@@ -2,7 +2,7 @@
  * Display.h
  *
  *  Created on: May 8, 2020
- *      Author: miche
+ *      Author: Michel Keijzers
  */
 
 #ifndef DISPLAY_H_

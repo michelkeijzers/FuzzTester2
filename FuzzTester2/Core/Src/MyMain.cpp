@@ -2,11 +2,6 @@
 #include "Main.h"
 
 #include <assert.h>
-#include <Components.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/param.h>
 
 #include "stm32f1xx_hal.h"
 
@@ -21,13 +16,9 @@
 #include "Display.h"
 #include "Mode.h"
 
-// Constants
-
-const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 5;
 // 0: LCD Display, 1: Decrease Button, 2: Enter BUtton, 3: Increase Button, 4: Bypass switch
+const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 5;
 
-
-// Callback functions
 
 void Update();
 
@@ -37,19 +28,12 @@ void ProcessIncreaseButton(bool hold);
 void ProcessBypassSwitch  (bool onOffState);
 
 
-// External variables
-
-extern I2C_HandleTypeDef hi2c1;
-
-
-// Global variables
-
 Presets _presets;
 
 SysTickSubscribers _sysTickSubscibers(NR_OF_SYS_TICK_SUBSCRIBERS);
 
-
 // Display: Refresh every 99 ms, not 100 ms (than fractions are changing when displayed items have a period of % 100 ms == 0
+extern I2C_HandleTypeDef hi2c1;
 LcdDisplay _lcdDisplay(&hi2c1, 0x27, &Update, 99, 0);
 
 DefaultButton_INT _decreaseButton( { GPIO_BUTTON_DECREASE_GPIO_Port, GPIO_BUTTON_DECREASE_Pin }, &ProcessDecreaseButton , 500, 300, 1, 25);
@@ -65,25 +49,19 @@ Display _display(_lcdDisplay, _mode, _presets);
 
 void MyInit()
 {
-   // LCD Display
    //_lcdDisplay.I2C_Scan();
    _lcdDisplay.Init();
    HalUtils::Delay(2000);
 
    _lcdDisplay.SetBackLight(true);
-   HalUtils::Delay(1000);
 
-   // Presets.
    _presets.Load();
 }
 
 
 int MyMain(void)
 {
-   while (true)
-   {
-   }
-
+   while (true) {}
    return 0;
 }
 
@@ -155,13 +133,9 @@ void ProcessDecreaseButton(bool hold)
             : Display::EOverrideScreen::PresetsLoadError);
       break;
 
-   case Mode::EMode::ScreenLock:
-         // Handled above
-         break;
-
+   case Mode::EMode::ScreenLock: // Fall Through
    case Mode::EMode::Bypass:
-      // Ignore
-      break;
+      // Do nothing
 
    default:
       assert(false);
@@ -188,21 +162,12 @@ void ProcessIncreaseButton(bool hold)
    }
 
    Preset& preset = _presets.GetPreset();
-
    bool isMaxValueReached = false;
 
    switch (_mode.GetMode())
    {
    case Mode::EMode::SelectPreset:
       isMaxValueReached = !_presets.IncreasePresetIndex();
-      {
-         uint8_t previousValue = _presets.GetPresetIndex();
-         _presets.SetPresetIndex(MIN(Presets::NrOfPresets - 1, _presets.GetPresetIndex() + 1));
-         if (previousValue == _presets.GetPresetIndex())
-         {
-            _display.SetOverrideScreen(Display::EOverrideScreen::MaxValueReached);
-         }
-      }
       break;
 
    case Mode::EMode::SelectCapacitorA:
@@ -229,12 +194,9 @@ void ProcessIncreaseButton(bool hold)
           : Display::EOverrideScreen::PresetsStoreError));
       break;
 
-   case Mode::EMode::ScreenLock:
-         // Handled above
-         break;
-
+   case Mode::EMode::ScreenLock: // Fall Through
    case Mode::EMode::Bypass:
-      // Ignore
+      // Do nothing
       break;
 
    default:
@@ -257,8 +219,7 @@ void ProcessBypassSwitch(bool onOffState)
 
 void Update()
 {
-   bool updateMultiplexers = _display.Update();
-   if (updateMultiplexers)
+   if(_display.Update())
    {
       UpdateMultiplexers();
    }
