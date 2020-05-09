@@ -14,7 +14,7 @@
 #include "stm32f1xx_hal.h"
 
 
-Eeprom _eeprom(Eeprom::EDensity::F1LowDensity, 31);
+Eeprom _eeprom(Eeprom::EDensity::F103X8, 63);
 
 
 Presets::Presets()
@@ -30,7 +30,7 @@ Presets::~Presets()
 }
 
 
-uint8_t Presets::GetPresetIndex()
+uint8_t Presets::GetPresetIndex() const
 {
    return _presetIndex;
 }
@@ -140,7 +140,7 @@ bool Presets::Store()
 }
 
 
-bool Presets::IsFlashDataEqual()
+bool Presets::IsFlashDataEqual() const
 {
    bool isFlashDataEqual = true;
 
@@ -151,7 +151,7 @@ bool Presets::IsFlashDataEqual()
    {
       isFlashDataEqual &= _eeprom.Read(presetIndex + 1, &flashValue);
 
-      Preset& preset = _presets[presetIndex];
+      const Preset& preset = _presets[presetIndex];
       uint32_t presetValue =
          (preset.GetIndex(Components::EType::CapacitorA ) << 24) +
          (preset.GetIndex(Components::EType::TransistorB) << 16) +

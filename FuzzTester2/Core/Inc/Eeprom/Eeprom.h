@@ -18,21 +18,22 @@ class Eeprom
 public:
    enum EDensity
    {
-      F030x4_F030x6_F070x6_F030x8,
-      F1LowDensity,
-      F1MediumDensity,
-      F1HighDensity
+      // See stm32f1xx_hal_flash_ex.h
+      F101x6_F102x6_F103x6,
+      F103X8,
+      F100xB_F101xB_F102xB_F103xB,
+      F100xE_F101xE_F103xE
    };
 
    Eeprom(EDensity density, uint8_t flashPage);
    ~Eeprom();
 
-   uint8_t GetFlashPage();
+   uint8_t GetFlashPage() const;
    void SetFlashPage(uint8_t flashPage);
 
-   bool Read(uint16_t VirtualAddress, uint32_t* Data);
+   bool Read(uint16_t VirtualAddress, uint32_t* Data) const;
    // A word is 32 bits
-   bool Reads(uint16_t StartVirtualAddress, uint16_t wordsToRead, uint32_t* Data);
+   bool Reads(uint16_t StartVirtualAddress, uint16_t wordsToRead, uint32_t* Data) const;
 
    bool Format(void);
    bool Write(uint16_t VirtualAddress, uint32_t Data);
@@ -40,9 +41,9 @@ public:
    bool Writes(uint16_t StartVirtualAddress, uint16_t wordsToWrite, uint32_t* Data);
 
 private:
-   uint16_t GetFlashPageSize(void);
-   uint32_t GetFlashPageAddress();
-   uint16_t GetMaximumVirtualAddress(void);
+   uint16_t GetFlashPageSize(void) const;
+   uint32_t GetFlashPageAddress() const;
+   uint16_t GetMaximumVirtualAddress(void) const;
 
    EDensity _density;
    uint32_t _addressFlashPage0;

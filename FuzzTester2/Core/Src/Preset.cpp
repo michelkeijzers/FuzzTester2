@@ -8,7 +8,10 @@
 #include "Preset.h"
 #include "Components.h"
 
+#ifdef DEBUG
 #include <assert.h>
+#endif
+
 #include <sys/param.h>
 
 
@@ -65,8 +68,10 @@ bool Preset::DecreaseIndex(Components::EType type)
       isChanged = DecreaseParameterIndex(&_capacitorD);
       break;
 
+#ifdef DEBUG
    default:
       assert(false);
+#endif
    }
 
    return isChanged;
@@ -110,15 +115,17 @@ bool Preset::IncreaseIndex(Components::EType type)
       isChanged = IncreaseParameterIndex(&_capacitorD, Components::NrOfCapacitors);
       break;
 
+#ifdef DEBUG
    default:
       assert(false);
+#endif
    }
 
    return isChanged;
 }
 
 
-uint8_t Preset::GetIndex(Components::EType type)
+uint8_t Preset::GetIndex(Components::EType type) const
 {
    uint8_t index = 0;
 
@@ -140,7 +147,10 @@ uint8_t Preset::GetIndex(Components::EType type)
       index =  _capacitorD;
       break;
 
-   default: assert(false);
+#ifdef DEBUG
+   default:
+      assert(false);
+#endif
    }
 
    return index;
@@ -155,18 +165,30 @@ bool Preset::CheckDirty()
 }
 
 
-/**
- * Debug only
- */
 void Preset::SetIndex(Components::EType type, uint8_t index)
 {
    switch (type)
    {
-   case Components::EType::CapacitorA :  _capacitorA = index; break;
-   case Components::EType::TransistorB:  _transistorB = index; break;
-   case Components::EType::TransistorC:  _transistorC = index; break;
-   case Components::EType::CapacitorD :  _capacitorD = index; break;
-   default: assert(false);
+   case Components::EType::CapacitorA :
+      _capacitorA = index;
+      break;
+
+   case Components::EType::TransistorB:
+      _transistorB = index;
+      break;
+
+   case Components::EType::TransistorC:
+      _transistorC = index;
+      break;
+
+   case Components::EType::CapacitorD :
+      _capacitorD = index;
+      break;
+
+#ifdef DEBUG
+   default:
+      assert(false);
+#endif
    }
 }
 

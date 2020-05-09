@@ -27,7 +27,7 @@ public:
    Mode();
    virtual ~Mode();
 
-   EMode GetMode();
+   EMode GetMode() const;
    void SetNextMode();
    void SetMode(EMode mode);
    bool CheckModeChanged();

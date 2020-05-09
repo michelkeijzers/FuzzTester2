@@ -36,36 +36,36 @@ public:
 	 uint16_t refreshTime, uint8_t sysTickSubscriberIndex);
 	virtual ~LcdDisplay();
 
-	void I2C_Scan();
+	void I2C_Scan() const;
 
-	bool IsInitialized();
+	bool IsInitialized() const;
 	void Init();
 
-	void SetLine(uint8_t line, const char* text);
+	void SetLine(uint8_t line, const char* text) const;
 
 	void SetBackLight(bool backLight);
 
-	uint8_t GetMaxLineLength();
-	uint8_t GetMaxLines();
+	uint8_t GetMaxLineLength() const;
+	uint8_t GetMaxLines() const;
 
-	void BlankDisplay(); // Without clearing
-	void ClearScreen();
+	void BlankDisplay() const; // Without clearing
+	void ClearScreen() const;
 
-	void ScrollOneCharLeft(); // All lines
-	void ScrollOneCharRight(); // All lines
+	void ScrollOneCharLeft() const; // All lines
+	void ScrollOneCharRight() const; // All lines
 
 	void SetCursorType(ECursorType);
-	void CursorHome();
-	void CursorLeft();
-	void CursorRight();
+	void CursorHome() const;
+	void CursorLeft() const;
+	void CursorRight() const;
 	void SetCursorPosition(uint8_t x, uint8_t y);
 	void EnableBlockCursor(bool on);
 
 private:
-	HAL_StatusTypeDef SendInternal(uint8_t data, uint8_t flags);
-	void SendCommand(uint8_t cmd);
-	void SendData(uint8_t data);
-	void SendString(const char *str);
+	HAL_StatusTypeDef SendInternal(uint8_t data, uint8_t flags) const;
+	void SendCommand(uint8_t cmd) const;
+	void SendData(uint8_t data) const;
+	void SendString(const char *str) const;
 
 	void OnTick();
 

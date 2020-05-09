@@ -7,10 +7,12 @@
  * If pollTime = 10 ms, do not use a debounce speed of 10 ms (use 20 ms)
  */
 
-
-#include <assert.h>
 #include <Framework/KeyPad.h>
-//#include <Framework/Gpio.h>
+
+#ifdef DEBUG
+#include <assert.h>
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -34,8 +36,10 @@ KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const Gp
    SysTickSubscribers::SetSubscriber(_sysTickSubscriberIndex, this);
    SysTickSubscribers::SetInterval(_sysTickSubscriberIndex, pollTime);
 
+#ifdef DEBUG
    assert (nrOfRows <= MAX_NR_OF_KEY_PAD_ROWS);
    assert (nrOfColumns <= MAX_NR_OF_KEY_PAD_COLUMNS);
+#endif
 
    for (uint8_t row = 0; row < _nrOfRows; row++)
    {
@@ -52,10 +56,12 @@ KeyPad::KeyPad(uint8_t nrOfRows, uint8_t nrOfColumns, const char* keys, const Gp
    {
       strncpy(_keys, keys, _nrOfRows * _nrOfColumns);
    }
+#ifdef DEBUG
    else
    {
       assert(false);
    }
+#endif
 }
 
 
@@ -181,9 +187,10 @@ void KeyPad::Init()
       break;
    }
 
+#ifdef DEBUG
    default:
       assert(false);
-      break;
+#endif
    }
 }
 
@@ -216,7 +223,7 @@ char KeyPad::Scan()
 
 
 
-int8_t KeyPad::GetLowColumn()
+int8_t KeyPad::GetLowColumn() const
 {
    for (uint8_t column = 0; column < _nrOfColumns; column++)
    {

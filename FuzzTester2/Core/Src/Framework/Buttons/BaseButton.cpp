@@ -5,7 +5,9 @@
  *      Author: Michel Keijzers
  */
 
+#ifdef DEBUG
 #include <assert.h>
+#endif
 
 #include <Framework/Buttons/BaseButton.h>
 #include <Framework/SysTickSubscribers.h>
@@ -76,8 +78,10 @@ void BaseButton::CheckTrigger(uint16_t pin)
          }
          break;
 
+#ifdef DEBUG
       default:
          assert(false);
+#endif
       }
    }
 }
@@ -87,9 +91,11 @@ void BaseButton::OnTick()
 {
    switch (_state)
    {
+#ifdef DEBUG
    case EState::Released:
       assert(false);
       break;
+#endif
 
    case EState::PressedDebouncing:
       if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
@@ -145,7 +151,9 @@ void BaseButton::OnTick()
       }
       break;
 
+#ifdef DEBUG
    default:
       assert(false);
+#endif
    }
 }

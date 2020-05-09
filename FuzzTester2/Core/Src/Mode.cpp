@@ -12,7 +12,6 @@ Mode::Mode()
    _mode(EMode::SelectPreset),
    _modeChanged(true),
    _backupMode(EMode::SelectPreset) // Backup mode to restore after screen lock or bypass.
-
 {
 }
 
@@ -22,7 +21,7 @@ Mode::~Mode()
 }
 
 
-Mode::EMode Mode::GetMode()
+Mode::EMode Mode::GetMode() const
 {
    return _mode;
 }

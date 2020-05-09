@@ -41,12 +41,12 @@ public:
    void SetOverrideScreen(EOverrideScreen overrideScreen);
 
 private:
-   void UpdateLcdNumbers();
-   void UpdateLcdPreset();
-   void UpdateLcdComponent();
-   void ShowOverrideScreen();
+   void UpdateLcdNumbers() const;
+   void UpdateLcdPreset() const;
+   void UpdateLcdComponent() const;
+   void ShowOverrideScreen() const;
 
-   uint8_t GetOverrideScreenTicks();
+   uint8_t GetOverrideScreenTicks() const;
 
    LcdDisplay& _lcdDisplay;
    Mode& _mode;

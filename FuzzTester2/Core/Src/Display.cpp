@@ -7,7 +7,9 @@
 
 #include "Display.h"
 
+#ifdef DEBUG
 #include "assert.h"
+#endif
 
 #include <Framework/LcdDisplay.h>
 
@@ -117,8 +119,12 @@ bool Display::Update()
          _lcdDisplay.SetCursorType(LcdDisplay::ECursorType::None);
          break;
 
+      case Mode::EMode::LastMode: // Fall through
+#ifdef DEBUG
       default:
          assert(false);
+#endif
+         break;
       }
 
       _mode.SetModeChanged(false);
@@ -149,7 +155,7 @@ void Display::SetOverrideScreen(EOverrideScreen overrideScreen)
 }
 
 
-void Display::UpdateLcdNumbers()
+void Display::UpdateLcdNumbers() const
 {
    Preset& preset = _presets.GetPreset();
 
@@ -166,7 +172,7 @@ void Display::UpdateLcdNumbers()
 }
 
 
-void Display::UpdateLcdPreset()
+void Display::UpdateLcdPreset() const
 {
    char text[_lcdDisplay.GetMaxLineLength() + 1];
    sprintf(text, "Preset: %2d      ", _presets.GetPresetIndex());
@@ -174,7 +180,7 @@ void Display::UpdateLcdPreset()
 }
 
 
-void Display::UpdateLcdComponent()
+void Display::UpdateLcdComponent() const
 {
    char text[_lcdDisplay.GetMaxLineLength() + 1];
 
@@ -208,7 +214,7 @@ void Display::UpdateLcdComponent()
 }
 
 
-void Display::ShowOverrideScreen()
+void Display::ShowOverrideScreen() const
 {
    switch (_overrideScreen)
    {
@@ -247,13 +253,18 @@ void Display::ShowOverrideScreen()
       _lcdDisplay.SetLine(1, "    changed     ");
        break;
 
+   case EOverrideScreen::LastOverrideScreen: // FALL THROUGH
+   case None:                                // FALL THROUGH
+#ifdef DEBUG
    default:
       assert(false);
+#endif
+      break;
    }
 }
 
 
-uint8_t Display::GetOverrideScreenTicks()
+uint8_t Display::GetOverrideScreenTicks() const
 {
    uint8_t ticks = 0;
 
@@ -273,8 +284,12 @@ uint8_t Display::GetOverrideScreenTicks()
       ticks = 10;
       break;
 
+   case None: // Fall through
    default:
+#ifdef DEBUG
       assert(false);
+#endif
+      break;
    }
 
    return ticks;

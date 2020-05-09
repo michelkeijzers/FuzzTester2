@@ -52,7 +52,7 @@ public:
    char Scan();
 private:
 
-   int8_t GetLowColumn();
+   int8_t GetLowColumn() const;
 
    void SetRows();
 

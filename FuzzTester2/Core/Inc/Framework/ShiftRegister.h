@@ -38,7 +38,7 @@ public:
 	ShiftRegister(SPI_HandleTypeDef* hSpi, GPIO_TypeDef* latchPort, uint16_t latchPin);
 	virtual ~ShiftRegister();
 
-	void ShiftOut(uint8_t* data, uint16_t size);
+	void ShiftOut(uint8_t* data, uint16_t size) const;
 
 private:
 	SPI_HandleTypeDef* _hSpi;

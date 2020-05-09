@@ -12,7 +12,6 @@
 SysTickSubscriberData*  SysTickSubscribers::_data = 0;
 
 uint8_t                 SysTickSubscribers::_nrOfSubscribers = 0;
-
 uint32_t                SysTickSubscribers::_tickValue = 0;
 
 

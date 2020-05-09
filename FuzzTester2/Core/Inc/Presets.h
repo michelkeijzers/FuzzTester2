@@ -27,7 +27,7 @@ public:
 
    Preset& GetPreset();
 
-   uint8_t GetPresetIndex();
+   uint8_t GetPresetIndex() const;
 
    void SetPresetIndex(uint8_t presetIndex);
    bool DecreasePresetIndex();
@@ -35,7 +35,7 @@ public:
 
    bool Load();
    bool Store();
-   bool IsFlashDataEqual();
+   bool IsFlashDataEqual() const;
 
    bool CheckDirty();
 

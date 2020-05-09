@@ -7,7 +7,10 @@
 
 #include "Components.h"
 
+#ifdef DEBUG
 #include <assert.h>
+#endif
+
 #include <string.h>
 
 #include "Preset.h"
@@ -90,7 +93,9 @@ Components::~Components()
       textBuffer[4] = 'D';
       break;
 
+#ifdef DEBUG
    default:
       assert(false);
+#endif
    }
 }

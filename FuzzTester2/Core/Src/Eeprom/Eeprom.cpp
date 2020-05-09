@@ -1,6 +1,8 @@
 #include <Eeprom/Eeprom.h>
 
+#ifdef DEBUG
 #include <assert.h>
+#endif
 
 #include "stm32f1xx_hal.h"
 
@@ -23,7 +25,7 @@ Eeprom::~Eeprom()
 }
 
 
-uint8_t Eeprom::GetFlashPage()
+uint8_t Eeprom::GetFlashPage() const
 {
    return _flashPage;
 }
@@ -36,17 +38,19 @@ void Eeprom::SetFlashPage(uint8_t flashPage)
 
    switch (_density)
    {
-   case EDensity::F030x4_F030x6_F070x6_F030x8:
-
-   case EDensity::F1LowDensity:
+   case EDensity::F101x6_F102x6_F103x6:
       maxPage = 31;
       break;
 
-   case EDensity::F1MediumDensity:
+   case EDensity::F103X8:
+      maxPage = 63;
+      break;
+
+   case EDensity::F100xB_F101xB_F102xB_F103xB:
       maxPage = 127;
       break;
 
-   case EDensity::F1HighDensity:
+   case EDensity::F100xE_F101xE_F103xE:
       maxPage = 255;
       break;
 
@@ -64,7 +68,7 @@ void Eeprom::SetFlashPage(uint8_t flashPage)
 }
 
 
-bool Eeprom::Read(uint16_t virtualAddress, uint32_t* Data)
+bool Eeprom::Read(uint16_t virtualAddress, uint32_t* Data) const
 {
    if (virtualAddress >= GetMaximumVirtualAddress())
    {
@@ -77,7 +81,7 @@ bool Eeprom::Read(uint16_t virtualAddress, uint32_t* Data)
 }
 
 
-bool Eeprom::Reads(uint16_t startVirtualAddress, uint16_t wordsToRead, uint32_t* data)
+bool Eeprom::Reads(uint16_t startVirtualAddress, uint16_t wordsToRead, uint32_t* data) const
 {
    if (startVirtualAddress + wordsToRead > GetMaximumVirtualAddress())
    {
@@ -100,12 +104,7 @@ bool Eeprom::Format(void)
    HAL_FLASH_Unlock();
    FLASH_EraseInitTypeDef flashErase;
    flashErase.NbPages=1;
-
-   if ((_density == EDensity::F1LowDensity) || (_density == EDensity::F1MediumDensity) || (_density == EDensity::F1HighDensity))
-   {
-      flashErase.Banks = FLASH_BANK_1;
-   }
-
+   flashErase.Banks = FLASH_BANK_1; // F1 series, skip for F0 (removed from implementation)
    flashErase.PageAddress = GetFlashPageAddress();
    flashErase.TypeErase = FLASH_TYPEERASE_PAGES;
 
@@ -173,19 +172,19 @@ bool Eeprom::Writes(uint16_t startVirtualAddress, uint16_t wordsToWrite, uint32_
 }
 
 
-uint32_t Eeprom::GetFlashPageAddress()
+uint32_t Eeprom::GetFlashPageAddress() const
 {
    return _addressFlashPage0 | (_flashPageSize * _flashPage);
 }
 
 
-uint16_t Eeprom::GetFlashPageSize(void)
+uint16_t Eeprom::GetFlashPageSize(void) const
 {
-   return (_density == EDensity::F1HighDensity) ? 2048 : 1024;
+   return (_density == EDensity::F100xE_F101xE_F103xE) ? 2048 : 1024;
 }
 
 
-uint16_t Eeprom::GetMaximumVirtualAddress(void)
+uint16_t Eeprom::GetMaximumVirtualAddress(void) const
 {
    return GetFlashPageSize() / 4;
 }

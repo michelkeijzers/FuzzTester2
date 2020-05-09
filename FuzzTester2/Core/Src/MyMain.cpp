@@ -1,7 +1,9 @@
 
 #include "Main.h"
 
+#ifdef DEBUG
 #include <assert.h>
+#endif
 
 #include "stm32f1xx_hal.h"
 
@@ -138,8 +140,12 @@ void ProcessDecreaseButton(bool hold)
       // Do nothing
       break;
 
+   case Mode::LastMode: // Fall through
+#ifdef DEBUG
    default:
       assert(false);
+#endif
+      break;
    }
 
    if (isMinValueReached)
@@ -200,8 +206,12 @@ void ProcessIncreaseButton(bool hold)
       // Do nothing
       break;
 
+   case Mode::LastMode: // Fall through
+#ifdef DEBUG
    default:
       assert(false);
+#endif
+      break;
    }
 
    if (isMaxValueReached)

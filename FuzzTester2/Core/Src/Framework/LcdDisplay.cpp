@@ -5,11 +5,14 @@
  *      Author: Michel Keijzers
  */
 
+#include <Framework/LcdDisplay.h>
+
 #include "stm32f1xx_hal.h"
 
+#ifdef DEBUG
 #include "assert.h"
+#endif
 
-#include <Framework/LcdDisplay.h>
 #include <Framework/SysTickSubscribers.h>
 #include "Framework/HalUtils.h"
 
@@ -46,19 +49,19 @@ LcdDisplay::~LcdDisplay()
 }
 
 
-uint8_t LcdDisplay::GetMaxLineLength()
+uint8_t LcdDisplay::GetMaxLineLength() const
 {
    return 16;
 }
 
 
-uint8_t LcdDisplay::GetMaxLines()
+uint8_t LcdDisplay::GetMaxLines() const
 {
    return 2;
 }
 
 
-void LcdDisplay::SetLine(uint8_t line, const char* text)
+void LcdDisplay::SetLine(uint8_t line, const char* text) const
 {
 	// set address to 0x40 for second line;
    SendCommand(0b10000000 + 0x40 * line);
@@ -73,7 +76,7 @@ void LcdDisplay::SetBackLight(bool backLight)
 }
 
 
-void LcdDisplay::I2C_Scan()
+void LcdDisplay::I2C_Scan() const
 {
     //char info[] = "Scanning I2C bus...\r\n";
     //HAL_UART_Transmit(&huart2, (uint8_t*)info, strlen(info), HAL_MAX_DELAY);
@@ -91,7 +94,7 @@ void LcdDisplay::I2C_Scan()
 }
 
 
-bool LcdDisplay::IsInitialized()
+bool LcdDisplay::IsInitialized() const
 {
    return _isInitialized;
 }
@@ -140,25 +143,25 @@ void LcdDisplay::Init()
 }
 
 
-void LcdDisplay::BlankDisplay()
+void LcdDisplay::BlankDisplay() const
 {
    SendCommand(8);
 }
 
 
-void LcdDisplay::ClearScreen()
+void LcdDisplay::ClearScreen() const
 {
    SendCommand(1);
 }
 
 
-void LcdDisplay::ScrollOneCharLeft()
+void LcdDisplay::ScrollOneCharLeft() const
 {
    SendCommand(24);
 }
 
 
-void LcdDisplay::ScrollOneCharRight()
+void LcdDisplay::ScrollOneCharRight() const
 {
    SendCommand(28);
 }
@@ -180,8 +183,10 @@ void LcdDisplay::SetCursorType(ECursorType cursorType)
        SendCommand(15);
        break;
 
+#ifdef DEBUG
     default:
        assert(false);
+#endif
     }
 
     _cursorType = cursorType;
@@ -190,35 +195,38 @@ void LcdDisplay::SetCursorType(ECursorType cursorType)
 
 void LcdDisplay::SetCursorPosition(uint8_t x, uint8_t y)
 {
+#ifdef DEBUG
    assert(x < GetMaxLineLength());
    assert(y < GetMaxLines());
+#endif
 
    SendCommand(128 + GetMaxLineLength() * y + x);
 }
 
 
-void LcdDisplay::CursorHome()
+void LcdDisplay::CursorHome() const
 {
    SendCommand(2);
 }
 
 
-void LcdDisplay::CursorLeft()
+void LcdDisplay::CursorLeft() const
 {
    SendCommand(16);
 }
 
 
-void LcdDisplay::CursorRight()
+void LcdDisplay::CursorRight() const
 {
    SendCommand(20);
 }
 
 
-HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
+HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags) const
 {
     HAL_StatusTypeDef res;
-    for(;;) {
+    while(true)
+    {
         res = HAL_I2C_IsDeviceReady(_hI2c, _i2cChannel, 1, HAL_MAX_DELAY);
         if(res == HAL_OK)
             break;
@@ -241,19 +249,19 @@ HAL_StatusTypeDef LcdDisplay::SendInternal(uint8_t data, uint8_t flags)
 }
 
 
-void LcdDisplay::SendCommand(uint8_t cmd)
+void LcdDisplay::SendCommand(uint8_t cmd) const
 {
     SendInternal(cmd, 0);
 }
 
 
-void LcdDisplay::SendData(uint8_t data)
+void LcdDisplay::SendData(uint8_t data) const
 {
     SendInternal(data, PIN_RS);
 }
 
 
-void LcdDisplay::SendString(const char *str)
+void LcdDisplay::SendString(const char *str) const
 {
     while(*str)
     {
