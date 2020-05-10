@@ -6,17 +6,22 @@
 
 #include "stm32f1xx_hal.h"
 
+
+// Last used address
+extern uint32_t __fini_array_end;
+
+
 // Unsure what this is for
 #define   _EEPROM_STORE_BEFOR_ERASE___NEED_MORE_RAM     (0)
 
 
-Eeprom::Eeprom(EDensity density, uint8_t flashPage)
+Eeprom::Eeprom(EDensity density, uint8_t page)
 :
 _density(density),
-_addressFlashPage0(0x08000000)
+_addressPage0(0x08000000),
+_sequenceNumber(0)
 {
-   SetFlashPage(flashPage);
-   _flashPageSize = GetFlashPageSize();
+   SetCurrentPage(page);
 }
 
 
@@ -24,64 +29,92 @@ Eeprom::~Eeprom()
 {
 }
 
-
-uint8_t Eeprom::GetFlashPage() const
+uint8_t Eeprom::GetFirstPage() const
 {
-   return _flashPage;
+   return (((uint32_t) &__fini_array_end) + GetPageSize() - 1) / GetPageSize();
 }
 
 
-void Eeprom::SetFlashPage(uint8_t flashPage)
+uint8_t Eeprom::GetLastPage() const
 {
-#ifdef  DEBUG
-   uint8_t maxPage;
+   uint8_t lastPage;
 
    switch (_density)
    {
    case EDensity::F101x6_F102x6_F103x6:
-      maxPage = 31;
+      lastPage = 31;
       break;
 
    case EDensity::F103X8:
-      maxPage = 63;
+      lastPage = 63;
       break;
 
    case EDensity::F100xB_F101xB_F102xB_F103xB:
-      maxPage = 127;
+      lastPage = 127;
       break;
 
    case EDensity::F100xE_F101xE_F103xE:
-      maxPage = 255;
+      lastPage = 255;
       break;
 
    default:
       assert(false);
    }
 
-   if (flashPage > maxPage)
-   {
-      assert(false); // Page too high
-   }
-#endif
-
-   _flashPage = flashPage;
+   return lastPage;
 }
 
 
-bool Eeprom::Read(uint16_t virtualAddress, uint32_t* Data) const
+uint8_t Eeprom::GetNrOfPages() const
+{
+   return GetLastPage() - GetFirstPage() + 1;
+}
+
+
+uint8_t Eeprom::GetCurrentPage() const
+{
+   return _currentPage;
+}
+
+
+void Eeprom::SetCurrentPage(uint8_t page)
+{
+#ifdef DEBUG
+    if ((page < 0) || (page > GetLastPage()))
+    {
+       assert(false);
+    }
+#endif
+
+   _currentPage = page;
+}
+
+
+uint16_t Eeprom::GetPageSize(void) const
+{
+   return (_density == EDensity::F100xE_F101xE_F103xE) ? 2048 : 1024;
+}
+
+
+uint16_t Eeprom::GetMaximumVirtualAddress(void) const
+{
+   return GetPageSize() / 4;
+}
+
+
+bool Eeprom::Read(uint16_t virtualAddress, uint32_t* data)
 {
    if (virtualAddress >= GetMaximumVirtualAddress())
    {
       return false;
    }
 
-   *Data = (*(__IO uint32_t*) ((virtualAddress * 4) + GetFlashPageAddress()));
-
+   *data = ReadVirtualAddress(_currentPage, virtualAddress);
    return true;
 }
 
 
-bool Eeprom::Reads(uint16_t startVirtualAddress, uint16_t wordsToRead, uint32_t* data) const
+bool Eeprom::Reads(uint16_t startVirtualAddress, uint16_t wordsToRead, uint32_t* data)
 {
    if (startVirtualAddress + wordsToRead > GetMaximumVirtualAddress())
    {
@@ -90,7 +123,7 @@ bool Eeprom::Reads(uint16_t startVirtualAddress, uint16_t wordsToRead, uint32_t*
 
    for (uint16_t i = startVirtualAddress ; i < wordsToRead + startVirtualAddress; i++)
    {
-      *data =  (*(__IO uint32_t*) ((i * 4) + GetFlashPageAddress()));
+      *data =  ReadVirtualAddress(_currentPage, i * 4);
       data++;
    }
 
@@ -98,20 +131,26 @@ bool Eeprom::Reads(uint16_t startVirtualAddress, uint16_t wordsToRead, uint32_t*
 }
 
 
-bool Eeprom::Format(void)
+bool Eeprom::FormatNextPage(void)
 {
+   SelectNextRecentPage();
+
    uint32_t error;
    HAL_FLASH_Unlock();
    FLASH_EraseInitTypeDef flashErase;
    flashErase.NbPages=1;
    flashErase.Banks = FLASH_BANK_1; // F1 series, skip for F0 (removed from implementation)
-   flashErase.PageAddress = GetFlashPageAddress();
+   flashErase.PageAddress = GetPageAddress(_currentPage);
    flashErase.TypeErase = FLASH_TYPEERASE_PAGES;
 
-   if(HAL_FLASHEx_Erase(&flashErase,&error) == HAL_OK)
+   if(HAL_FLASHEx_Erase(&flashErase, &error) == HAL_OK)
    {
-      HAL_FLASH_Lock();
-      return (error == 0xFFFFFFFF);
+      if (error == 0xFFFFFFFF)
+      {
+         bool writeOk = WriteVersionAndSequenceNumber();
+         HAL_FLASH_Lock();
+         return writeOk;
+      }
    }
 
    HAL_FLASH_Lock();
@@ -128,22 +167,15 @@ bool Eeprom::Write(uint16_t virtualAddress, uint32_t data)
 
    // #if (_EEPROM_STORE_BEFOR_ERASE___NEED_MORE_RAM==1) http://www.github.com/NimaLTD
    HAL_FLASH_Unlock();
-   if (data != 0xFFFFFFFF)
+
+   bool writeOk = true;
+   if (data != EMPTY)
    {
-      if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, (virtualAddress * 4) + GetFlashPageAddress(), (uint64_t) data) == HAL_OK)
-      {
-         HAL_FLASH_Lock();
-         return true;
-      }
-      else
-      {
-         HAL_FLASH_Lock();
-         return false;
-      }
+      writeOk &= WriteVirtualAddress(_currentPage, virtualAddress, data);
    }
 
    HAL_FLASH_Lock();
-   return true;
+   return writeOk;
 }
 
 
@@ -154,37 +186,115 @@ bool Eeprom::Writes(uint16_t startVirtualAddress, uint16_t wordsToWrite, uint32_
       return false;
    }
 
-   // #if (_EEPROM_STORE_BEFOR_ERASE___NEED_MORE_RAM==1) // See http://www.github.com/NimaLTD
    HAL_FLASH_Unlock();
-
+   bool writeOk = true;
    for (uint16_t i = 0; i < wordsToWrite; i++)
    {
-      if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, ((i + startVirtualAddress) * 4) + GetFlashPageAddress(), (uint64_t) data[i]) != HAL_OK)
+      if (!WriteVirtualAddress(_currentPage,  startVirtualAddress + i,  data[i]))
       {
-         HAL_FLASH_Lock();
-         return false;
+         writeOk = false;
+         break;
       }
    }
 
    HAL_FLASH_Lock();
-
-   return true;
+   return writeOk;
 }
 
 
-uint32_t Eeprom::GetFlashPageAddress() const
+uint32_t Eeprom::ReadSequenceNumber(uint8_t page)
 {
-   return _addressFlashPage0 | (_flashPageSize * _flashPage);
+   uint32_t value = ReadVirtualAddress(page, GetVersionVirtualAddress());
+   if (value == VERSION)
+   {
+      value = ReadVirtualAddress(page, GetSequenceNumberVirtualAddress());
+      return value;
+   }
+
+   return EMPTY;
 }
 
 
-uint16_t Eeprom::GetFlashPageSize(void) const
+bool Eeprom::WriteVersionAndSequenceNumber()
 {
-   return (_density == EDensity::F100xE_F101xE_F103xE) ? 2048 : 1024;
+   _sequenceNumber++;
+
+   bool writeOk = WriteVirtualAddress(_currentPage, GetVersionVirtualAddress(), VERSION);
+   writeOk     &= WriteVirtualAddress(_currentPage, GetSequenceNumberVirtualAddress(), _sequenceNumber);
+   return writeOk;
 }
 
 
-uint16_t Eeprom::GetMaximumVirtualAddress(void) const
+
+void Eeprom::FindMostRecentPage()
 {
-   return GetFlashPageSize() / 4;
+   uint8_t mostRecentPage = GetFirstPage();
+   uint8_t page = mostRecentPage;
+   _sequenceNumber = 0;
+
+   do
+   {
+      uint32_t sequenceNumber = ReadSequenceNumber(page);
+      if ((sequenceNumber != EMPTY) && (_sequenceNumber <= sequenceNumber))
+      {
+         _sequenceNumber = sequenceNumber;
+         mostRecentPage = page;
+      }
+
+      page++;
+   }
+   while (page <= GetLastPage());
+
+   _currentPage = mostRecentPage;
 }
+
+
+void Eeprom::SelectNextRecentPage()
+{
+    FindMostRecentPage();
+
+   _currentPage++;
+
+   if (_currentPage > GetLastPage())
+   {
+      _currentPage = GetFirstPage();
+   }
+}
+
+
+uint32_t Eeprom::GetVersionVirtualAddress() const
+{
+   return GetMaximumVirtualAddress() - 2;
+}
+
+
+uint32_t Eeprom::GetSequenceNumberVirtualAddress() const
+{
+   return GetMaximumVirtualAddress() - 1;
+}
+
+
+uint32_t Eeprom::ReadVirtualAddress(uint8_t page, uint16_t address)
+{
+   return *((__IO uint32_t*) (GetVirtualAddress(page, address)));
+}
+
+
+bool Eeprom::WriteVirtualAddress(uint8_t page, uint16_t address, uint32_t data)
+{
+   return (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, GetVirtualAddress(page, address), (uint64_t) data) == HAL_OK);
+}
+
+
+
+uint32_t Eeprom::GetVirtualAddress(uint8_t page, uint16_t address)
+{
+   return GetPageAddress(page) + address * 4;
+}
+
+
+uint32_t Eeprom::GetPageAddress(uint8_t page) const
+{
+   return _addressPage0 | (page * GetPageSize());
+}
+

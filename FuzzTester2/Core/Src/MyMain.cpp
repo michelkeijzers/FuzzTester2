@@ -18,6 +18,7 @@
 #include "Display.h"
 #include "Mode.h"
 
+
 // 0: LCD Display, 1: Decrease Button, 2: Enter BUtton, 3: Increase Button, 4: Bypass switch
 const uint8_t NR_OF_SYS_TICK_SUBSCRIBERS = 5;
 

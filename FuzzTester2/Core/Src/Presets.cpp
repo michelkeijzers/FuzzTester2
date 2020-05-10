@@ -88,6 +88,7 @@ bool Presets::Load()
 {
    uint32_t value;
 
+   _eeprom.FindMostRecentPage();
    bool loadOk = _eeprom.Read(0, &value);
    if (loadOk)
    {
@@ -118,7 +119,7 @@ bool Presets::Load()
 
 bool Presets::Store()
 {
-   bool saveOk = _eeprom.Format();
+   bool saveOk = _eeprom.FormatNextPage();
    saveOk &= _eeprom.Write(0, _presetIndex);
 
    for (uint8_t presetIndex = 0; presetIndex < NrOfPresets; presetIndex++)
@@ -146,19 +147,23 @@ bool Presets::IsFlashDataEqual() const
 
    uint32_t flashValue;
    isFlashDataEqual &= _eeprom.Read(0, &flashValue);
+   isFlashDataEqual &= (flashValue == GetPresetIndex());
 
-   for (uint8_t presetIndex = 0; isFlashDataEqual && (presetIndex < NrOfPresets); presetIndex++)
+   if (isFlashDataEqual)
    {
-      isFlashDataEqual &= _eeprom.Read(presetIndex + 1, &flashValue);
+      for (uint8_t presetIndex = 0; isFlashDataEqual && (presetIndex < NrOfPresets); presetIndex++)
+      {
+         isFlashDataEqual &= _eeprom.Read(presetIndex + 1, &flashValue);
 
-      const Preset& preset = _presets[presetIndex];
-      uint32_t presetValue =
-         (preset.GetIndex(Components::EType::CapacitorA ) << 24) +
-         (preset.GetIndex(Components::EType::TransistorB) << 16) +
-         (preset.GetIndex(Components::EType::TransistorC) <<  8) +
-          preset.GetIndex(Components::EType::CapacitorD );
+         const Preset& preset = _presets[presetIndex];
+         uint32_t presetValue =
+            (preset.GetIndex(Components::EType::CapacitorA ) << 24) +
+            (preset.GetIndex(Components::EType::TransistorB) << 16) +
+            (preset.GetIndex(Components::EType::TransistorC) <<  8) +
+             preset.GetIndex(Components::EType::CapacitorD );
 
-      isFlashDataEqual &= (presetValue == flashValue);
+         isFlashDataEqual &= (presetValue == flashValue);
+      }
    }
 
    return isFlashDataEqual;
