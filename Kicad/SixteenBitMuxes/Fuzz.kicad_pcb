@@ -5436,7 +5436,7 @@
   (gr_text "SDA 5V GND SCL\n" (at 44.6 30.7 180) (layer F.SilkS)
     (effects (font (size 1.016 0.8128) (thickness 0.1524)))
   )
-  (gr_text "GUITAR PEDAL \nFUZZ EFFECT\n15K FUZZ\nV0.2" (at 44 99.45) (layer F.SilkS) (tstamp 5EA09415)
+  (gr_text "GUITAR PEDAL \nFUZZ EFFECT\n16K FUZZ\nV0.2" (at 44 99.45) (layer F.SilkS) (tstamp 5EA09415)
     (effects (font (size 1.2192 1.2192) (thickness 0.254)))
   )
   (gr_text "©2020 MICHEL KEIJZERS" (at 42.55 92.8) (layer F.SilkS) (tstamp 5E9FBCD1)
