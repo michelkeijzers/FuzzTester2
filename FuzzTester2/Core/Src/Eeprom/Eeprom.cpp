@@ -11,10 +11,6 @@
 extern uint32_t __fini_array_end;
 
 
-// Unsure what this is for
-#define   _EEPROM_STORE_BEFOR_ERASE___NEED_MORE_RAM     (0)
-
-
 Eeprom::Eeprom(EDensity density, uint8_t page)
 :
 _density(density),
@@ -28,6 +24,7 @@ _sequenceNumber(0)
 Eeprom::~Eeprom()
 {
 }
+
 
 uint8_t Eeprom::GetFirstPage() const
 {
@@ -100,7 +97,7 @@ uint16_t Eeprom::GetPageSize(void) const
 
 uint16_t Eeprom::GetMaximumVirtualAddress(void) const
 {
-   return GetPageSize() / 4;
+   return GetPageSize() / 4 - 2; // 2 address for version and sequence number
 }
 
 
@@ -167,7 +164,6 @@ bool Eeprom::Write(uint16_t virtualAddress, uint32_t data)
       return false;
    }
 
-   // #if (_EEPROM_STORE_BEFOR_ERASE___NEED_MORE_RAM==1) http://www.github.com/NimaLTD
    HAL_FLASH_Unlock();
 
    bool writeOk = true;
@@ -227,7 +223,6 @@ bool Eeprom::WriteVersionAndSequenceNumber()
 }
 
 
-
 void Eeprom::FindMostRecentPage()
 {
    uint8_t mostRecentPage = GetFirstPage();
@@ -266,13 +261,13 @@ void Eeprom::SelectNextRecentPage()
 
 uint32_t Eeprom::GetVersionVirtualAddress() const
 {
-   return GetMaximumVirtualAddress() - 2;
+   return GetMaximumVirtualAddress();
 }
 
 
 uint32_t Eeprom::GetSequenceNumberVirtualAddress() const
 {
-   return GetMaximumVirtualAddress() - 1;
+   return GetMaximumVirtualAddress() + 1;
 }
 
 
@@ -286,7 +281,6 @@ bool Eeprom::WriteVirtualAddress(uint8_t page, uint16_t address, uint32_t data)
 {
    return (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, GetVirtualAddress(page, address), (uint64_t) data) == HAL_OK);
 }
-
 
 
 uint32_t Eeprom::GetVirtualAddress(uint8_t page, uint16_t address)

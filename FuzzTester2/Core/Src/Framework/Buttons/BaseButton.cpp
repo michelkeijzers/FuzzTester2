@@ -91,11 +91,11 @@ void BaseButton::OnTick()
 {
    switch (_state)
    {
-#ifdef DEBUG
    case EState::Released:
+#ifdef DEBUG
       assert(false);
-      break;
 #endif
+      break;
 
    case EState::PressedDebouncing:
       if (HAL_GPIO_ReadPin(_gpio.port, _gpio.pin) == GPIO_PIN_SET)
