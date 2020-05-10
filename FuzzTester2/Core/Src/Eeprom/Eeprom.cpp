@@ -37,7 +37,7 @@ uint8_t Eeprom::GetFirstPage() const
 
 uint8_t Eeprom::GetLastPage() const
 {
-   uint8_t lastPage;
+   uint8_t lastPage = 0;
 
    switch (_density)
    {
@@ -57,8 +57,10 @@ uint8_t Eeprom::GetLastPage() const
       lastPage = 255;
       break;
 
+#ifdef DEBUG
    default:
       assert(false);
+#endif
    }
 
    return lastPage;
