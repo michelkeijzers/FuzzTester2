@@ -9,7 +9,6 @@
 
 #include <Framework/LcdDisplay.h>
 #include <Framework/Buttons/DefaultButton_INT.h>
-#include <Framework/Buttons/ToggleButton_INT.h>
 #include <Framework/SysTickSubscribers.h>
 #include <Framework/HalUtils.h>
 
@@ -42,7 +41,7 @@ LcdDisplay _lcdDisplay(&hi2c1, 0x27, &Update, 99, 0);
 DefaultButton_INT _decreaseButton( { GPIO_BUTTON_DECREASE_GPIO_Port, GPIO_BUTTON_DECREASE_Pin }, &ProcessDecreaseButton , 500, 300, 1, 25);
 DefaultButton_INT _enterButton   ( { GPIO_BUTTON_ENTER_GPIO_Port   , GPIO_BUTTON_ENTER_Pin    }, &ProcessEnterButton    , 500, 300, 2, 25);
 DefaultButton_INT _increaseButton( { GPIO_BUTTON_INCREASE_GPIO_Port, GPIO_BUTTON_INCREASE_Pin }, &ProcessIncreaseButton , 500, 300, 3, 25);
-ToggleButton_INT  _bypassSwitch  ( { GPIO_BYPASS_SWITCH_GPIO_Port  , GPIO_BYPASS_SWITCH_Pin   }, &ProcessBypassSwitch             , 4, 25);
+DefaultButton_INT _bypassSwitch  ( { GPIO_BYPASS_SWITCH_GPIO_Port  , GPIO_BYPASS_SWITCH_Pin   }, &ProcessBypassSwitch   , 500, 300, 4, 25);
 
 Mode _mode;
 Display _display(_lcdDisplay, _mode, _presets);
@@ -222,6 +221,9 @@ void ProcessIncreaseButton(bool hold)
 }
 
 
+/**
+ * Toggling is done inside button hardware; only one side (on) is connected, when not on, it's off
+ */
 void ProcessBypassSwitch(bool onOffState)
 {
    _mode.SetBypass(onOffState);

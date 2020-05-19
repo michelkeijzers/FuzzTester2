@@ -544,8 +544,8 @@ U 1 1 5EA4E538
 P 5000 6400
 AR Path="/5E9AE796/5EA4E538" Ref="U9"  Part="1" 
 AR Path="/5ED1AB26/5EA4E538" Ref="U7"  Part="1" 
-F 0 "U9" H 5000 7581 50  0000 C CNN
-F 1 "CD4067BM" H 5000 7490 50  0000 C CNN
+F 0 "U9" H 5400 7450 50  0000 C CNN
+F 1 "CD4067BM" H 5450 7350 50  0000 C CNN
 F 2 "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm" H 5900 5400 50  0001 C CIN
 F 3 "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 4650 7250 50  0001 C CNN
 	1    5000 6400
@@ -567,25 +567,11 @@ U 1 1 5EA3E429
 P 2250 6400
 AR Path="/5E9AE796/5EA3E429" Ref="U8"  Part="1" 
 AR Path="/5ED1AB26/5EA3E429" Ref="U6"  Part="1" 
-F 0 "U8" H 2250 7581 50  0000 C CNN
-F 1 "CD4067BM" H 2250 7490 50  0000 C CNN
+F 0 "U8" H 1850 7450 50  0000 C CNN
+F 1 "CD4067BM" H 1800 7350 50  0000 C CNN
 F 2 "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm" H 3150 5400 50  0001 C CIN
 F 3 "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 1900 7250 50  0001 C CNN
 	1    2250 6400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+9V #PWR0144
-U 1 1 5EAD9CE0
-P 2550 5050
-AR Path="/5E9AE796/5EAD9CE0" Ref="#PWR0144"  Part="1" 
-AR Path="/5F9746B8/5EAD9CE0" Ref="#PWR0129"  Part="1" 
-AR Path="/5ED1AB26/5EAD9CE0" Ref="#PWR0109"  Part="1" 
-F 0 "#PWR0144" H 2550 4900 50  0001 C CNN
-F 1 "+9V" H 2565 5223 50  0000 C CNN
-F 2 "" H 2550 5050 50  0001 C CNN
-F 3 "" H 2550 5050 50  0001 C CNN
-	1    2550 5050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -609,7 +595,6 @@ Wire Wire Line
 	2700 5050 2550 5050
 Wire Wire Line
 	2550 5050 2550 5400
-Connection ~ 2550 5050
 Wire Wire Line
 	2550 5400 2250 5400
 $Comp
@@ -696,20 +681,6 @@ Wire Wire Line
 Text Notes 4200 4800 2    50   ~ 10
 Transistor Multiplexers\n
 $Comp
-L power:+9V #PWR0133
-U 1 1 5ECDD1BA
-P 5300 5050
-AR Path="/5E9AE796/5ECDD1BA" Ref="#PWR0133"  Part="1" 
-AR Path="/5F9746B8/5ECDD1BA" Ref="#PWR?"  Part="1" 
-AR Path="/5ED1AB26/5ECDD1BA" Ref="#PWR0121"  Part="1" 
-F 0 "#PWR0133" H 5300 4900 50  0001 C CNN
-F 1 "+9V" H 5315 5223 50  0000 C CNN
-F 2 "" H 5300 5050 50  0001 C CNN
-F 3 "" H 5300 5050 50  0001 C CNN
-	1    5300 5050
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C C?
 U 1 1 5ECDF6D6
 P 5450 5200
@@ -747,7 +718,6 @@ Wire Wire Line
 	5450 5050 5300 5050
 Wire Wire Line
 	5300 5400 5300 5050
-Connection ~ 5300 5050
 Wire Wire Line
 	5300 5400 5000 5400
 $Comp
@@ -807,4 +777,8 @@ F 3 "" H 5500 7000 50  0001 C CNN
 	1    5500 7000
 	1    0    0    -1  
 $EndComp
+Text HLabel 2250 5400 1    50   Input ~ 0
++9V_SAFE
+Text HLabel 5000 5400 1    50   Input ~ 0
++9V_SAFE
 $EndSCHEMATC

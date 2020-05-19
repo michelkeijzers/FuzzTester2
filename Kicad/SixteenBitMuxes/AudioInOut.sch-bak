@@ -82,7 +82,7 @@ Text Label 3200 1800 0    50   ~ 0
 JACK_IN_SIGNAL
 Text Label 3150 2100 0    50   ~ 0
 JACK_OUT_SIGNAL
-Text Notes 4100 950  0    50   ~ 10
+Text Notes 3800 750  0    50   ~ 10
 Bypass Selector
 Text Notes 1200 1350 0    50   ~ 10
 Audio In/Out Connector\n
@@ -124,35 +124,12 @@ F 3 "" H 4900 1450 50  0001 C CNN
 	1    4900 1450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4700 1300 4700 1150
-Wire Wire Line
-	4700 1150 4900 1150
-$Comp
-L power:+9V #PWR?
-U 1 1 5E94F0DF
-P 4600 1300
-AR Path="/5E9AE796/5E94F0DF" Ref="#PWR?"  Part="1" 
-AR Path="/5F9746B8/5E94F0DF" Ref="#PWR?"  Part="1" 
-AR Path="/5EDE1E76/5E94F0DF" Ref="#PWR08"  Part="1" 
-F 0 "#PWR08" H 4600 1150 50  0001 C CNN
-F 1 "+9V" H 4615 1473 50  0000 C CNN
-F 2 "" H 4600 1300 50  0001 C CNN
-F 3 "" H 4600 1300 50  0001 C CNN
-	1    4600 1300
-	1    0    0    -1  
-$EndComp
-Connection ~ 4600 1300
-Wire Wire Line
-	4600 1300 4700 1300
 Text HLabel 3800 1600 0    50   Input ~ 0
 BYPASS_MODE
 Text HLabel 4850 1800 2    50   Input ~ 0
 JACK_IN_SIGNAL_THROUGH_FUZZ
 Text HLabel 4850 2100 2    50   Input ~ 0
 JACK_OUT_SIGNAL_FROM_FUZZ
-Wire Wire Line
-	4450 1300 4600 1300
 Wire Wire Line
 	3850 1800 3200 1800
 Wire Wire Line
@@ -168,8 +145,8 @@ $Comp
 L Analog_Switch:CD4053B U25
 U 1 1 5E949734
 P 4350 2000
-F 0 "U25" H 4350 2881 50  0000 C CNN
-F 1 "CD4053B" H 4350 2790 50  0000 C CNN
+F 0 "U25" H 4050 2800 50  0000 C CNN
+F 1 "CD4053B" H 4050 2700 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4500 1250 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cd4052b.pdf" H 4330 2200 50  0001 C CNN
 	1    4350 2000
@@ -203,4 +180,10 @@ F 3 "" H 2150 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 2150 1950
+Text HLabel 4700 1150 1    50   Input ~ 0
++9V_SAFE
+Wire Wire Line
+	4450 1150 4900 1150
+Wire Wire Line
+	4450 1150 4450 1300
 $EndSCHEMATC
