@@ -465,17 +465,6 @@ $EndComp
 Wire Notes Line
 	7400 5200 550  5200
 $Comp
-L Device:Polyfuse F1
-U 1 1 5EC30FA0
-P 3550 2100
-F 0 "F1" H 3638 2146 50  0000 L CNN
-F 1 "Polyfuse 1.1A (1812)" H 3638 2055 50  0000 L CNN
-F 2 "Inductor_SMD:L_1812_4532Metric_Pad1.30x3.40mm_HandSolder" H 3600 1900 50  0001 L CNN
-F 3 "~" H 3550 2100 50  0001 C CNN
-	1    3550 2100
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:Ferrite_Bead FB1
 U 1 1 5EC3198E
 P 3550 2400
@@ -514,4 +503,15 @@ $EndComp
 Connection ~ 3800 2800
 Wire Wire Line
 	3800 2800 4100 2800
+$Comp
+L Device:Polyfuse F1
+U 1 1 5EC30FA0
+P 3550 2100
+F 0 "F1" H 3638 2146 50  0000 L CNN
+F 1 "Polyfuse 1.1A (1812L)" H 3638 2055 50  0000 L CNN
+F 2 "Inductor_SMD:L_1812_4532Metric_Pad1.30x3.40mm_HandSolder" H 3600 1900 50  0001 L CNN
+F 3 "~" H 3550 2100 50  0001 C CNN
+	1    3550 2100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

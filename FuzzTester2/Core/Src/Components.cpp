@@ -80,12 +80,12 @@ Components::~Components()
 
    case EType::TransistorB:
       strcpy(textBuffer, transistorInfos[preset.GetIndex(EType::TransistorB)]);
-      textBuffer[6] = 'B';
+      textBuffer[3] = 'B';
       break;
 
    case EType::TransistorC:
       strcpy(textBuffer, transistorInfos[preset.GetIndex(EType::TransistorC)]);
-      textBuffer[6] = 'C';
+      textBuffer[3] = 'C';
       break;
 
    case EType::CapacitorD :
