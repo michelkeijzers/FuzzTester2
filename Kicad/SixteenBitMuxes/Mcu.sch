@@ -320,7 +320,7 @@ AR Path="/5E8CE625" Ref="U?"  Part="1"
 AR Path="/5E8BDF21/5E8CE625" Ref="U3"  Part="1" 
 F 0 "U3" H 3050 1461 50  0000 C CNN
 F 1 "STM32F103C8Tx" H 3050 1370 50  0000 C CNN
-F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 2500 1650 50  0001 R CNN
+F 2 "Package_QFP:LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm_ThermalVias" H 2500 1650 50  0001 R CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 3100 3050 50  0001 C CNN
 	1    3100 3050
 	1    0    0    -1  
@@ -443,7 +443,6 @@ Text Label 9450 4650 2    50   ~ 0
 BYPASS_SWITCH_3V3
 Wire Wire Line
 	8700 4650 9450 4650
-NoConn ~ -800 2650
 $Comp
 L Connector:Conn_01x06_Male J10
 U 1 1 5ECC424B
