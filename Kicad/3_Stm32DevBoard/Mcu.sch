@@ -47,7 +47,7 @@ F 3 "" H 10250 5550 50  0001 C CNN
 	1    10250 5550
 	1    0    0    -1  
 $EndComp
-Text Notes 9250 5100 0    50   ~ 10
+Text Notes 9550 4900 0    50   ~ 10
 1602 LCD\n\n\n
 Wire Wire Line
 	9450 5500 9900 5500
