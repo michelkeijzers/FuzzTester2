@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name STM32a)(type Legacy)(uri E:/User/git/FuzzTester2/Kicad/BluePill_breakouts.pretty/china_bluepill.lib)(options "")(descr ""))
+  (lib (name STM32b)(type Legacy)(uri E:/User/git/FuzzTester2/Kicad/BluePill_breakouts.pretty/bluepill_breakouts.lib)(options "")(descr ""))
+)
