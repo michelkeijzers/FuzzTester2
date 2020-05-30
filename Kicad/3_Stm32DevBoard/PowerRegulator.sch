@@ -109,14 +109,14 @@ $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E8DF9AA
-P 4100 4850
+P 4100 3600
 AR Path="/5E8DF9AA" Ref="#PWR?"  Part="1" 
 AR Path="/5E8D81C7/5E8DF9AA" Ref="#PWR010"  Part="1" 
-F 0 "#PWR010" H 4100 4600 50  0001 C CNN
-F 1 "GND" H 4105 4677 50  0000 C CNN
-F 2 "" H 4100 4850 50  0001 C CNN
-F 3 "" H 4100 4850 50  0001 C CNN
-	1    4100 4850
+F 0 "#PWR010" H 4100 3350 50  0001 C CNN
+F 1 "GND" H 4105 3427 50  0000 C CNN
+F 2 "" H 4100 3600 50  0001 C CNN
+F 3 "" H 4100 3600 50  0001 C CNN
+	1    4100 3600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -152,7 +152,7 @@ F 3 "" H 4550 3100 50  0001 C CNN
 $EndComp
 Text Notes 3000 3450 0    31   ~ 0
 Vfw = 2 V\n I = (9-2)/1 = 7 mA
-Text Notes 5500 2900 0    31   ~ 0
+Text Notes 5700 2900 0    31   ~ 0
 5V: LCD: about 60 mA\nPd = (9 V - 5V) * 60 mA = 240 mW\nTj = Ta(max) + Pd * (Thermal Resistance (junction-to-ambient) =\n125 = 30 + Pd * 70 => 1.36 W\nNo heat sink needed
 $Comp
 L power:+5V #PWR?
@@ -188,38 +188,16 @@ F 3 "~" H 1900 1350 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:+5V #PWR0103
-U 1 1 5FACFDD8
-P 2050 3700
-F 0 "#PWR0103" H 2050 3550 50  0001 C CNN
-F 1 "+5V" H 2065 3873 50  0000 C CNN
-F 2 "" H 2050 3700 50  0001 C CNN
-F 3 "" H 2050 3700 50  0001 C CNN
-	1    2050 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR0104
-U 1 1 5FAD14EB
-P 2250 3800
-F 0 "#PWR0104" H 2250 3650 50  0001 C CNN
-F 1 "+3V3" H 2265 3973 50  0000 C CNN
-F 2 "" H 2250 3800 50  0001 C CNN
-F 3 "" H 2250 3800 50  0001 C CNN
-	1    2250 3800
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5FAD2482
-P 1350 3900
+P 1400 3400
 AR Path="/5FAD2482" Ref="#PWR?"  Part="1" 
 AR Path="/5E8D81C7/5FAD2482" Ref="#PWR0105"  Part="1" 
-F 0 "#PWR0105" H 1350 3650 50  0001 C CNN
-F 1 "GND" H 1355 3727 50  0000 C CNN
-F 2 "" H 1350 3900 50  0001 C CNN
-F 3 "" H 1350 3900 50  0001 C CNN
-	1    1350 3900
+F 0 "#PWR0105" H 1400 3150 50  0001 C CNN
+F 1 "GND" H 1405 3227 50  0000 C CNN
+F 2 "" H 1400 3400 50  0001 C CNN
+F 3 "" H 1400 3400 50  0001 C CNN
+	1    1400 3400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -250,39 +228,18 @@ Connection ~ 5100 2800
 $Comp
 L Device:CP1 C2
 U 1 1 5E99F989
-P 4100 4700
-F 0 "C2" H 4215 4746 50  0000 L CNN
-F 1 "100uF" H 4215 4655 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm" H 4100 4700 50  0001 C CNN
-F 3 "~" H 4100 4700 50  0001 C CNN
-	1    4100 4700
+P 4100 3450
+F 0 "C2" H 4215 3496 50  0000 L CNN
+F 1 "100uF" H 4215 3405 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm" H 4100 3450 50  0001 C CNN
+F 3 "~" H 4100 3450 50  0001 C CNN
+	1    4100 3450
 	1    0    0    -1  
 $EndComp
 Wire Notes Line
 	2800 500  2800 5200
 Wire Notes Line
 	2800 2750 500  2750
-Text Notes 4200 4500 0    31   ~ 0
-https://www.electro-tech-online.com/threads/how-to-make-a-5v-negative-supply-using-the-lm2576-regulator.156344/
-Text Notes 4200 4450 0    31   ~ 0
-http://www.nomad.ee/micros/lm2576/index.shtml
-$Comp
-L Connector:Conn_01x04_Male J5
-U 1 1 5E90BAA0
-P 1150 3700
-F 0 "J5" H 1258 3981 50  0000 C CNN
-F 1 "PowerTest_PinHeader" H 1258 3890 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 1150 3700 50  0001 C CNN
-F 3 "~" H 1150 3700 50  0001 C CNN
-	1    1150 3700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1350 3800 2250 3800
-Wire Wire Line
-	2050 3700 1350 3700
-Wire Wire Line
-	1350 3600 1850 3600
 Wire Wire Line
 	1250 1250 1550 1250
 $Comp
@@ -426,85 +383,32 @@ F 3 "~" H 3550 2100 50  0001 C CNN
 $EndComp
 Text Notes 4250 2500 0    50   ~ 0
 Model: BLM21AG102SN1D'\nSpecs: 600 mA, 25% 1 KOhm, 100 MHz, 0805\nAccording AliExpress: 200 mA
-Wire Wire Line
-	4100 2800 4100 3850
-$Comp
-L Device:CP1 C4
-U 1 1 5E99E117
-P 5100 4000
-F 0 "C4" H 5215 4046 50  0000 L CNN
-F 1 "22uF" H 5215 3955 50  0000 L CNN
-F 2 "Diode_SMD:D_SMB_Handsoldering" H 5100 4000 50  0001 C CNN
-F 3 "~" H 5100 4000 50  0001 C CNN
-	1    5100 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR?
-U 1 1 5E8DF9EC
-P 5100 3850
-AR Path="/5E8DF9EC" Ref="#PWR?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF9EC" Ref="#PWR015"  Part="1" 
-F 0 "#PWR015" H 5100 3700 50  0001 C CNN
-F 1 "+3V3" H 5115 4023 50  0000 C CNN
-F 2 "" H 5100 3850 50  0001 C CNN
-F 3 "" H 5100 3850 50  0001 C CNN
-	1    5100 3850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E8DF9C9
-P 4550 4150
-AR Path="/5E8DF9C9" Ref="#PWR?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF9C9" Ref="#PWR012"  Part="1" 
-F 0 "#PWR012" H 4550 3900 50  0001 C CNN
-F 1 "GND" H 4555 3977 50  0000 C CNN
-F 2 "" H 4550 4150 50  0001 C CNN
-F 3 "" H 4550 4150 50  0001 C CNN
-	1    4550 4150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4100 2950 4100 3850
-Wire Wire Line
-	4100 3850 4100 4550
-Connection ~ 4100 3850
-Wire Wire Line
-	4250 3850 4100 3850
-Connection ~ 5100 3850
-Wire Wire Line
-	4850 3850 5100 3850
-$Comp
-L power:GND #PWR?
-U 1 1 5E8DF9B0
-P 5100 4150
-AR Path="/5E8DF9B0" Ref="#PWR?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF9B0" Ref="#PWR016"  Part="1" 
-F 0 "#PWR016" H 5100 3900 50  0001 C CNN
-F 1 "GND" H 5105 3977 50  0000 C CNN
-F 2 "" H 5100 4150 50  0001 C CNN
-F 3 "" H 5100 4150 50  0001 C CNN
-	1    5100 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Regulator_Linear:AMS1117-3.3 U?
-U 1 1 5E8DF986
-P 4550 3850
-AR Path="/5E8DF986" Ref="U?"  Part="1" 
-AR Path="/5E8D81C7/5E8DF986" Ref="U2"  Part="1" 
-F 0 "U2" H 4550 4092 50  0000 C CNN
-F 1 "AMS1117-3.3" H 4550 4001 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 4550 4050 50  0001 C CNN
-F 3 "http://www.advanced-monolithic.com/pdf/ds1117.pdf" H 4650 3600 50  0001 C CNN
-	1    4550 3850
-	1    0    0    -1  
-$EndComp
-Text Notes 5500 4100 0    31   ~ 0
-22 uF Tantalum advised ->\n47 uf Tantalum in inventory instead
-Text Notes 5500 3900 0    31   ~ 0
-3.3V: STM32: about 100 mA \nPd = (9 V - 3.3V) * 100 mA = 570 mW\nTj = Ta(max) + Pd * (Thermal Resistance (junction-to-ambient) =\n125 = 30 + Pd * 70 => 1.36 W\nNo heat sink needed
-Text HLabel 1850 3600 1    50   Input ~ 0
+Text HLabel 1400 3200 0    50   Input ~ 0
 +9V_SAFE
+Wire Wire Line
+	4100 2800 4100 3300
+$Comp
+L Connector_Generic:Conn_01x03 J5
+U 1 1 5F0130BE
+P 1600 3300
+F 0 "J5" H 1680 3342 50  0000 L CNN
+F 1 "PowerTest_PinHeader" H 1680 3251 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 1600 3300 50  0001 C CNN
+F 3 "~" H 1600 3300 50  0001 C CNN
+	1    1600 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0103
+U 1 1 5F0147F5
+P 850 3300
+F 0 "#PWR0103" H 850 3150 50  0001 C CNN
+F 1 "+5V" H 865 3473 50  0000 C CNN
+F 2 "" H 850 3300 50  0001 C CNN
+F 3 "" H 850 3300 50  0001 C CNN
+	1    850  3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 3300 850  3300
 $EndSCHEMATC
