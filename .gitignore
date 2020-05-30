@@ -12,3 +12,8 @@ Manual/~$nual 16K Fuzz.docx
 *.sch-bak
 Kicad/3_Stm32DevBoard/Capacitors.sch-bak
 *.bck
+Kicad/3_Stm32DevBoard/Capacitors.sch-bak
+Kicad/3_Stm32DevBoard/Fuzz.kicad_pcb-bak
+Kicad/3_Stm32DevBoard/LevelShifter.sch-bak
+Kicad/3_Stm32DevBoard/Mcu.sch-bak
+Kicad/3_Stm32DevBoard/PowerRegulator.sch-bak
